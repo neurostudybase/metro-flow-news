@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
-export type ListingStatus = 'draft' | 'moderation' | 'published' | 'unpublished';
+export type ListingStatus = 'draft' | 'moderation' | 'published' | 'unpublished' | 'rejected';
 
 export interface UserListing {
   id: string;
@@ -15,6 +15,8 @@ export interface UserListing {
   sellerType: 'private' | 'company';
   phone: string;
   status: ListingStatus;
+  rejectionReason?: string;
+  authorEmail: string;
   createdAt: string;
 }
 
