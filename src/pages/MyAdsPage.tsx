@@ -10,6 +10,7 @@ const statusLabels: Record<ListingStatus, string> = {
   moderation: 'На модерации',
   published: 'Опубликовано',
   unpublished: 'Снято',
+  rejected: 'Отклонено',
 };
 
 const statusVariant: Record<ListingStatus, 'secondary' | 'default' | 'outline' | 'destructive'> = {
@@ -17,6 +18,7 @@ const statusVariant: Record<ListingStatus, 'secondary' | 'default' | 'outline' |
   moderation: 'default',
   published: 'outline',
   unpublished: 'destructive',
+  rejected: 'destructive',
 };
 
 const MyAdsPage = () => {
@@ -68,6 +70,9 @@ const MyAdsPage = () => {
                     <Badge variant={statusVariant[listing.status]}>{statusLabels[listing.status]}</Badge>
                   </div>
                   <p className="text-[11px] text-muted-foreground mt-1">{listing.category}{listing.subcategory ? ` · ${listing.subcategory}` : ''} · {listing.createdAt}</p>
+                  {listing.status === 'rejected' && listing.rejectionReason && (
+                    <p className="text-[11px] text-destructive mt-1">Причина: {listing.rejectionReason}</p>
+                  )}
 
                   {/* Actions */}
                   <div className="flex gap-2 mt-2">
@@ -84,7 +89,7 @@ const MyAdsPage = () => {
                         <EyeOff className="w-3 h-3" /> Снять
                       </Button>
                     )}
-                    {(listing.status === 'unpublished' || listing.status === 'draft') && (
+                    {(listing.status === 'unpublished' || listing.status === 'draft' || listing.status === 'rejected') && (
                       <Button
                         variant="ghost"
                         size="sm"

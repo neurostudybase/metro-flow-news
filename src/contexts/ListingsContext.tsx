@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
-export type ListingStatus = 'draft' | 'moderation' | 'published' | 'unpublished';
+export type ListingStatus = 'draft' | 'moderation' | 'published' | 'unpublished' | 'rejected';
 
 export interface UserListing {
   id: string;
@@ -15,13 +15,15 @@ export interface UserListing {
   sellerType: 'private' | 'company';
   phone: string;
   status: ListingStatus;
+  rejectionReason?: string;
+  authorEmail: string;
   createdAt: string;
 }
 
 interface ListingsContextType {
   listings: UserListing[];
   addListing: (listing: Omit<UserListing, 'id' | 'createdAt'>) => void;
-  updateListingStatus: (id: string, status: ListingStatus) => void;
+  updateListingStatus: (id: string, status: ListingStatus, rejectionReason?: string) => void;
   deleteListing: (id: string) => void;
 }
 
@@ -39,8 +41,8 @@ export const ListingsProvider = ({ children }: { children: ReactNode }) => {
     setListings(prev => [newListing, ...prev]);
   }, []);
 
-  const updateListingStatus = useCallback((id: string, status: ListingStatus) => {
-    setListings(prev => prev.map(l => l.id === id ? { ...l, status } : l));
+  const updateListingStatus = useCallback((id: string, status: ListingStatus, rejectionReason?: string) => {
+    setListings(prev => prev.map(l => l.id === id ? { ...l, status, rejectionReason: rejectionReason || l.rejectionReason } : l));
   }, []);
 
   const deleteListing = useCallback((id: string) => {

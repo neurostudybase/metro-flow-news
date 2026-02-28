@@ -78,6 +78,7 @@ const NewListingPage = () => {
       sellerType,
       phone,
       status: asDraft ? 'draft' : 'moderation',
+      authorEmail: user?.email || '',
     });
     toast({ title: asDraft ? 'Черновик сохранён' : 'Объявление отправлено на модерацию' });
     navigate('/cabinet/ads');
