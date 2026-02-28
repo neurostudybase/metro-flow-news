@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { MapPin, Camera, User, Star, PlusCircle, Megaphone, Search, ChevronDown } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 import { classifieds } from '@/data/classifiedsData';
 
 const filterSections = [
@@ -20,6 +21,16 @@ const sortOptions = ['Сначала новые', 'Дешевле', 'Дорож�
 const ObyavleniyaPage = () => {
   const [sortOpen, setSortOpen] = useState(false);
   const [sortValue, setSortValue] = useState(sortOptions[0]);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handlePostClick = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
+      navigate('/cabinet/new-listing');
+    }
+  };
 
   return (
     <Layout>
@@ -125,7 +136,10 @@ const ObyavleniyaPage = () => {
 
           {/* Right column */}
           <aside className="hidden lg:block space-y-4">
-            <button className="w-full bg-primary text-primary-foreground font-semibold rounded-lg py-3 px-4 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+            <button
+              onClick={handlePostClick}
+              className="w-full bg-primary text-primary-foreground font-semibold rounded-lg py-3 px-4 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+            >
               <PlusCircle className="w-5 h-5" />
               Разместить объявление
             </button>
