@@ -2,16 +2,19 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import { Users, FileText, Newspaper, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-
-const cards = [
-  { label: 'Пользователи', desc: '1 зарегистрирован', icon: Users, to: '/admin/users' },
-  { label: 'Модерация объявлений', desc: '0 на проверке', icon: FileText, to: '/admin/ads' },
-  { label: 'Управление контентом', desc: 'Статьи, категории', icon: Newspaper, to: '/admin/content' },
-  { label: 'Безопасность', desc: 'Роли и права', icon: Shield, to: '/admin' },
-];
+import { useListings } from '@/contexts/ListingsContext';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
+  const { listings } = useListings();
+  const onModeration = listings.filter(l => l.status === 'moderation').length;
+
+  const cards = [
+    { label: 'Пользователи', desc: '1 зарегистрирован', icon: Users, to: '/admin/users' },
+    { label: 'Модерация объявлений', desc: `${onModeration} на проверке`, icon: FileText, to: '/admin/ads' },
+    { label: 'Управление контентом', desc: 'Статьи, категории', icon: Newspaper, to: '/admin/content' },
+    { label: 'Безопасность', desc: 'Роли и права', icon: Shield, to: '/admin' },
+  ];
 
   return (
     <AdminLayout>
