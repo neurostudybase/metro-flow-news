@@ -10,6 +10,7 @@ const statusLabels: Record<ListingStatus, string> = {
   moderation: 'На модерации',
   published: 'Опубликовано',
   unpublished: 'Снято',
+  rejected: 'Отклонено',
 };
 
 const statusVariant: Record<ListingStatus, 'secondary' | 'default' | 'outline' | 'destructive'> = {
@@ -17,6 +18,7 @@ const statusVariant: Record<ListingStatus, 'secondary' | 'default' | 'outline' |
   moderation: 'default',
   published: 'outline',
   unpublished: 'destructive',
+  rejected: 'destructive',
 };
 
 const MyAdsPage = () => {
