@@ -2,6 +2,7 @@ export interface Classified {
   id: number;
   title: string;
   price: string;
+  numericPrice: number; // for sorting/filtering
   category: string;
   district: string;
   date: string;
@@ -11,6 +12,9 @@ export interface Classified {
   urgent: boolean;
   top: boolean;
   image: string;
+  hasImage: boolean;
+  views: number;
+  description: string;
 }
 
 // Unsplash thumbnail URLs by category
@@ -77,13 +81,18 @@ const images: Record<string, string[]> = {
   ],
 };
 
-const districts = ['Центр', 'Восточный', 'Калининский', 'Ленинский', 'Тюменская область'];
+const districts = ['Центральный', 'Восточный', 'Калининский', 'Ленинский'];
 
 function dateLabel(daysAgo: number): string {
   if (daysAgo === 0) return 'Сегодня';
   const d = new Date();
   d.setDate(d.getDate() - daysAgo);
   return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+}
+
+function extractNumericPrice(price: string): number {
+  const m = price.replace(/\s/g, '').match(/(\d+)/);
+  return m ? parseInt(m[1], 10) : 0;
 }
 
 const raw: Array<{
@@ -97,72 +106,75 @@ const raw: Array<{
   urgent: boolean;
   top: boolean;
   imgIdx: number;
+  description: string;
+  views: number;
 }> = [
   // Недвижимость (8)
-  { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0 },
-  { title: '1-к квартира, 38 м², новостройка с ремонтом', price: '3 150 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 1 },
-  { title: 'Студия 24 м², рядом с ТЮмГУ', price: '2 400 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 2 },
-  { title: 'Дом 120 м² на участке 6 сот., п. Винзили', price: '6 800 000 ₽', category: 'Недвижимость', districtIdx: 4, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 3 },
-  { title: '3-к квартира, 82 м², ул. Мельникайте', price: '7 900 000 ₽', category: 'Недвижимость', districtIdx: 3, daysAgo: 0, condition: 'used', sellerType: 'company', urgent: false, top: true, imgIdx: 4 },
-  { title: 'Комната 18 м² в общежитии', price: '850 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5 },
-  { title: 'Таунхаус 150 м², ЖК «Тюменский»', price: '12 500 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 2, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6 },
-  { title: 'Участок 10 сот., с. Каменка', price: '1 200 000 ₽', category: 'Недвижимость', districtIdx: 4, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7 },
+  { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234 },
+  { title: '1-к квартира, 38 м², новостройка с ремонтом', price: '3 150 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 1, description: 'Новая квартира с отделкой под ключ.', views: 189 },
+  { title: 'Студия 24 м², рядом с ТЮмГУ', price: '2 400 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 2, description: 'Компактная студия рядом с университетом.', views: 156 },
+  { title: 'Дом 120 м² на участке 6 сот.', price: '6 800 000 ₽', category: 'Недвижимость', districtIdx: 3, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 3, description: 'Частный дом в Ленинском округе.', views: 98 },
+  { title: '3-к квартира, 82 м², ул. Мельникайте', price: '7 900 000 ₽', category: 'Недвижимость', districtIdx: 3, daysAgo: 0, condition: 'used', sellerType: 'company', urgent: false, top: true, imgIdx: 4, description: 'Трёхкомнатная квартира с видом на город.', views: 312 },
+  { title: 'Комната 18 м² в общежитии', price: '850 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Комната в общежитии в хорошем состоянии.', views: 45 },
+  { title: 'Таунхаус 150 м², ЖК «Тюменский»', price: '12 500 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 2, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6, description: 'Современный таунхаус в новом ЖК.', views: 201 },
+  { title: 'Участок 10 сот.', price: '1 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Участок под строительство.', views: 67 },
 
   // Авто (8)
-  { title: 'Toyota Camry 2021, 45 000 км', price: '2 350 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0 },
-  { title: 'Kia Rio 2019, автомат, 1 владелец', price: '1 150 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1 },
-  { title: 'Шины Michelin X-Ice 205/55 R16, комплект', price: '18 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2 },
-  { title: 'ВАЗ 2114, 2008 г., на ходу', price: '95 000 ₽', category: 'Авто', districtIdx: 2, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 3 },
-  { title: 'Hyundai Tucson 2023, дилерская гарантия', price: '3 200 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 4 },
-  { title: 'Комплект литых дисков R17, универсальные', price: '22 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 10, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5 },
-  { title: 'Skoda Octavia 2020, 1.4 TSI', price: '1 750 000 ₽', category: 'Авто', districtIdx: 4, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6 },
-  { title: 'Детское автокресло Britax Römer', price: '8 500 ₽', category: 'Авто', districtIdx: 1, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 7 },
+  { title: 'Toyota Camry 2021, 45 000 км', price: '2 350 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Автомобиль в отличном состоянии.', views: 345 },
+  { title: 'Kia Rio 2019, автомат, 1 владелец', price: '1 150 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Один владелец, полная история обслуживания.', views: 278 },
+  { title: 'Шины Michelin X-Ice 205/55 R16, комплект', price: '18 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Новый комплект зимних шин.', views: 89 },
+  { title: 'ВАЗ 2114, 2008 г., на ходу', price: '95 000 ₽', category: 'Авто', districtIdx: 2, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 3, description: 'Машина на ходу, торг уместен.', views: 134 },
+  { title: 'Hyundai Tucson 2023, дилерская гарантия', price: '3 200 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 4, description: 'Новый автомобиль от официального дилера.', views: 456 },
+  { title: 'Комплект литых дисков R17, универсальные', price: '22 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 10, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Диски в хорошем состоянии.', views: 56 },
+  { title: 'Skoda Octavia 2020, 1.4 TSI', price: '1 750 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Надёжный автомобиль.', views: 167 },
+  { title: 'Детское автокресло Britax Römer', price: '8 500 ₽', category: 'Авто', districtIdx: 2, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Автокресло в отличном состоянии.', views: 34 },
 
   // Услуги (8)
-  { title: 'Репетитор по математике ЕГЭ/ОГЭ', price: '1 200 ₽/ч', category: 'Услуги', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 0 },
-  { title: 'Ремонт квартир под ключ', price: 'от 5 000 ₽/м²', category: 'Услуги', districtIdx: 2, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 1 },
-  { title: 'Клининг квартир и офисов', price: 'от 2 500 ₽', category: 'Услуги', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2 },
-  { title: 'Установка кондиционеров с гарантией', price: '8 500 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3 },
-  { title: 'Сантехник — вызов на дом', price: 'от 1 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 5, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 4 },
-  { title: 'Перевозка мебели, грузчики', price: 'от 3 000 ₽', category: 'Услуги', districtIdx: 4, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 5 },
-  { title: 'Фотограф на свадьбу / мероприятие', price: '5 000 ₽/ч', category: 'Услуги', districtIdx: 0, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 6 },
-  { title: 'Электрик — любая сложность', price: 'от 800 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7 },
+  { title: 'Репетитор по математике ЕГЭ/ОГЭ', price: '1 200 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Подготовка к ЕГЭ и ОГЭ по математике.', views: 123 },
+  { title: 'Ремонт квартир под ключ', price: '5 000 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 1, description: 'Полный ремонт квартир любой сложности.', views: 267 },
+  { title: 'Клининг квартир и офисов', price: '2 500 ₽', category: 'Услуги', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Профессиональная уборка помещений.', views: 145 },
+  { title: 'Установка кондиционеров с гарантией', price: '8 500 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Установка и обслуживание кондиционеров.', views: 98 },
+  { title: 'Сантехник — вызов на дом', price: '1 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 5, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Все виды сантехнических работ.', views: 78 },
+  { title: 'Перевозка мебели, грузчики', price: '3 000 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 5, description: 'Перевозка мебели по городу и области.', views: 112 },
+  { title: 'Фотограф на свадьбу / мероприятие', price: '5 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Профессиональная фотосъёмка.', views: 89 },
+  { title: 'Электрик — любая сложность', price: '800 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Электромонтажные работы.', views: 56 },
 
   // Работа (8)
-  { title: 'Менеджер по продажам, от 60 000 ₽', price: '60 000 ₽/мес', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 0 },
-  { title: 'Курьер Яндекс.Еда, свободный график', price: 'от 45 000 ₽/мес', category: 'Работа', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 1 },
-  { title: 'Разнорабочий на стройку, вахта', price: '80 000 ₽/мес', category: 'Работа', districtIdx: 4, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 2 },
-  { title: 'Программист Python / Django (удалённо)', price: '150 000 ₽/мес', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 3 },
-  { title: 'Продавец-консультант в ТЦ «Гудвин»', price: '35 000 ₽/мес', category: 'Работа', districtIdx: 2, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 4 },
-  { title: 'Водитель категории B, личное авто', price: '55 000 ₽/мес', category: 'Работа', districtIdx: 3, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 5 },
-  { title: 'Бухгалтер на полставки', price: '25 000 ₽/мес', category: 'Работа', districtIdx: 0, daysAgo: 10, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6 },
-  { title: 'Администратор в фитнес-клуб', price: '40 000 ₽/мес', category: 'Работа', districtIdx: 1, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7 },
+  { title: 'Менеджер по продажам, от 60 000 ₽', price: '60 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 0, description: 'Вакансия менеджера по продажам.', views: 345 },
+  { title: 'Курьер Яндекс.Еда, свободный график', price: '45 000 ₽', category: 'Работа', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 1, description: 'Работа курьером с гибким графиком.', views: 456 },
+  { title: 'Разнорабочий на стройку, вахта', price: '80 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 2, description: 'Работа вахтовым методом.', views: 234 },
+  { title: 'Программист Python / Django (удалённо)', price: '150 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 3, description: 'Удалённая работа для Python-разработчика.', views: 567 },
+  { title: 'Продавец-консультант в ТЦ «Гудвин»', price: '35 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 4, description: 'Работа продавцом в торговом центре.', views: 123 },
+  { title: 'Водитель категории B, личное авто', price: '55 000 ₽', category: 'Работа', districtIdx: 3, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Требуется водитель с личным автомобилем.', views: 189 },
+  { title: 'Бухгалтер на полставки', price: '25 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 10, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6, description: 'Бухгалтер на неполный рабочий день.', views: 78 },
+  { title: 'Администратор в фитнес-клуб', price: '40 000 ₽', category: 'Работа', districtIdx: 1, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Работа администратором фитнес-клуба.', views: 145 },
 
   // Электроника (8)
-  { title: 'iPhone 14 Pro Max 256 ГБ, идеал', price: '65 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0 },
-  { title: 'Ноутбук ASUS VivoBook 15, i5/16 ГБ', price: '42 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1 },
-  { title: 'PlayStation 5 + 2 геймпада', price: '38 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 2 },
-  { title: 'Samsung Galaxy S24 Ultra, новый', price: '89 000 ₽', category: 'Электроника', districtIdx: 1, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3 },
-  { title: 'Наушники Sony WH-1000XM5', price: '22 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 4 },
-  { title: 'MacBook Air M2, 256 ГБ, на гарантии', price: '95 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 5 },
-  { title: 'Телевизор LG 55" 4K Smart TV', price: '35 000 ₽', category: 'Электроника', districtIdx: 4, daysAgo: 14, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6 },
-  { title: 'Робот-пылесос Xiaomi, новый в коробке', price: '15 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7 },
+  { title: 'iPhone 14 Pro Max 256 ГБ, идеал', price: '65 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Телефон в идеальном состоянии.', views: 389 },
+  { title: 'Ноутбук ASUS VivoBook 15, i5/16 ГБ', price: '42 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Ноутбук для работы и учёбы.', views: 234 },
+  { title: 'PlayStation 5 + 2 геймпада', price: '38 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 2, description: 'Игровая приставка с аксессуарами.', views: 278 },
+  { title: 'Samsung Galaxy S24 Ultra, новый', price: '89 000 ₽', category: 'Электроника', districtIdx: 1, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Новый смартфон с гарантией.', views: 345 },
+  { title: 'Наушники Sony WH-1000XM5', price: '22 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Наушники с шумоподавлением.', views: 156 },
+  { title: 'MacBook Air M2, 256 ГБ, на гарантии', price: '95 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 5, description: 'MacBook в отличном состоянии.', views: 289 },
+  { title: 'Телевизор LG 55" 4K Smart TV', price: '35 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 14, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Телевизор с функцией Smart TV.', views: 112 },
+  { title: 'Робот-пылесос Xiaomi, новый в коробке', price: '15 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Робот-пылесос в заводской упаковке.', views: 198 },
 
   // Дом и дача (8)
-  { title: 'Диван угловой раскладной, экокожа', price: '28 000 ₽', category: 'Дом и дача', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 0 },
-  { title: 'Кухонный гарнитур, белый глянец', price: '45 000 ₽', category: 'Дом и дача', districtIdx: 1, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1 },
-  { title: 'Комод IKEA Мальм, 6 ящиков', price: '8 500 ₽', category: 'Дом и дача', districtIdx: 2, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 2 },
-  { title: 'Рассада томатов и перцев, оптом', price: '50 ₽/шт', category: 'Дом и дача', districtIdx: 4, daysAgo: 3, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 3 },
-  { title: 'Газонокосилка Bosch, бензиновая', price: '12 000 ₽', category: 'Дом и дача', districtIdx: 3, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 4 },
-  { title: 'Стол обеденный раздвижной, дуб', price: '18 000 ₽', category: 'Дом и дача', districtIdx: 0, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5 },
-  { title: 'Шкаф-купе с зеркалом, 2.2 м', price: '32 000 ₽', category: 'Дом и дача', districtIdx: 1, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6 },
-  { title: 'Набор садовых инструментов, 12 предметов', price: '3 500 ₽', category: 'Дом и дача', districtIdx: 4, daysAgo: 30, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7 },
+  { title: 'Диван угловой раскладной, экокожа', price: '28 000 ₽', category: 'Дом и дача', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Угловой диван в хорошем состоянии.', views: 134 },
+  { title: 'Кухонный гарнитур, белый глянец', price: '45 000 ₽', category: 'Дом и дача', districtIdx: 1, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Кухня в отличном состоянии.', views: 189 },
+  { title: 'Комод IKEA Мальм, 6 ящиков', price: '8 500 ₽', category: 'Дом и дача', districtIdx: 2, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 2, description: 'Комод IKEA, почти новый.', views: 67 },
+  { title: 'Рассада томатов и перцев, оптом', price: '50 ₽', category: 'Дом и дача', districtIdx: 3, daysAgo: 3, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 3, description: 'Рассада овощей оптом.', views: 45 },
+  { title: 'Газонокосилка Bosch, бензиновая', price: '12 000 ₽', category: 'Дом и дача', districtIdx: 3, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 4, description: 'Газонокосилка в рабочем состоянии.', views: 78 },
+  { title: 'Стол обеденный раздвижной, дуб', price: '18 000 ₽', category: 'Дом и дача', districtIdx: 0, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Обеденный стол из натурального дуба.', views: 98 },
+  { title: 'Шкаф-купе с зеркалом, 2.2 м', price: '32 000 ₽', category: 'Дом и дача', districtIdx: 1, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6, description: 'Новый шкаф-купе с зеркальными дверями.', views: 156 },
+  { title: 'Набор садовых инструментов, 12 предметов', price: '3 500 ₽', category: 'Дом и дача', districtIdx: 2, daysAgo: 30, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Полный набор для сада и дачи.', views: 34 },
 ];
 
 export const classifieds: Classified[] = raw.map((r, i) => ({
   id: i,
   title: r.title,
   price: r.price,
+  numericPrice: extractNumericPrice(r.price),
   category: r.category,
   district: districts[r.districtIdx],
   date: dateLabel(r.daysAgo),
@@ -172,4 +184,7 @@ export const classifieds: Classified[] = raw.map((r, i) => ({
   urgent: r.urgent,
   top: r.top,
   image: images[r.category][r.imgIdx],
+  hasImage: true,
+  views: r.views,
+  description: r.description,
 }));
