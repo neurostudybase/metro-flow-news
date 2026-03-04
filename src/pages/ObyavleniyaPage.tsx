@@ -159,6 +159,15 @@ const ObyavleniyaPage = () => {
       result = result.filter(c => c.daysAgo <= maxDays);
     }
 
+    // Subcategory filter (Недвижимость only)
+    if (selectedSubcategory !== null && isRealEstateSelected) {
+      const sub = REAL_ESTATE_SUBS.find(s => s.label === selectedSubcategory);
+      if (sub) {
+        if (sub.dealType) result = result.filter(c => c.dealType === sub.dealType);
+        if (sub.propertyType) result = result.filter(c => c.propertyType === sub.propertyType);
+      }
+    }
+
     // Sort
     switch (sortValue) {
       case 'Сначала новые': result.sort((a, b) => a.daysAgo - b.daysAgo); break;
@@ -168,7 +177,7 @@ const ObyavleniyaPage = () => {
     }
 
     return result;
-  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue]);
+  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue, selectedSubcategory, isRealEstateSelected]);
 
   const handlePostClick = () => {
     if (!isAuthenticated) {
