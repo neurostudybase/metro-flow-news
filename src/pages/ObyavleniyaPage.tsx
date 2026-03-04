@@ -281,7 +281,36 @@ const ObyavleniyaPage = () => {
           {/* Center — Listings */}
           <section>
             <h1 className="text-2xl font-bold text-foreground mb-1">Объявления Тюмени</h1>
-            <p className="text-sm text-muted-foreground mb-4">Найдено {filtered.length} объявлений</p>
+            <p className="text-sm text-muted-foreground mb-3">Найдено {filtered.length} объявлений</p>
+
+            {/* Category tabs */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-2 scrollbar-hide">
+              {['Все', ...CATEGORIES].map((cat) => {
+                const isAll = cat === 'Все';
+                const isActive = isAll
+                  ? selectedCategories.length === 0
+                  : selectedCategories.length === 1 && selectedCategories[0] === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      if (isAll) {
+                        setSelectedCategories([]);
+                      } else {
+                        setSelectedCategories([cat]);
+                      }
+                    }}
+                    className={`whitespace-nowrap rounded-lg px-3.5 py-1.5 text-sm font-medium border transition-colors ${
+                      isActive
+                        ? 'bg-primary text-primary-foreground border-primary'
+                        : 'bg-card text-muted-foreground border-border hover:bg-secondary'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
 
             {/* Search + Sort bar */}
             <div className="flex items-center gap-3 mb-5">
