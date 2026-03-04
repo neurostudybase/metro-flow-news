@@ -92,7 +92,23 @@ const ObyavleniyaPage = () => {
   const [selectedDateRange, setSelectedDateRange] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const hasAnyFilter = selectedDistricts.length > 0 || selectedCategories.length > 0 || selectedPriceRanges.length > 0 || onlyWithPhoto || selectedSellerTypes.length > 0 || selectedConditions.length > 0 || selectedDateRange !== null || searchQuery.trim() !== '';
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
+
+  const REAL_ESTATE_SUBS: { label: string; dealType?: DealType; propertyType?: PropertyType }[] = [
+    { label: 'Все в недвижимости' },
+    { label: 'Купить', dealType: 'buy' },
+    { label: 'Продать', dealType: 'sell' },
+    { label: 'Снять', dealType: 'rent' },
+    { label: 'Посуточно', dealType: 'daily' },
+    { label: 'Коммерция', propertyType: 'commercial' },
+    { label: 'Дома', propertyType: 'house' },
+    { label: 'Участки', propertyType: 'land' },
+    { label: 'Гаражи', propertyType: 'garage' },
+  ];
+
+  const isRealEstateSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Недвижимость';
+
+  const hasAnyFilter = selectedDistricts.length > 0 || selectedCategories.length > 0 || selectedPriceRanges.length > 0 || onlyWithPhoto || selectedSellerTypes.length > 0 || selectedConditions.length > 0 || selectedDateRange !== null || searchQuery.trim() !== '' || selectedSubcategory !== null;
 
   const resetFilters = useCallback(() => {
     setSelectedDistricts([]);
