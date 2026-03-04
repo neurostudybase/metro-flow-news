@@ -198,4 +198,7 @@ export const classifieds: Classified[] = raw.map((r, i) => ({
   hasImage: true,
   views: r.views,
   description: r.description,
+  dealType: r.dealType,
+  propertyType: r.propertyType,
+}));
 }));
