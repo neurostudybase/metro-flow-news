@@ -120,7 +120,17 @@ const ObyavleniyaPage = () => {
     setSelectedDateRange(null);
     setSearchQuery('');
     setSortValue(sortOptions[0]);
+    setSelectedSubcategory(null);
   }, []);
+
+  // Reset subcategory when switching away from Недвижимость
+  const prevCatRef = useRef(selectedCategories);
+  useEffect(() => {
+    if (!isRealEstateSelected && prevCatRef.current.length === 1 && prevCatRef.current[0] === 'Недвижимость') {
+      setSelectedSubcategory(null);
+    }
+    prevCatRef.current = selectedCategories;
+  }, [selectedCategories, isRealEstateSelected]);
 
   const toggleArray = (arr: string[], val: string) =>
     arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val];
