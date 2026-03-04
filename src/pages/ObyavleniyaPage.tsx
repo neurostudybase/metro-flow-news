@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { MapPin, Camera, User, Star, PlusCircle, Megaphone, Search, ChevronDown, X } from 'lucide-react';
@@ -30,8 +30,54 @@ const DATE_RANGES = [
 ];
 const sortOptions = ['Сначала новые', 'Дешевле', 'Дороже', 'Популярные'];
 
+const SortDropdown = ({ sortValue, onSelect, options }: { sortValue: string; onSelect: (v: string) => void; options: string[] }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, [open]);
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(p => !p)}
+        className="flex items-center gap-1.5 bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
+      >
+        {sortValue}
+        <ChevronDown className="w-4 h-4 text-muted-foreground" />
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full mt-1 z-50 bg-card border border-border rounded-lg shadow-lg w-44 py-1">
+          {options.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => { onSelect(opt); setOpen(false); }}
+              className={`block w-full text-left px-3 py-1.5 text-sm hover:bg-secondary transition-colors ${opt === sortValue ? 'text-primary font-medium' : 'text-foreground'}`}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const ObyavleniyaPage = () => {
-  const [sortOpen, setSortOpen] = useState(false);
+  
   const [sortValue, setSortValue] = useState(sortOptions[0]);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -249,28 +295,7 @@ const ObyavleniyaPage = () => {
                   className="w-full bg-card border border-border rounded-lg pl-9 pr-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-ring"
                 />
               </div>
-              <div className="relative">
-                <button
-                  onClick={() => setSortOpen(!sortOpen)}
-                  className="flex items-center gap-1.5 bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
-                >
-                  {sortValue}
-                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                </button>
-                {sortOpen && (
-                  <div className="absolute right-0 top-full mt-1 z-50 bg-card border border-border rounded-lg shadow-lg w-44 py-1">
-                    {sortOptions.map((opt) => (
-                      <button
-                        key={opt}
-                        onClick={() => { setSortValue(opt); setSortOpen(false); }}
-                        className={`block w-full text-left px-3 py-1.5 text-sm hover:bg-secondary transition-colors ${opt === sortValue ? 'text-primary font-medium' : 'text-foreground'}`}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <SortDropdown sortValue={sortValue} onSelect={(opt) => setSortValue(opt)} options={sortOptions} />
             </div>
 
             {filtered.length === 0 ? (
