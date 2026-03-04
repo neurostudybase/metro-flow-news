@@ -347,7 +347,30 @@ const ObyavleniyaPage = () => {
               })}
             </div>
 
-            {/* Search + Sort bar */}
+            {/* Subcategory tabs — only for Недвижимость */}
+            {isRealEstateSelected && (
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-2 scrollbar-hide">
+                {REAL_ESTATE_SUBS.map((sub) => {
+                  const isActive = sub.label === 'Все в недвижимости'
+                    ? selectedSubcategory === null
+                    : selectedSubcategory === sub.label;
+                  return (
+                    <button
+                      key={sub.label}
+                      onClick={() => setSelectedSubcategory(sub.label === 'Все в недвижимости' ? null : sub.label)}
+                      className={`whitespace-nowrap rounded-lg px-3 py-1 text-xs font-medium border transition-colors ${
+                        isActive
+                          ? 'bg-primary text-primary-foreground border-primary'
+                          : 'bg-card text-muted-foreground border-border hover:bg-secondary'
+                      }`}
+                    >
+                      {sub.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
             <div className="flex items-center gap-3 mb-5">
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
