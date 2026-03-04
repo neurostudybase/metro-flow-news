@@ -249,28 +249,7 @@ const ObyavleniyaPage = () => {
                   className="w-full bg-card border border-border rounded-lg pl-9 pr-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-ring"
                 />
               </div>
-              <div className="relative">
-                <button
-                  onClick={() => setSortOpen(!sortOpen)}
-                  className="flex items-center gap-1.5 bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
-                >
-                  {sortValue}
-                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                </button>
-                {sortOpen && (
-                  <div className="absolute right-0 top-full mt-1 z-50 bg-card border border-border rounded-lg shadow-lg w-44 py-1">
-                    {sortOptions.map((opt) => (
-                      <button
-                        key={opt}
-                        onClick={() => { setSortValue(opt); setSortOpen(false); }}
-                        className={`block w-full text-left px-3 py-1.5 text-sm hover:bg-secondary transition-colors ${opt === sortValue ? 'text-primary font-medium' : 'text-foreground'}`}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <SortDropdown sortValue={sortValue} onSelect={(opt) => setSortValue(opt)} options={sortOptions} />
             </div>
 
             {filtered.length === 0 ? (
