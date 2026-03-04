@@ -192,7 +192,7 @@ const ObyavleniyaPage = () => {
                   <li key={c} className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Checkbox
                       checked={selectedCategories.includes(c)}
-                      onCheckedChange={() => setSelectedCategories(prev => toggleArray(prev, c))}
+                      onCheckedChange={() => setSelectedCategories(prev => prev.includes(c) ? [] : [c])}
                     />
                     {c}
                   </li>
