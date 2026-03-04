@@ -1,3 +1,6 @@
+export type DealType = 'buy' | 'sell' | 'rent' | 'daily';
+export type PropertyType = 'apartment' | 'house' | 'land' | 'garage' | 'commercial';
+
 export interface Classified {
   id: number;
   title: string;
@@ -15,6 +18,8 @@ export interface Classified {
   hasImage: boolean;
   views: number;
   description: string;
+  dealType?: DealType;
+  propertyType?: PropertyType;
 }
 
 // Unsplash thumbnail URLs by category
@@ -108,16 +113,22 @@ const raw: Array<{
   imgIdx: number;
   description: string;
   views: number;
+  dealType?: DealType;
+  propertyType?: PropertyType;
 }> = [
-  // Недвижимость (8)
-  { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234 },
-  { title: '1-к квартира, 38 м², новостройка с ремонтом', price: '3 150 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 1, description: 'Новая квартира с отделкой под ключ.', views: 189 },
-  { title: 'Студия 24 м², рядом с ТЮмГУ', price: '2 400 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 2, description: 'Компактная студия рядом с университетом.', views: 156 },
-  { title: 'Дом 120 м² на участке 6 сот.', price: '6 800 000 ₽', category: 'Недвижимость', districtIdx: 3, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 3, description: 'Частный дом в Ленинском округе.', views: 98 },
-  { title: '3-к квартира, 82 м², ул. Мельникайте', price: '7 900 000 ₽', category: 'Недвижимость', districtIdx: 3, daysAgo: 0, condition: 'used', sellerType: 'company', urgent: false, top: true, imgIdx: 4, description: 'Трёхкомнатная квартира с видом на город.', views: 312 },
-  { title: 'Комната 18 м² в общежитии', price: '850 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Комната в общежитии в хорошем состоянии.', views: 45 },
-  { title: 'Таунхаус 150 м², ЖК «Тюменский»', price: '12 500 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 2, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6, description: 'Современный таунхаус в новом ЖК.', views: 201 },
-  { title: 'Участок 10 сот.', price: '1 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Участок под строительство.', views: 67 },
+  // Недвижимость (16 — покрываем все подкатегории)
+  { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234, dealType: 'buy', propertyType: 'apartment' },
+  { title: '1-к квартира, 38 м², новостройка с ремонтом', price: '3 150 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 1, description: 'Новая квартира с отделкой под ключ.', views: 189, dealType: 'sell', propertyType: 'apartment' },
+  { title: 'Студия 24 м², рядом с ТЮмГУ — аренда', price: '18 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 2, description: 'Сдаётся студия рядом с университетом.', views: 156, dealType: 'rent', propertyType: 'apartment' },
+  { title: 'Квартира посуточно, центр, Wi-Fi', price: '2 500 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 3, description: 'Квартира посуточно в центре города.', views: 312, dealType: 'daily', propertyType: 'apartment' },
+  { title: 'Дом 120 м² на участке 6 сот.', price: '6 800 000 ₽', category: 'Недвижимость', districtIdx: 3, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Частный дом в Ленинском округе.', views: 98, dealType: 'buy', propertyType: 'house' },
+  { title: 'Коттедж 200 м², п. Винзили', price: '9 500 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 2, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 5, description: 'Новый коттедж с участком.', views: 201, dealType: 'sell', propertyType: 'house' },
+  { title: 'Участок 10 сот., ИЖС', price: '1 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Участок под строительство.', views: 67, dealType: 'buy', propertyType: 'land' },
+  { title: 'Участок 15 сот. у озера', price: '2 100 000 ₽', category: 'Недвижимость', districtIdx: 3, daysAgo: 7, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Участок с видом на озеро.', views: 45, dealType: 'sell', propertyType: 'land' },
+  { title: 'Гараж 24 м², ГСК «Мотор»', price: '450 000 ₽', category: 'Недвижимость', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Кирпичный гараж с ямой.', views: 56, dealType: 'buy', propertyType: 'garage' },
+  { title: 'Гараж в аренду, ул. 50 лет Октября', price: '5 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Сдаётся гараж в хорошем районе.', views: 34, dealType: 'rent', propertyType: 'garage' },
+  { title: 'Офис 80 м², бизнес-центр «Сити»', price: '55 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Аренда офисного помещения.', views: 123, dealType: 'rent', propertyType: 'commercial' },
+  { title: 'Торговое помещение 150 м², 1 этаж', price: '12 000 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 5, condition: 'used', sellerType: 'company', urgent: true, top: false, imgIdx: 3, description: 'Коммерческое помещение на первом этаже.', views: 178, dealType: 'sell', propertyType: 'commercial' },
 
   // Авто (8)
   { title: 'Toyota Camry 2021, 45 000 км', price: '2 350 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Автомобиль в отличном состоянии.', views: 345 },
