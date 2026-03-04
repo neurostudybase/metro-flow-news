@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { MapPin, Camera, User, Star, PlusCircle, Megaphone, Search, ChevronDown, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { classifieds } from '@/data/classifiedsData';
+import { classifieds, type DealType, type PropertyType } from '@/data/classifiedsData';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const DISTRICTS = ['Центральный', 'Калининский', 'Ленинский', 'Восточный'];
@@ -92,7 +92,23 @@ const ObyavleniyaPage = () => {
   const [selectedDateRange, setSelectedDateRange] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const hasAnyFilter = selectedDistricts.length > 0 || selectedCategories.length > 0 || selectedPriceRanges.length > 0 || onlyWithPhoto || selectedSellerTypes.length > 0 || selectedConditions.length > 0 || selectedDateRange !== null || searchQuery.trim() !== '';
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
+
+  const REAL_ESTATE_SUBS: { label: string; dealType?: DealType; propertyType?: PropertyType }[] = [
+    { label: 'Все в недвижимости' },
+    { label: 'Купить', dealType: 'buy' },
+    { label: 'Продать', dealType: 'sell' },
+    { label: 'Снять', dealType: 'rent' },
+    { label: 'Посуточно', dealType: 'daily' },
+    { label: 'Коммерция', propertyType: 'commercial' },
+    { label: 'Дома', propertyType: 'house' },
+    { label: 'Участки', propertyType: 'land' },
+    { label: 'Гаражи', propertyType: 'garage' },
+  ];
+
+  const isRealEstateSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Недвижимость';
+
+  const hasAnyFilter = selectedDistricts.length > 0 || selectedCategories.length > 0 || selectedPriceRanges.length > 0 || onlyWithPhoto || selectedSellerTypes.length > 0 || selectedConditions.length > 0 || selectedDateRange !== null || searchQuery.trim() !== '' || selectedSubcategory !== null;
 
   const resetFilters = useCallback(() => {
     setSelectedDistricts([]);
@@ -104,7 +120,17 @@ const ObyavleniyaPage = () => {
     setSelectedDateRange(null);
     setSearchQuery('');
     setSortValue(sortOptions[0]);
+    setSelectedSubcategory(null);
   }, []);
+
+  // Reset subcategory when switching away from Недвижимость
+  const prevCatRef = useRef(selectedCategories);
+  useEffect(() => {
+    if (!isRealEstateSelected && prevCatRef.current.length === 1 && prevCatRef.current[0] === 'Недвижимость') {
+      setSelectedSubcategory(null);
+    }
+    prevCatRef.current = selectedCategories;
+  }, [selectedCategories, isRealEstateSelected]);
 
   const toggleArray = (arr: string[], val: string) =>
     arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val];
@@ -133,6 +159,15 @@ const ObyavleniyaPage = () => {
       result = result.filter(c => c.daysAgo <= maxDays);
     }
 
+    // Subcategory filter (Недвижимость only)
+    if (selectedSubcategory !== null && isRealEstateSelected) {
+      const sub = REAL_ESTATE_SUBS.find(s => s.label === selectedSubcategory);
+      if (sub) {
+        if (sub.dealType) result = result.filter(c => c.dealType === sub.dealType);
+        if (sub.propertyType) result = result.filter(c => c.propertyType === sub.propertyType);
+      }
+    }
+
     // Sort
     switch (sortValue) {
       case 'Сначала новые': result.sort((a, b) => a.daysAgo - b.daysAgo); break;
@@ -142,7 +177,7 @@ const ObyavleniyaPage = () => {
     }
 
     return result;
-  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue]);
+  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue, selectedSubcategory, isRealEstateSelected]);
 
   const handlePostClick = () => {
     if (!isAuthenticated) {
@@ -312,7 +347,30 @@ const ObyavleniyaPage = () => {
               })}
             </div>
 
-            {/* Search + Sort bar */}
+            {/* Subcategory tabs — only for Недвижимость */}
+            {isRealEstateSelected && (
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-2 scrollbar-hide">
+                {REAL_ESTATE_SUBS.map((sub) => {
+                  const isActive = sub.label === 'Все в недвижимости'
+                    ? selectedSubcategory === null
+                    : selectedSubcategory === sub.label;
+                  return (
+                    <button
+                      key={sub.label}
+                      onClick={() => setSelectedSubcategory(sub.label === 'Все в недвижимости' ? null : sub.label)}
+                      className={`whitespace-nowrap rounded-lg px-3 py-1 text-xs font-medium border transition-colors ${
+                        isActive
+                          ? 'bg-primary text-primary-foreground border-primary'
+                          : 'bg-card text-muted-foreground border-border hover:bg-secondary'
+                      }`}
+                    >
+                      {sub.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
             <div className="flex items-center gap-3 mb-5">
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
