@@ -1,6 +1,7 @@
 export type DealType = 'buy' | 'sell' | 'rent' | 'daily';
 export type PropertyType = 'apartment' | 'house' | 'land' | 'garage' | 'commercial';
 export type AutoType = 'car' | 'moto' | 'truck' | 'special' | 'water' | 'parts' | 'tires';
+export type ServiceType = 'repair' | 'household' | 'beauty' | 'transport' | 'education' | 'it' | 'events';
 
 export interface Classified {
   id: number;
@@ -22,6 +23,7 @@ export interface Classified {
   dealType?: DealType;
   propertyType?: PropertyType;
   autoType?: AutoType;
+  serviceType?: ServiceType;
 }
 
 // Unsplash thumbnail URLs by category
@@ -118,6 +120,7 @@ const raw: Array<{
   dealType?: DealType;
   propertyType?: PropertyType;
   autoType?: AutoType;
+  serviceType?: ServiceType;
 }> = [
   // Недвижимость (16 — покрываем все подкатегории)
   { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234, dealType: 'buy', propertyType: 'apartment' },
@@ -151,15 +154,21 @@ const raw: Array<{
   { title: 'Шины Michelin X-Ice 205/55 R16, комплект', price: '18 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Новый комплект зимних шин.', views: 89, autoType: 'tires' },
   { title: 'Комплект литых дисков R17, универсальные', price: '22 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 10, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Диски в хорошем состоянии.', views: 56, autoType: 'tires' },
 
-  // Услуги (8)
-  { title: 'Репетитор по математике ЕГЭ/ОГЭ', price: '1 200 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Подготовка к ЕГЭ и ОГЭ по математике.', views: 123 },
-  { title: 'Ремонт квартир под ключ', price: '5 000 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 1, description: 'Полный ремонт квартир любой сложности.', views: 267 },
-  { title: 'Клининг квартир и офисов', price: '2 500 ₽', category: 'Услуги', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Профессиональная уборка помещений.', views: 145 },
-  { title: 'Установка кондиционеров с гарантией', price: '8 500 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Установка и обслуживание кондиционеров.', views: 98 },
-  { title: 'Сантехник — вызов на дом', price: '1 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 5, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Все виды сантехнических работ.', views: 78 },
-  { title: 'Перевозка мебели, грузчики', price: '3 000 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 5, description: 'Перевозка мебели по городу и области.', views: 112 },
-  { title: 'Фотограф на свадьбу / мероприятие', price: '5 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Профессиональная фотосъёмка.', views: 89 },
-  { title: 'Электрик — любая сложность', price: '800 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Электромонтажные работы.', views: 56 },
+  // Услуги (14)
+  { title: 'Репетитор по математике ЕГЭ/ОГЭ', price: '1 200 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Подготовка к ЕГЭ и ОГЭ по математике.', views: 123, serviceType: 'education' },
+  { title: 'Ремонт квартир под ключ', price: '5 000 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 1, description: 'Полный ремонт квартир любой сложности.', views: 267, serviceType: 'repair' },
+  { title: 'Клининг квартир и офисов', price: '2 500 ₽', category: 'Услуги', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Профессиональная уборка помещений.', views: 145, serviceType: 'household' },
+  { title: 'Установка кондиционеров с гарантией', price: '8 500 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Установка и обслуживание кондиционеров.', views: 98, serviceType: 'repair' },
+  { title: 'Сантехник — вызов на дом', price: '1 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 5, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Все виды сантехнических работ.', views: 78, serviceType: 'household' },
+  { title: 'Перевозка мебели, грузчики', price: '3 000 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 5, description: 'Перевозка мебели по городу и области.', views: 112, serviceType: 'transport' },
+  { title: 'Фотограф на свадьбу / мероприятие', price: '5 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Профессиональная фотосъёмка.', views: 89, serviceType: 'events' },
+  { title: 'Электрик — любая сложность', price: '800 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 14, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Электромонтажные работы.', views: 56, serviceType: 'repair' },
+  { title: 'Маникюр и педикюр на дому', price: '1 500 ₽', category: 'Услуги', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Мастер маникюра с выездом на дом.', views: 134, serviceType: 'beauty' },
+  { title: 'Массаж лечебный и расслабляющий', price: '2 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 4, condition: 'new', sellerType: 'private', urgent: false, top: true, imgIdx: 1, description: 'Сертифицированный массажист, выезд.', views: 201, serviceType: 'beauty' },
+  { title: 'Создание сайтов и лендингов', price: '15 000 ₽', category: 'Услуги', districtIdx: 2, daysAgo: 2, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Разработка сайтов под ключ.', views: 176, serviceType: 'it' },
+  { title: 'Настройка рекламы Яндекс / VK', price: '10 000 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 6, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 3, description: 'Контекстная и таргетированная реклама.', views: 92, serviceType: 'it' },
+  { title: 'Ведущий на свадьбу, корпоратив', price: '12 000 ₽', category: 'Услуги', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Организация праздников.', views: 67, serviceType: 'events' },
+  { title: 'Грузоперевозки по Тюмени и области', price: '4 500 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 5, description: 'Газели и грузчики, быстро.', views: 155, serviceType: 'transport' },
 
   // Работа (8)
   { title: 'Менеджер по продажам, от 60 000 ₽', price: '60 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 0, description: 'Вакансия менеджера по продажам.', views: 345 },
@@ -212,4 +221,5 @@ export const classifieds: Classified[] = raw.map((r, i) => ({
   dealType: r.dealType,
   propertyType: r.propertyType,
   autoType: r.autoType,
+  serviceType: r.serviceType,
 }));
