@@ -120,6 +120,7 @@ const raw: Array<{
   dealType?: DealType;
   propertyType?: PropertyType;
   autoType?: AutoType;
+  serviceType?: ServiceType;
 }> = [
   // Недвижимость (16 — покрываем все подкатегории)
   { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234, dealType: 'buy', propertyType: 'apartment' },
