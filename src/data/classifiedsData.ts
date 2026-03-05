@@ -221,4 +221,5 @@ export const classifieds: Classified[] = raw.map((r, i) => ({
   dealType: r.dealType,
   propertyType: r.propertyType,
   autoType: r.autoType,
+  serviceType: r.serviceType,
 }));
