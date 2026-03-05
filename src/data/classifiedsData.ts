@@ -1,5 +1,6 @@
 export type DealType = 'buy' | 'sell' | 'rent' | 'daily';
 export type PropertyType = 'apartment' | 'house' | 'land' | 'garage' | 'commercial';
+export type AutoType = 'car' | 'moto' | 'truck' | 'special' | 'water' | 'parts' | 'tires';
 
 export interface Classified {
   id: number;
@@ -20,6 +21,7 @@ export interface Classified {
   description: string;
   dealType?: DealType;
   propertyType?: PropertyType;
+  autoType?: AutoType;
 }
 
 // Unsplash thumbnail URLs by category
@@ -115,6 +117,7 @@ const raw: Array<{
   views: number;
   dealType?: DealType;
   propertyType?: PropertyType;
+  autoType?: AutoType;
 }> = [
   // Недвижимость (16 — покрываем все подкатегории)
   { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234, dealType: 'buy', propertyType: 'apartment' },
@@ -130,15 +133,23 @@ const raw: Array<{
   { title: 'Офис 80 м², бизнес-центр «Сити»', price: '55 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Аренда офисного помещения.', views: 123, dealType: 'rent', propertyType: 'commercial' },
   { title: 'Торговое помещение 150 м², 1 этаж', price: '12 000 000 ₽', category: 'Недвижимость', districtIdx: 1, daysAgo: 5, condition: 'used', sellerType: 'company', urgent: true, top: false, imgIdx: 3, description: 'Коммерческое помещение на первом этаже.', views: 178, dealType: 'sell', propertyType: 'commercial' },
 
-  // Авто (8)
-  { title: 'Toyota Camry 2021, 45 000 км', price: '2 350 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Автомобиль в отличном состоянии.', views: 345 },
-  { title: 'Kia Rio 2019, автомат, 1 владелец', price: '1 150 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Один владелец, полная история обслуживания.', views: 278 },
-  { title: 'Шины Michelin X-Ice 205/55 R16, комплект', price: '18 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Новый комплект зимних шин.', views: 89 },
-  { title: 'ВАЗ 2114, 2008 г., на ходу', price: '95 000 ₽', category: 'Авто', districtIdx: 2, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 3, description: 'Машина на ходу, торг уместен.', views: 134 },
-  { title: 'Hyundai Tucson 2023, дилерская гарантия', price: '3 200 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 4, description: 'Новый автомобиль от официального дилера.', views: 456 },
-  { title: 'Комплект литых дисков R17, универсальные', price: '22 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 10, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Диски в хорошем состоянии.', views: 56 },
-  { title: 'Skoda Octavia 2020, 1.4 TSI', price: '1 750 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Надёжный автомобиль.', views: 167 },
-  { title: 'Детское автокресло Britax Römer', price: '8 500 ₽', category: 'Авто', districtIdx: 2, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Автокресло в отличном состоянии.', views: 34 },
+  // Авто (14 — покрываем все подкатегории)
+  { title: 'Toyota Camry 2021, 45 000 км', price: '2 350 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Автомобиль в отличном состоянии.', views: 345, autoType: 'car' },
+  { title: 'Kia Rio 2019, автомат, 1 владелец', price: '1 150 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Один владелец, полная история обслуживания.', views: 278, autoType: 'car' },
+  { title: 'ВАЗ 2114, 2008 г., на ходу', price: '95 000 ₽', category: 'Авто', districtIdx: 2, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 3, description: 'Машина на ходу, торг уместен.', views: 134, autoType: 'car' },
+  { title: 'Hyundai Tucson 2023, дилерская гарантия', price: '3 200 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 4, description: 'Новый автомобиль от официального дилера.', views: 456, autoType: 'car' },
+  { title: 'Yamaha YZF-R3, 2022 г., 3 000 км', price: '650 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Спортивный мотоцикл в идеальном состоянии.', views: 198, autoType: 'moto' },
+  { title: 'Скутер Honda PCX 125, 2021', price: '185 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 4, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Экономичный городской скутер.', views: 87, autoType: 'moto' },
+  { title: 'ГАЗель Next, фургон, 2020 г.', price: '1 800 000 ₽', category: 'Авто', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Грузовой фургон для перевозок.', views: 112, autoType: 'truck' },
+  { title: 'КАМАЗ 65115 самосвал, 2018 г.', price: '3 500 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 7, condition: 'used', sellerType: 'company', urgent: false, top: false, imgIdx: 0, description: 'Самосвал в рабочем состоянии.', views: 76, autoType: 'truck' },
+  { title: 'Экскаватор-погрузчик JCB 3CX', price: '4 200 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 10, condition: 'used', sellerType: 'company', urgent: false, top: false, imgIdx: 1, description: 'Спецтехника для строительных работ.', views: 45, autoType: 'special' },
+  { title: 'Мини-погрузчик Bobcat S650', price: '2 900 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 5, condition: 'used', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Компактный погрузчик.', views: 34, autoType: 'special' },
+  { title: 'Лодка ПВХ Ривьера 3200, мотор Yamaha 9.9', price: '180 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 3, description: 'Лодка с мотором, готова к сезону.', views: 156, autoType: 'water' },
+  { title: 'Катер Казанка 5М4, с прицепом', price: '350 000 ₽', category: 'Авто', districtIdx: 2, daysAgo: 14, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Моторный катер с прицепом.', views: 67, autoType: 'water' },
+  { title: 'Двигатель 1.6 для Kia Rio, б/у', price: '45 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Контрактный двигатель с гарантией.', views: 89, autoType: 'parts' },
+  { title: 'Фары LED для Toyota Camry XV70', price: '12 000 ₽', category: 'Авто', districtIdx: 0, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6, description: 'Новые светодиодные фары.', views: 43, autoType: 'parts' },
+  { title: 'Шины Michelin X-Ice 205/55 R16, комплект', price: '18 000 ₽', category: 'Авто', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Новый комплект зимних шин.', views: 89, autoType: 'tires' },
+  { title: 'Комплект литых дисков R17, универсальные', price: '22 000 ₽', category: 'Авто', districtIdx: 3, daysAgo: 10, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Диски в хорошем состоянии.', views: 56, autoType: 'tires' },
 
   // Услуги (8)
   { title: 'Репетитор по математике ЕГЭ/ОГЭ', price: '1 200 ₽', category: 'Услуги', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Подготовка к ЕГЭ и ОГЭ по математике.', views: 123 },
@@ -200,4 +211,5 @@ export const classifieds: Classified[] = raw.map((r, i) => ({
   description: r.description,
   dealType: r.dealType,
   propertyType: r.propertyType,
+  autoType: r.autoType,
 }));
