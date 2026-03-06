@@ -394,9 +394,9 @@ const ObyavleniyaPage = () => {
               })}
             </div>
 
-            {/* Subcategory tabs — Недвижимость / Авто */}
+            {/* Subcategory tabs — Недвижимость / Авто / Услуги */}
             {(isRealEstateSelected || isAutoSelected || isServicesSelected) && (
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-2 scrollbar-hide">
+              <div className="flex flex-wrap items-center gap-1.5 pb-3 mb-2">
                 {(isRealEstateSelected ? REAL_ESTATE_SUBS : isAutoSelected ? AUTO_SUBS : SERVICE_SUBS).map((sub) => {
                   const allLabel = isRealEstateSelected ? 'Все в недвижимости' : isAutoSelected ? 'Все в авто' : 'Все услуги';
                   const isActive = sub.label === allLabel
