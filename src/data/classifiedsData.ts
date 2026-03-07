@@ -2,12 +2,13 @@ export type DealType = 'buy' | 'sell' | 'rent' | 'daily';
 export type PropertyType = 'apartment' | 'house' | 'land' | 'garage' | 'commercial';
 export type AutoType = 'car' | 'moto' | 'truck' | 'special' | 'water' | 'parts' | 'tires';
 export type ServiceType = 'repair' | 'household' | 'beauty' | 'transport' | 'education' | 'it' | 'events';
+export type JobType = 'vacancy' | 'resume' | 'parttime' | 'remote';
 
 export interface Classified {
   id: number;
   title: string;
   price: string;
-  numericPrice: number; // for sorting/filtering
+  numericPrice: number;
   category: string;
   district: string;
   date: string;
@@ -24,6 +25,7 @@ export interface Classified {
   propertyType?: PropertyType;
   autoType?: AutoType;
   serviceType?: ServiceType;
+  jobType?: JobType;
 }
 
 // Unsplash thumbnail URLs by category
@@ -121,6 +123,7 @@ const raw: Array<{
   propertyType?: PropertyType;
   autoType?: AutoType;
   serviceType?: ServiceType;
+  jobType?: JobType;
 }> = [
   // Недвижимость (16 — покрываем все подкатегории)
   { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234, dealType: 'buy', propertyType: 'apartment' },
@@ -170,15 +173,19 @@ const raw: Array<{
   { title: 'Ведущий на свадьбу, корпоратив', price: '12 000 ₽', category: 'Услуги', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Организация праздников.', views: 67, serviceType: 'events' },
   { title: 'Грузоперевозки по Тюмени и области', price: '4 500 ₽', category: 'Услуги', districtIdx: 3, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 5, description: 'Газели и грузчики, быстро.', views: 155, serviceType: 'transport' },
 
-  // Работа (8)
-  { title: 'Менеджер по продажам, от 60 000 ₽', price: '60 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 0, description: 'Вакансия менеджера по продажам.', views: 345 },
-  { title: 'Курьер Яндекс.Еда, свободный график', price: '45 000 ₽', category: 'Работа', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 1, description: 'Работа курьером с гибким графиком.', views: 456 },
-  { title: 'Разнорабочий на стройку, вахта', price: '80 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 2, description: 'Работа вахтовым методом.', views: 234 },
-  { title: 'Программист Python / Django (удалённо)', price: '150 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 3, description: 'Удалённая работа для Python-разработчика.', views: 567 },
-  { title: 'Продавец-консультант в ТЦ «Гудвин»', price: '35 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 4, description: 'Работа продавцом в торговом центре.', views: 123 },
-  { title: 'Водитель категории B, личное авто', price: '55 000 ₽', category: 'Работа', districtIdx: 3, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Требуется водитель с личным автомобилем.', views: 189 },
-  { title: 'Бухгалтер на полставки', price: '25 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 10, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 6, description: 'Бухгалтер на неполный рабочий день.', views: 78 },
-  { title: 'Администратор в фитнес-клуб', price: '40 000 ₽', category: 'Работа', districtIdx: 1, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Работа администратором фитнес-клуба.', views: 145 },
+  // Работа (12 — покрываем все подкатегории)
+  { title: 'Менеджер по продажам, от 60 000 ₽', price: '60 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 0, description: 'Вакансия менеджера по продажам.', views: 345, jobType: 'vacancy' },
+  { title: 'Курьер Яндекс.Еда, свободный график', price: '45 000 ₽', category: 'Работа', districtIdx: 1, daysAgo: 1, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 1, description: 'Работа курьером с гибким графиком.', views: 456, jobType: 'vacancy' },
+  { title: 'Продавец-консультант в ТЦ «Гудвин»', price: '35 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 4, description: 'Работа продавцом в торговом центре.', views: 123, jobType: 'vacancy' },
+  { title: 'Водитель категории B, личное авто', price: '55 000 ₽', category: 'Работа', districtIdx: 3, daysAgo: 2, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 5, description: 'Требуется водитель с личным автомобилем.', views: 189, jobType: 'vacancy' },
+  { title: 'Резюме: бухгалтер, опыт 10 лет', price: '50 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 1, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Ищу работу бухгалтером, большой опыт.', views: 78, jobType: 'resume' },
+  { title: 'Резюме: маркетолог, digital', price: '70 000 ₽', category: 'Работа', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Специалист по digital-маркетингу ищет работу.', views: 112, jobType: 'resume' },
+  { title: 'Разнорабочий на стройку, вахта', price: '80 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: true, top: false, imgIdx: 2, description: 'Работа вахтовым методом.', views: 234, jobType: 'parttime' },
+  { title: 'Промоутер на выходные, 2 000 ₽/день', price: '2 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Подработка промоутером на выходные.', views: 198, jobType: 'parttime' },
+  { title: 'Администратор в фитнес-клуб, подработка', price: '20 000 ₽', category: 'Работа', districtIdx: 1, daysAgo: 7, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Подработка администратором.', views: 145, jobType: 'parttime' },
+  { title: 'Программист Python / Django (удалённо)', price: '150 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: true, imgIdx: 3, description: 'Удалённая работа для Python-разработчика.', views: 567, jobType: 'remote' },
+  { title: 'Дизайнер UI/UX, удалённо', price: '120 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 2, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 0, description: 'Удалённая вакансия дизайнера интерфейсов.', views: 321, jobType: 'remote' },
+  { title: 'Копирайтер, удалённая работа', price: '45 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 4, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 1, description: 'Пишем тексты для сайтов и соцсетей, удалённо.', views: 156, jobType: 'remote' },
 
   // Электроника (8)
   { title: 'iPhone 14 Pro Max 256 ГБ, идеал', price: '65 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Телефон в идеальном состоянии.', views: 389 },
@@ -222,4 +229,5 @@ export const classifieds: Classified[] = raw.map((r, i) => ({
   propertyType: r.propertyType,
   autoType: r.autoType,
   serviceType: r.serviceType,
+  jobType: r.jobType,
 }));
