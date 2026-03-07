@@ -3,6 +3,7 @@ export type PropertyType = 'apartment' | 'house' | 'land' | 'garage' | 'commerci
 export type AutoType = 'car' | 'moto' | 'truck' | 'special' | 'water' | 'parts' | 'tires';
 export type ServiceType = 'repair' | 'household' | 'beauty' | 'transport' | 'education' | 'it' | 'events';
 export type JobType = 'vacancy' | 'resume' | 'parttime' | 'remote';
+export type ElectronicsType = 'phone' | 'computer' | 'tv_audio' | 'photo_video' | 'gaming' | 'office' | 'tablet_ebook';
 
 export interface Classified {
   id: number;
@@ -26,6 +27,7 @@ export interface Classified {
   autoType?: AutoType;
   serviceType?: ServiceType;
   jobType?: JobType;
+  electronicsType?: ElectronicsType;
 }
 
 // Unsplash thumbnail URLs by category
@@ -124,6 +126,7 @@ const raw: Array<{
   autoType?: AutoType;
   serviceType?: ServiceType;
   jobType?: JobType;
+  electronicsType?: ElectronicsType;
 }> = [
   // Недвижимость (16 — покрываем все подкатегории)
   { title: 'Квартира 2-к, 56 м², 5/9 эт., ул. Республики', price: '4 200 000 ₽', category: 'Недвижимость', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: true, imgIdx: 0, description: 'Просторная двухкомнатная квартира в центре Тюмени.', views: 234, dealType: 'buy', propertyType: 'apartment' },
@@ -187,15 +190,21 @@ const raw: Array<{
   { title: 'Дизайнер UI/UX, удалённо', price: '120 000 ₽', category: 'Работа', districtIdx: 0, daysAgo: 2, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 0, description: 'Удалённая вакансия дизайнера интерфейсов.', views: 321, jobType: 'remote' },
   { title: 'Копирайтер, удалённая работа', price: '45 000 ₽', category: 'Работа', districtIdx: 2, daysAgo: 4, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 1, description: 'Пишем тексты для сайтов и соцсетей, удалённо.', views: 156, jobType: 'remote' },
 
-  // Электроника (8)
-  { title: 'iPhone 14 Pro Max 256 ГБ, идеал', price: '65 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Телефон в идеальном состоянии.', views: 389 },
-  { title: 'Ноутбук ASUS VivoBook 15, i5/16 ГБ', price: '42 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Ноутбук для работы и учёбы.', views: 234 },
-  { title: 'PlayStation 5 + 2 геймпада', price: '38 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 2, description: 'Игровая приставка с аксессуарами.', views: 278 },
-  { title: 'Samsung Galaxy S24 Ultra, новый', price: '89 000 ₽', category: 'Электроника', districtIdx: 1, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Новый смартфон с гарантией.', views: 345 },
-  { title: 'Наушники Sony WH-1000XM5', price: '22 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Наушники с шумоподавлением.', views: 156 },
-  { title: 'MacBook Air M2, 256 ГБ, на гарантии', price: '95 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 5, description: 'MacBook в отличном состоянии.', views: 289 },
-  { title: 'Телевизор LG 55" 4K Smart TV', price: '35 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 14, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Телевизор с функцией Smart TV.', views: 112 },
-  { title: 'Робот-пылесос Xiaomi, новый в коробке', price: '15 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Робот-пылесос в заводской упаковке.', views: 198 },
+  // Электроника (14 — покрываем все подкатегории)
+  { title: 'iPhone 14 Pro Max 256 ГБ, идеал', price: '65 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 0, description: 'Телефон в идеальном состоянии.', views: 389, electronicsType: 'phone' },
+  { title: 'Samsung Galaxy S24 Ultra, новый', price: '89 000 ₽', category: 'Электроника', districtIdx: 1, daysAgo: 0, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Новый смартфон с гарантией.', views: 345, electronicsType: 'phone' },
+  { title: 'Ноутбук ASUS VivoBook 15, i5/16 ГБ', price: '42 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 1, description: 'Ноутбук для работы и учёбы.', views: 234, electronicsType: 'computer' },
+  { title: 'MacBook Air M2, 256 ГБ, на гарантии', price: '95 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: true, top: false, imgIdx: 5, description: 'MacBook в отличном состоянии.', views: 289, electronicsType: 'computer' },
+  { title: 'Телевизор LG 55" 4K Smart TV', price: '35 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 14, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Телевизор с функцией Smart TV.', views: 112, electronicsType: 'tv_audio' },
+  { title: 'Наушники Sony WH-1000XM5', price: '22 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 7, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 4, description: 'Наушники с шумоподавлением.', views: 156, electronicsType: 'tv_audio' },
+  { title: 'Фотоаппарат Canon EOS R50, kit', price: '75 000 ₽', category: 'Электроника', districtIdx: 1, daysAgo: 3, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 2, description: 'Беззеркальный фотоаппарат с объективом.', views: 134, electronicsType: 'photo_video' },
+  { title: 'Экшн-камера GoPro Hero 12', price: '32 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 5, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 7, description: 'Экшн-камера в отличном состоянии.', views: 87, electronicsType: 'photo_video' },
+  { title: 'PlayStation 5 + 2 геймпада', price: '38 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 3, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 2, description: 'Игровая приставка с аксессуарами.', views: 278, electronicsType: 'gaming' },
+  { title: 'Nintendo Switch OLED, комплект игр', price: '25 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 1, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Портативная консоль с играми.', views: 198, electronicsType: 'gaming' },
+  { title: 'МФУ HP LaserJet Pro, новый', price: '18 000 ₽', category: 'Электроника', districtIdx: 1, daysAgo: 4, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 3, description: 'Лазерное МФУ для офиса.', views: 67, electronicsType: 'office' },
+  { title: 'Робот-пылесос Xiaomi, новый в коробке', price: '15 000 ₽', category: 'Электроника', districtIdx: 2, daysAgo: 5, condition: 'new', sellerType: 'company', urgent: false, top: false, imgIdx: 7, description: 'Робот-пылесос в заводской упаковке.', views: 198, electronicsType: 'office' },
+  { title: 'iPad Air M1, 64 ГБ, Wi-Fi', price: '45 000 ₽', category: 'Электроника', districtIdx: 0, daysAgo: 2, condition: 'used', sellerType: 'private', urgent: false, top: true, imgIdx: 4, description: 'Планшет Apple в идеальном состоянии.', views: 223, electronicsType: 'tablet_ebook' },
+  { title: 'Электронная книга PocketBook 740', price: '12 000 ₽', category: 'Электроника', districtIdx: 3, daysAgo: 10, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 6, description: 'Электронная книга с подсветкой.', views: 56, electronicsType: 'tablet_ebook' },
 
   // Дом и дача (8)
   { title: 'Диван угловой раскладной, экокожа', price: '28 000 ₽', category: 'Дом и дача', districtIdx: 0, daysAgo: 0, condition: 'used', sellerType: 'private', urgent: false, top: false, imgIdx: 0, description: 'Угловой диван в хорошем состоянии.', views: 134 },
@@ -230,4 +239,5 @@ export const classifieds: Classified[] = raw.map((r, i) => ({
   autoType: r.autoType,
   serviceType: r.serviceType,
   jobType: r.jobType,
+  electronicsType: r.electronicsType,
 }));
