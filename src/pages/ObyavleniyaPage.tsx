@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { MapPin, Camera, User, Star, PlusCircle, Megaphone, Search, ChevronDown, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { classifieds, type DealType, type PropertyType, type AutoType, type ServiceType } from '@/data/classifiedsData';
+import { classifieds, type DealType, type PropertyType, type AutoType, type ServiceType, type JobType } from '@/data/classifiedsData';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const DISTRICTS = ['Центральный', 'Калининский', 'Ленинский', 'Восточный'];
@@ -128,9 +128,18 @@ const ObyavleniyaPage = () => {
     { label: 'Праздники и мероприятия', serviceType: 'events' },
   ];
 
+  const JOB_SUBS: { label: string; jobType?: JobType }[] = [
+    { label: 'Все вакансии' },
+    { label: 'Вакансии', jobType: 'vacancy' },
+    { label: 'Резюме', jobType: 'resume' },
+    { label: 'Подработка', jobType: 'parttime' },
+    { label: 'Удалённая работа', jobType: 'remote' },
+  ];
+
   const isRealEstateSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Недвижимость';
   const isAutoSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Авто';
   const isServicesSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Услуги';
+  const isJobSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Работа';
 
   const hasAnyFilter = selectedDistricts.length > 0 || selectedCategories.length > 0 || selectedPriceRanges.length > 0 || onlyWithPhoto || selectedSellerTypes.length > 0 || selectedConditions.length > 0 || selectedDateRange !== null || searchQuery.trim() !== '' || selectedSubcategory !== null;
 
@@ -151,8 +160,8 @@ const ObyavleniyaPage = () => {
   const prevCatRef = useRef(selectedCategories);
   useEffect(() => {
     const prev = prevCatRef.current;
-    const hadSubs = prev.length === 1 && (prev[0] === 'Недвижимость' || prev[0] === 'Авто' || prev[0] === 'Услуги');
-    const hasSubs = isRealEstateSelected || isAutoSelected || isServicesSelected;
+    const hadSubs = prev.length === 1 && (prev[0] === 'Недвижимость' || prev[0] === 'Авто' || prev[0] === 'Услуги' || prev[0] === 'Работа');
+    const hasSubs = isRealEstateSelected || isAutoSelected || isServicesSelected || isJobSelected;
     if (hadSubs && !hasSubs) {
       setSelectedSubcategory(null);
     }
@@ -161,7 +170,7 @@ const ObyavleniyaPage = () => {
       setSelectedSubcategory(null);
     }
     prevCatRef.current = selectedCategories;
-  }, [selectedCategories, isRealEstateSelected, isAutoSelected, isServicesSelected]);
+  }, [selectedCategories, isRealEstateSelected, isAutoSelected, isServicesSelected, isJobSelected]);
 
   const toggleArray = (arr: string[], val: string) =>
     arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val];
@@ -215,6 +224,14 @@ const ObyavleniyaPage = () => {
       }
     }
 
+    // Subcategory filter (Работа)
+    if (selectedSubcategory !== null && isJobSelected) {
+      const sub = JOB_SUBS.find(s => s.label === selectedSubcategory);
+      if (sub && sub.jobType) {
+        result = result.filter(c => c.jobType === sub.jobType);
+      }
+    }
+
     // Sort
     switch (sortValue) {
       case 'Сначала новые': result.sort((a, b) => a.daysAgo - b.daysAgo); break;
@@ -224,7 +241,7 @@ const ObyavleniyaPage = () => {
     }
 
     return result;
-  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue, selectedSubcategory, isRealEstateSelected, isAutoSelected, isServicesSelected]);
+  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue, selectedSubcategory, isRealEstateSelected, isAutoSelected, isServicesSelected, isJobSelected]);
 
   const handlePostClick = () => {
     if (!isAuthenticated) {
@@ -395,10 +412,10 @@ const ObyavleniyaPage = () => {
             </div>
 
             {/* Subcategory tabs — Недвижимость / Авто / Услуги */}
-            {(isRealEstateSelected || isAutoSelected || isServicesSelected) && (
+            {(isRealEstateSelected || isAutoSelected || isServicesSelected || isJobSelected) && (
               <div className="flex flex-wrap items-center gap-1.5 pb-3 mb-2">
-                {(isRealEstateSelected ? REAL_ESTATE_SUBS : isAutoSelected ? AUTO_SUBS : SERVICE_SUBS).map((sub) => {
-                  const allLabel = isRealEstateSelected ? 'Все в недвижимости' : isAutoSelected ? 'Все в авто' : 'Все услуги';
+                {(isRealEstateSelected ? REAL_ESTATE_SUBS : isAutoSelected ? AUTO_SUBS : isServicesSelected ? SERVICE_SUBS : JOB_SUBS).map((sub) => {
+                  const allLabel = isRealEstateSelected ? 'Все в недвижимости' : isAutoSelected ? 'Все в авто' : isServicesSelected ? 'Все услуги' : 'Все вакансии';
                   const isActive = sub.label === allLabel
                     ? selectedSubcategory === null
                     : selectedSubcategory === sub.label;
