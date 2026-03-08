@@ -56,6 +56,14 @@ import ControlTasksPage from "./pages/admin/control/ControlTasksPage";
 import ControlLogPage from "./pages/admin/control/ControlLogPage";
 import AICommandCenter from "./pages/admin/control/AICommandCenter";
 import GrowthEnginePage from "./pages/admin/control/GrowthEnginePage";
+import GrowthTopicsPage from "./pages/admin/control/growth/GrowthTopicsPage";
+import GrowthArticlesPage from "./pages/admin/control/growth/GrowthArticlesPage";
+import GrowthTrendsPage from "./pages/admin/control/growth/GrowthTrendsPage";
+import GrowthCalendarPage from "./pages/admin/control/growth/GrowthCalendarPage";
+import GrowthSEOPagesPage from "./pages/admin/control/growth/GrowthSEOPagesPage";
+import GrowthLinkingPage from "./pages/admin/control/growth/GrowthLinkingPage";
+import GrowthPredictionsPage from "./pages/admin/control/growth/GrowthPredictionsPage";
+import ControlPromptsPage from "./pages/admin/control/ControlPromptsPage";
 
 const queryClient = new QueryClient();
 
@@ -124,6 +132,14 @@ const App = () => (
             <Route path="/admin/control/log" element={<ControlLogPage />} />
             <Route path="/admin/control/ai" element={<AICommandCenter />} />
             <Route path="/admin/control/growth" element={<GrowthEnginePage />} />
+            <Route path="/admin/control/growth/topics" element={<GrowthTopicsPage />} />
+            <Route path="/admin/control/growth/articles" element={<GrowthArticlesPage />} />
+            <Route path="/admin/control/growth/trends" element={<GrowthTrendsPage />} />
+            <Route path="/admin/control/growth/calendar" element={<GrowthCalendarPage />} />
+            <Route path="/admin/control/growth/seo-pages" element={<GrowthSEOPagesPage />} />
+            <Route path="/admin/control/growth/linking" element={<GrowthLinkingPage />} />
+            <Route path="/admin/control/growth/predictions" element={<GrowthPredictionsPage />} />
+            <Route path="/admin/control/prompts" element={<ControlPromptsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
