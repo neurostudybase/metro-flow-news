@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCity } from '@/contexts/CityContext';
-import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut, Bot, Command, Globe, MapPin } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut, Bot, Command, Globe, MapPin, Building2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
@@ -14,6 +14,7 @@ const menuItems = [
   { label: 'Контент', to: '/admin/content', icon: Newspaper },
   { label: 'AI Управление', to: '/admin/ai', icon: Bot },
   { label: 'Центр управления', to: '/admin/control', icon: Command },
+  { label: 'Медиахолдинг', to: '/admin/holding', icon: Building2 },
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {

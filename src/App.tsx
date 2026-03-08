@@ -81,6 +81,13 @@ import EditorialTopicsPage from "./pages/admin/control/editorial/EditorialTopics
 import EditorialTasksPage from "./pages/admin/control/editorial/EditorialTasksPage";
 import EditorialLogPage from "./pages/admin/control/editorial/EditorialLogPage";
 import CitiesPage from "./pages/admin/control/cities/CitiesPage";
+import HoldingDashboard from "./pages/admin/holding/HoldingDashboard";
+import HoldingCitiesPage from "./pages/admin/holding/HoldingCitiesPage";
+import HoldingNewsPage from "./pages/admin/holding/HoldingNewsPage";
+import HoldingAINewsPage from "./pages/admin/holding/HoldingAINewsPage";
+import HoldingModerationPage from "./pages/admin/holding/HoldingModerationPage";
+import HoldingCalendarPage from "./pages/admin/holding/HoldingCalendarPage";
+import HoldingAnalyticsPage from "./pages/admin/holding/HoldingAnalyticsPage";
 
 const queryClient = new QueryClient();
 
@@ -174,6 +181,13 @@ const App = () => (
             <Route path="/admin/control/editorial/tasks" element={<EditorialTasksPage />} />
             <Route path="/admin/control/editorial/log" element={<EditorialLogPage />} />
             <Route path="/admin/control/cities" element={<CitiesPage />} />
+            <Route path="/admin/holding" element={<HoldingDashboard />} />
+            <Route path="/admin/holding/cities" element={<HoldingCitiesPage />} />
+            <Route path="/admin/holding/news" element={<HoldingNewsPage />} />
+            <Route path="/admin/holding/ai-news" element={<HoldingAINewsPage />} />
+            <Route path="/admin/holding/moderation" element={<HoldingModerationPage />} />
+            <Route path="/admin/holding/calendar" element={<HoldingCalendarPage />} />
+            <Route path="/admin/holding/analytics" element={<HoldingAnalyticsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
