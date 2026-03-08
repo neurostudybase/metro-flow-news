@@ -99,6 +99,9 @@ import GrowthAnalyticsPage from "./pages/admin/holding/growth/GrowthAnalyticsPag
 import AIEditorQueuePage from "./pages/admin/control/ai/AIEditorQueuePage";
 import AIEditorLogPage from "./pages/admin/control/ai/AIEditorLogPage";
 import AIEditorSettingsPage from "./pages/admin/control/ai/AIEditorSettingsPage";
+import AIJournalistPage from "./pages/admin/control/ai/AIJournalistPage";
+import AIJournalistTopicsPage from "./pages/admin/control/ai/AIJournalistTopicsPage";
+import AIJournalistLogPage from "./pages/admin/control/ai/AIJournalistLogPage";
 
 const queryClient = new QueryClient();
 
