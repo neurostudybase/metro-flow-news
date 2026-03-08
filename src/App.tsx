@@ -21,6 +21,17 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminAdsPage from "./pages/admin/AdminAdsPage";
 import AdminContentPage from "./pages/admin/AdminContentPage";
+import AIDashboardPage from "./pages/admin/ai/AIDashboardPage";
+import AINewsPage from "./pages/admin/ai/AINewsPage";
+import AIModerationPage from "./pages/admin/ai/AIModerationPage";
+import AISEOPage from "./pages/admin/ai/AISEOPage";
+import AIContentPage from "./pages/admin/ai/AIContentPage";
+import AIAnalyticsPage from "./pages/admin/ai/AIAnalyticsPage";
+import AISecurityPage from "./pages/admin/ai/AISecurityPage";
+import AITasksPage from "./pages/admin/ai/AITasksPage";
+import AISettingsPage from "./pages/admin/ai/AISettingsPage";
+import AILogPage from "./pages/admin/ai/AILogPage";
+import { AIProvider } from "./contexts/AIContext";
 
 const queryClient = new QueryClient();
 
