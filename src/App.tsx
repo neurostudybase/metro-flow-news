@@ -54,6 +54,8 @@ import AINetworksPage from "./pages/admin/control/AINetworksPage";
 import ControlAPIPage from "./pages/admin/control/ControlAPIPage";
 import ControlTasksPage from "./pages/admin/control/ControlTasksPage";
 import ControlLogPage from "./pages/admin/control/ControlLogPage";
+import AICommandCenter from "./pages/admin/control/AICommandCenter";
+import GrowthEnginePage from "./pages/admin/control/GrowthEnginePage";
 
 const queryClient = new QueryClient();
 
@@ -120,6 +122,8 @@ const App = () => (
             <Route path="/admin/control/api" element={<ControlAPIPage />} />
             <Route path="/admin/control/tasks" element={<ControlTasksPage />} />
             <Route path="/admin/control/log" element={<ControlLogPage />} />
+            <Route path="/admin/control/ai" element={<AICommandCenter />} />
+            <Route path="/admin/control/growth" element={<GrowthEnginePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
