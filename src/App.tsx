@@ -88,6 +88,7 @@ import HoldingAINewsPage from "./pages/admin/holding/HoldingAINewsPage";
 import HoldingModerationPage from "./pages/admin/holding/HoldingModerationPage";
 import HoldingCalendarPage from "./pages/admin/holding/HoldingCalendarPage";
 import HoldingAnalyticsPage from "./pages/admin/holding/HoldingAnalyticsPage";
+import CreateCityPage from "./pages/admin/holding/CreateCityPage";
 
 const queryClient = new QueryClient();
 
