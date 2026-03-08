@@ -41,7 +41,7 @@ const AINewsPublishedPage = () => {
     <AdminLayout>
       <div>
         <div className="flex items-center gap-3 mb-4">
-          <Link to="/admin/ai/news"><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Назад</Button></Link>
+          <Link to="/admin/control/news"><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Назад</Button></Link>
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-2"><Newspaper className="w-6 h-6 text-primary" /> Опубликованные новости</h1>
             <p className="text-muted-foreground text-sm">Управление опубликованными AI-новостями</p>

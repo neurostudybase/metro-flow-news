@@ -20,7 +20,7 @@ const AINewsSettingsPage = () => {
     <AdminLayout>
       <div>
         <div className="flex items-center gap-3 mb-4">
-          <Link to="/admin/ai/news-pipeline"><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Pipeline</Button></Link>
+          <Link to="/admin/control/news"><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Назад</Button></Link>
           <div className="flex-1">
             <h1 className="text-2xl font-bold flex items-center gap-2"><Settings className="w-6 h-6 text-primary" /> Настройки AI-новостей</h1>
           </div>
@@ -35,6 +35,10 @@ const AINewsSettingsPage = () => {
               <Switch checked={s.pipelineEnabled} onCheckedChange={v => update('pipelineEnabled', v)} />
             </div>
             <div>
+              <Label className="text-sm">Частота поиска (минуты)</Label>
+              <Input type="number" value={s.searchFrequency} onChange={e => update('searchFrequency', Number(e.target.value))} className="max-w-[120px] h-8 text-sm mt-1" />
+            </div>
+            <div>
               <Label className="text-sm">Макс. новостей в день</Label>
               <Input type="number" value={s.maxNewsPerDay} onChange={e => update('maxNewsPerDay', Number(e.target.value))} className="max-w-[120px] h-8 text-sm mt-1" />
             </div>
@@ -47,6 +51,10 @@ const AINewsSettingsPage = () => {
                   <SelectItem value="tyumen_and_region">Тюмень + область</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="flex items-center justify-between">
+              <div><Label className="text-sm">Всегда отправлять в черновики</Label><p className="text-xs text-muted-foreground">Новости сначала попадают в черновики</p></div>
+              <Switch checked={s.alwaysSendToDrafts} onCheckedChange={v => update('alwaysSendToDrafts', v)} />
             </div>
             <div className="flex items-center justify-between">
               <div><Label className="text-sm">Всегда требовать подтверждение</Label><p className="text-xs text-muted-foreground">Ни одна новость не публикуется без ручного одобрения</p></div>
@@ -92,6 +100,21 @@ const AINewsSettingsPage = () => {
             <div className="flex items-center justify-between">
               <Label className="text-sm">Генерировать теги автоматически</Label>
               <Switch checked={s.autoGenerateTags} onCheckedChange={v => update('autoGenerateTags', v)} />
+            </div>
+          </div>
+        </div>
+
+        {/* Images */}
+        <div className="bg-card border border-border rounded-lg p-5 mb-4">
+          <h2 className="font-semibold text-sm mb-4">Изображения</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div><Label className="text-sm">Использовать изображение из источника</Label><p className="text-xs text-muted-foreground">Извлекать основное изображение из оригинальной статьи</p></div>
+              <Switch checked={s.useSourceImage} onCheckedChange={v => update('useSourceImage', v)} />
+            </div>
+            <div className="flex items-center justify-between">
+              <div><Label className="text-sm">Stock image как fallback</Label><p className="text-xs text-muted-foreground">Если изображение не найдено — подобрать stock</p></div>
+              <Switch checked={s.useStockImageFallback} onCheckedChange={v => update('useStockImageFallback', v)} />
             </div>
           </div>
         </div>

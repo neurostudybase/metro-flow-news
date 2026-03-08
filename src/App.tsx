@@ -71,6 +71,7 @@ import NewsHunterPage from "./pages/admin/control/news-hunter/NewsHunterPage";
 import NewsHunterQueuePage from "./pages/admin/control/news-hunter/NewsHunterQueuePage";
 import NewsHunterLogPage from "./pages/admin/control/news-hunter/NewsHunterLogPage";
 import NewsHunterSettingsPage from "./pages/admin/control/news-hunter/NewsHunterSettingsPage";
+import DraftEditPage from "./pages/admin/control/news/DraftEditPage";
 
 const queryClient = new QueryClient();
 
@@ -124,6 +125,7 @@ const App = () => (
             <Route path="/admin/control" element={<ControlDashboard />} />
             <Route path="/admin/control/news" element={<ControlNewsPage />} />
             <Route path="/admin/control/news/queue" element={<AINewsQueuePage />} />
+            <Route path="/admin/control/news/drafts/:id" element={<DraftEditPage />} />
             <Route path="/admin/control/news/drafts" element={<AINewsDraftsPage />} />
             <Route path="/admin/control/news/published" element={<AINewsPublishedPage />} />
             <Route path="/admin/control/news/sources" element={<AINewsSourcesPage />} />
