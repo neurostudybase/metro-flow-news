@@ -34,6 +34,13 @@ import AILogPage from "./pages/admin/ai/AILogPage";
 import AINewsDraftsPage from "./pages/admin/ai/AINewsDraftsPage";
 import AINewsPublishedPage from "./pages/admin/ai/AINewsPublishedPage";
 import AINewsSourcesPage from "./pages/admin/ai/AINewsSourcesPage";
+import AINewsPipelinePage from "./pages/admin/ai/AINewsPipelinePage";
+import AINewsQueuePage from "./pages/admin/ai/AINewsQueuePage";
+import AINewsReviewPage from "./pages/admin/ai/AINewsReviewPage";
+import AINewsPendingPage from "./pages/admin/ai/AINewsPendingPage";
+import AINewsPromptsPage from "./pages/admin/ai/AINewsPromptsPage";
+import AINewsSettingsPage from "./pages/admin/ai/AINewsSettingsPage";
+import AINewsLogPage from "./pages/admin/ai/AINewsLogPage";
 import { AIProvider } from "./contexts/AIContext";
 
 const queryClient = new QueryClient();
