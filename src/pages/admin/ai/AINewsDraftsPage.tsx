@@ -76,7 +76,7 @@ const AINewsDraftsPage = () => {
       tags: draft.tags,
     });
     addLog({ moduleId: 'news', action: 'Публикация новости', details: `"${draft.title}"`, result: 'success' });
-    toast({ title: '✅ Опубликовано на портале', description: `${draft.title} — новость появилась на главной` });
+    toast({ title: '✅ Опубликовано', description: `${draft.title} — новость сохранена со статусом "Опубликовано"` });
   };
 
   const handleRewrite = (draft: Draft) => {
