@@ -14,6 +14,7 @@ const menuItems = [
   { label: 'Контент', to: '/admin/content', icon: Newspaper },
   { label: 'AI Управление', to: '/admin/ai', icon: Bot },
   { label: 'Центр управления', to: '/admin/control', icon: Command },
+  { label: 'Медиахолдинг', to: '/admin/holding', icon: Building2 },
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
