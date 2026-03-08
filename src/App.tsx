@@ -71,6 +71,7 @@ import NewsHunterPage from "./pages/admin/control/news-hunter/NewsHunterPage";
 import NewsHunterQueuePage from "./pages/admin/control/news-hunter/NewsHunterQueuePage";
 import NewsHunterLogPage from "./pages/admin/control/news-hunter/NewsHunterLogPage";
 import NewsHunterSettingsPage from "./pages/admin/control/news-hunter/NewsHunterSettingsPage";
+import DraftEditPage from "./pages/admin/control/news/DraftEditPage";
 
 const queryClient = new QueryClient();
 
