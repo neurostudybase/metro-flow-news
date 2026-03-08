@@ -11,6 +11,7 @@ const cards = [
   { label: 'Модерация', icon: Shield, to: '/admin/holding/moderation', color: 'text-amber-600' },
   { label: 'Календарь', icon: Calendar, to: '/admin/holding/calendar', color: 'text-pink-600' },
   { label: 'Аналитика', icon: BarChart3, to: '/admin/holding/analytics', color: 'text-cyan-600' },
+  { label: 'Рост сети', icon: TrendingUp, to: '/admin/holding/growth', color: 'text-rose-600' },
 ];
 
 const HoldingDashboard = () => {
