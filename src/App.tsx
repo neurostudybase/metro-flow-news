@@ -201,6 +201,9 @@ const App = () => (
             <Route path="/admin/control/ai/editor" element={<AIEditorQueuePage />} />
             <Route path="/admin/control/ai/editor-log" element={<AIEditorLogPage />} />
             <Route path="/admin/control/ai/editor-settings" element={<AIEditorSettingsPage />} />
+            <Route path="/admin/control/ai/journalist" element={<AIJournalistPage />} />
+            <Route path="/admin/control/ai/journalist/topics" element={<AIJournalistTopicsPage />} />
+            <Route path="/admin/control/ai/journalist/log" element={<AIJournalistLogPage />} />
             <Route path="/admin/holding" element={<HoldingDashboard />} />
             <Route path="/admin/holding/cities" element={<HoldingCitiesPage />} />
             <Route path="/admin/holding/news" element={<HoldingNewsPage />} />
