@@ -90,6 +90,7 @@ const App = () => (
       <AuthProvider>
         <ListingsProvider>
         <NewsProvider>
+        <CityProvider>
         <AIProvider>
         <Toaster />
         <Sonner />
