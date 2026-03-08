@@ -51,6 +51,9 @@ const ControlNewsPage = () => {
             <p className="text-muted-foreground text-sm">Полный цикл: сбор → классификация → генерация → проверка → публикация</p>
           </div>
           <div className="flex gap-2">
+            <Link to="/admin/control/news/editor/new">
+              <Button size="sm" variant="outline"><Plus className="w-4 h-4 mr-1" /> Создать новость</Button>
+            </Link>
             <Button size="sm" variant="outline" onClick={() => handleQuickAction('Сканирование источников')}>
               <Search className="w-4 h-4 mr-1" /> Найти новости
             </Button>
