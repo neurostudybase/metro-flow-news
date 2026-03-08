@@ -67,10 +67,12 @@ const AINewsDraftsPage = () => {
     setDrafts(prev => prev.map(d => d.id === draft.id ? { ...d, status: 'published' as const } : d));
     publishNews({
       title: draft.title,
+      description: draft.content.slice(0, 200),
       content: draft.content,
+      image: draft.imageUrl,
       category: draft.category,
-      imageUrl: draft.imageUrl,
       source: draft.source,
+      sourceUrl: '',
       seoTitle: draft.seoTitle,
       seoDescription: draft.seoDescription,
       tags: draft.tags,
