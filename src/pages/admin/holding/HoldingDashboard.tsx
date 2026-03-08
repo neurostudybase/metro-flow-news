@@ -1,5 +1,5 @@
 import HoldingLayout from '@/components/holding/HoldingLayout';
-import { Building2, Globe, Newspaper, Bot, Shield, Calendar, BarChart3 } from 'lucide-react';
+import { Building2, Globe, Newspaper, Bot, Shield, Calendar, BarChart3, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCity } from '@/contexts/CityContext';
 import { MOCK_HOLDING_NEWS, MOCK_MODERATION } from '@/data/holdingData';
