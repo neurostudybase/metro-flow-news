@@ -1,6 +1,6 @@
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Link } from 'react-router-dom';
-import { Newspaper, FileText, CheckCircle, Globe, Settings, MessageSquare, ArrowRight, Zap, Search, PenTool, Image, Tag, Send, BarChart3 } from 'lucide-react';
+import { Newspaper, FileText, CheckCircle, Globe, Settings, MessageSquare, ArrowRight, Zap, Search, PenTool, Image, Tag, Send, BarChart3, Plus, ScrollText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,7 @@ const sections = [
   { label: 'Опубликованные', desc: 'Одобренные и опубликованные новости', icon: CheckCircle, to: '/admin/control/news/published', count: MOCK_QUEUE.filter(n => n.status === 'published').length + ' опубл.' },
   { label: 'Источники', desc: 'RSS, API, сайты', icon: Globe, to: '/admin/control/news/sources' },
   { label: 'Промпты', desc: 'Шаблоны инструкций для AI', icon: MessageSquare, to: '/admin/control/news/prompts' },
+  { label: 'Журнал действий', desc: 'Лог всех редакционных операций', icon: ScrollText, to: '/admin/control/news/log' },
   { label: 'Настройки', desc: 'Параметры AI News System', icon: Settings, to: '/admin/control/news/settings' },
 ];
 
@@ -50,6 +51,9 @@ const ControlNewsPage = () => {
             <p className="text-muted-foreground text-sm">Полный цикл: сбор → классификация → генерация → проверка → публикация</p>
           </div>
           <div className="flex gap-2">
+            <Link to="/admin/control/news/editor/new">
+              <Button size="sm" variant="outline"><Plus className="w-4 h-4 mr-1" /> Создать новость</Button>
+            </Link>
             <Button size="sm" variant="outline" onClick={() => handleQuickAction('Сканирование источников')}>
               <Search className="w-4 h-4 mr-1" /> Найти новости
             </Button>

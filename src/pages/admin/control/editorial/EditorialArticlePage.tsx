@@ -71,7 +71,7 @@ const EditorialArticlePage = () => {
             <Button variant="outline" size="sm" onClick={() => toast({ title: '✅ Сохранено' })}><Save className="w-4 h-4 mr-1" /> Сохранить</Button>
             {form.status !== 'published' && (
               <>
-                <Button variant="outline" size="sm" onClick={() => handleStatusChange('editor_review')}><CheckCircle className="w-4 h-4 mr-1" /> На проверку</Button>
+                <Button variant="outline" size="sm" onClick={() => handleStatusChange('review')}><CheckCircle className="w-4 h-4 mr-1" /> На проверку</Button>
                 <Button size="sm" onClick={() => handleStatusChange('published')}><Send className="w-4 h-4 mr-1" /> Опубликовать</Button>
                 <Button variant="ghost" size="sm" className="text-destructive" onClick={() => handleStatusChange('rejected')}><XCircle className="w-4 h-4 mr-1" /> Отклонить</Button>
               </>
