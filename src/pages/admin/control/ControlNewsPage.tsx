@@ -1,6 +1,6 @@
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Link } from 'react-router-dom';
-import { Newspaper, FileText, CheckCircle, Globe, Settings, MessageSquare, ArrowRight, Zap, Search, PenTool, Image, Tag, Send, BarChart3 } from 'lucide-react';
+import { Newspaper, FileText, CheckCircle, Globe, Settings, MessageSquare, ArrowRight, Zap, Search, PenTool, Image, Tag, Send, BarChart3, Plus, ScrollText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
