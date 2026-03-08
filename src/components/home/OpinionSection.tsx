@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { articles, getAuthorById, coverImages, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { getAuthorById, coverImages, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { useNews } from '@/contexts/NewsContext';
 
 const OpinionSection = () => {
-  const opinions = articles.filter(a => a.isOpinion).slice(0, 3);
-  const recommended = articles.filter(a => a.isRecommended).slice(0, 3);
-  const reportage = articles.find(a => a.isReportage);
+  const { allArticles } = useNews();
+  const opinions = allArticles.filter(a => a.isOpinion).slice(0, 3);
+  const recommended = allArticles.filter(a => a.isRecommended).slice(0, 3);
+  const reportage = allArticles.find(a => a.isReportage);
 
   return (
     <div className="mb-5 space-y-5">
