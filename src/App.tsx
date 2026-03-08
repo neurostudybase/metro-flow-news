@@ -173,11 +173,12 @@ const App = () => (
             <Route path="/admin/control/editorial/topics" element={<EditorialTopicsPage />} />
             <Route path="/admin/control/editorial/tasks" element={<EditorialTasksPage />} />
             <Route path="/admin/control/editorial/log" element={<EditorialLogPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/admin/control/cities" element={<CitiesPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         </AIProvider>
+        </CityProvider>
         </NewsProvider>
         </ListingsProvider>
       </AuthProvider>
