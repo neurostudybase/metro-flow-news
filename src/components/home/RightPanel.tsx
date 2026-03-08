@@ -82,7 +82,7 @@ const RightPanel = () => {
       <div className="bg-card rounded-lg p-4">
         <h3 className="font-bold text-sm mb-3">Популярное</h3>
         <div className="flex flex-col gap-2">
-          {allArticles.slice(0, 5).sort((a, b) => b.views - a.views).map((article, i) => (
+          {articles.slice(0, 5).sort((a, b) => b.views - a.views).map((article, i) => (
             <Link key={article.id} to={`/article/${article.slug}`} className="news-item flex items-start gap-2 py-1.5 px-1 rounded-sm">
               <span className="text-lg font-bold text-muted-foreground/40 leading-none mt-0.5">{i + 1}</span>
               <span className="text-sm leading-tight line-clamp-2">{article.title}</span>
