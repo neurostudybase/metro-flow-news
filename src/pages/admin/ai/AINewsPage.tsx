@@ -1,7 +1,7 @@
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useAI } from '@/contexts/AIContext';
 import { Button } from '@/components/ui/button';
-import { Newspaper, FileText, PenLine, RefreshCw, Rss, Send, Archive, Settings } from 'lucide-react';
+import { Newspaper, FileText, PenLine, RefreshCw, Rss, Send, Archive, Settings, Workflow } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
