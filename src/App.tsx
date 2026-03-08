@@ -72,6 +72,13 @@ import NewsHunterQueuePage from "./pages/admin/control/news-hunter/NewsHunterQue
 import NewsHunterLogPage from "./pages/admin/control/news-hunter/NewsHunterLogPage";
 import NewsHunterSettingsPage from "./pages/admin/control/news-hunter/NewsHunterSettingsPage";
 import DraftEditPage from "./pages/admin/control/news/DraftEditPage";
+import EditorialDashboard from "./pages/admin/control/editorial/EditorialDashboard";
+import EditorialQueuePage from "./pages/admin/control/editorial/EditorialQueuePage";
+import EditorialArticlePage from "./pages/admin/control/editorial/EditorialArticlePage";
+import EditorialCalendarPage from "./pages/admin/control/editorial/EditorialCalendarPage";
+import EditorialTopicsPage from "./pages/admin/control/editorial/EditorialTopicsPage";
+import EditorialTasksPage from "./pages/admin/control/editorial/EditorialTasksPage";
+import EditorialLogPage from "./pages/admin/control/editorial/EditorialLogPage";
 
 const queryClient = new QueryClient();
 
@@ -156,6 +163,13 @@ const App = () => (
             <Route path="/admin/control/news-hunter/queue" element={<NewsHunterQueuePage />} />
             <Route path="/admin/control/news-hunter/log" element={<NewsHunterLogPage />} />
             <Route path="/admin/control/news-hunter/settings" element={<NewsHunterSettingsPage />} />
+            <Route path="/admin/control/editorial" element={<EditorialDashboard />} />
+            <Route path="/admin/control/editorial/queue" element={<EditorialQueuePage />} />
+            <Route path="/admin/control/editorial/article/:id" element={<EditorialArticlePage />} />
+            <Route path="/admin/control/editorial/calendar" element={<EditorialCalendarPage />} />
+            <Route path="/admin/control/editorial/topics" element={<EditorialTopicsPage />} />
+            <Route path="/admin/control/editorial/tasks" element={<EditorialTasksPage />} />
+            <Route path="/admin/control/editorial/log" element={<EditorialLogPage />} />
             <Route path="*" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
