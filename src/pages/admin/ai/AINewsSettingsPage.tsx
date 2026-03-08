@@ -35,6 +35,10 @@ const AINewsSettingsPage = () => {
               <Switch checked={s.pipelineEnabled} onCheckedChange={v => update('pipelineEnabled', v)} />
             </div>
             <div>
+              <Label className="text-sm">Частота поиска (минуты)</Label>
+              <Input type="number" value={s.searchFrequency} onChange={e => update('searchFrequency', Number(e.target.value))} className="max-w-[120px] h-8 text-sm mt-1" />
+            </div>
+            <div>
               <Label className="text-sm">Макс. новостей в день</Label>
               <Input type="number" value={s.maxNewsPerDay} onChange={e => update('maxNewsPerDay', Number(e.target.value))} className="max-w-[120px] h-8 text-sm mt-1" />
             </div>
@@ -47,6 +51,10 @@ const AINewsSettingsPage = () => {
                   <SelectItem value="tyumen_and_region">Тюмень + область</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="flex items-center justify-between">
+              <div><Label className="text-sm">Всегда отправлять в черновики</Label><p className="text-xs text-muted-foreground">Новости сначала попадают в черновики</p></div>
+              <Switch checked={s.alwaysSendToDrafts} onCheckedChange={v => update('alwaysSendToDrafts', v)} />
             </div>
             <div className="flex items-center justify-between">
               <div><Label className="text-sm">Всегда требовать подтверждение</Label><p className="text-xs text-muted-foreground">Ни одна новость не публикуется без ручного одобрения</p></div>
