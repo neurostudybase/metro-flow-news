@@ -31,6 +31,9 @@ import AISecurityPage from "./pages/admin/ai/AISecurityPage";
 import AITasksPage from "./pages/admin/ai/AITasksPage";
 import AISettingsPage from "./pages/admin/ai/AISettingsPage";
 import AILogPage from "./pages/admin/ai/AILogPage";
+import AINewsDraftsPage from "./pages/admin/ai/AINewsDraftsPage";
+import AINewsPublishedPage from "./pages/admin/ai/AINewsPublishedPage";
+import AINewsSourcesPage from "./pages/admin/ai/AINewsSourcesPage";
 import { AIProvider } from "./contexts/AIContext";
 
 const queryClient = new QueryClient();
