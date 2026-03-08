@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { articles, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { useNews } from '@/contexts/NewsContext';
 import { Phone, Mail, Camera } from 'lucide-react';
 
 const tabs = [
