@@ -150,9 +150,12 @@ const App = () => (
             <Route path="/admin/control" element={<ControlDashboard />} />
             <Route path="/admin/control/news" element={<ControlNewsPage />} />
             <Route path="/admin/control/news/queue" element={<AINewsQueuePage />} />
+            <Route path="/admin/control/news/editor/new" element={<NewsEditorPage />} />
+            <Route path="/admin/control/news/editor/:id" element={<NewsEditorPage />} />
             <Route path="/admin/control/news/drafts/:id" element={<DraftEditPage />} />
-            <Route path="/admin/control/news/drafts" element={<AINewsDraftsPage />} />
-            <Route path="/admin/control/news/published" element={<AINewsPublishedPage />} />
+            <Route path="/admin/control/news/drafts" element={<NewsListPage mode="drafts" />} />
+            <Route path="/admin/control/news/published" element={<NewsListPage mode="published" />} />
+            <Route path="/admin/control/news/log" element={<EditorialLogFullPage />} />
             <Route path="/admin/control/news/sources" element={<AINewsSourcesPage />} />
             <Route path="/admin/control/news/prompts" element={<AINewsPromptsPage />} />
             <Route path="/admin/control/news/settings" element={<AINewsSettingsPage />} />
