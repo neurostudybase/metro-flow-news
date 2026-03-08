@@ -34,6 +34,13 @@ import AILogPage from "./pages/admin/ai/AILogPage";
 import AINewsDraftsPage from "./pages/admin/ai/AINewsDraftsPage";
 import AINewsPublishedPage from "./pages/admin/ai/AINewsPublishedPage";
 import AINewsSourcesPage from "./pages/admin/ai/AINewsSourcesPage";
+import AINewsPipelinePage from "./pages/admin/ai/AINewsPipelinePage";
+import AINewsQueuePage from "./pages/admin/ai/AINewsQueuePage";
+import AINewsReviewPage from "./pages/admin/ai/AINewsReviewPage";
+import AINewsPendingPage from "./pages/admin/ai/AINewsPendingPage";
+import AINewsPromptsPage from "./pages/admin/ai/AINewsPromptsPage";
+import AINewsSettingsPage from "./pages/admin/ai/AINewsSettingsPage";
+import AINewsLogPage from "./pages/admin/ai/AINewsLogPage";
 import { AIProvider } from "./contexts/AIContext";
 
 const queryClient = new QueryClient();
@@ -68,6 +75,13 @@ const App = () => (
             <Route path="/admin/ai/news/drafts" element={<AINewsDraftsPage />} />
             <Route path="/admin/ai/news/published" element={<AINewsPublishedPage />} />
             <Route path="/admin/ai/news/sources" element={<AINewsSourcesPage />} />
+            <Route path="/admin/ai/news/settings" element={<AINewsSettingsPage />} />
+            <Route path="/admin/ai/news/pending" element={<AINewsPendingPage />} />
+            <Route path="/admin/ai/news/log" element={<AINewsLogPage />} />
+            <Route path="/admin/ai/news-pipeline" element={<AINewsPipelinePage />} />
+            <Route path="/admin/ai/news-queue" element={<AINewsQueuePage />} />
+            <Route path="/admin/ai/news-review/:id" element={<AINewsReviewPage />} />
+            <Route path="/admin/ai/news-prompts" element={<AINewsPromptsPage />} />
             <Route path="/admin/ai/moderation" element={<AIModerationPage />} />
             <Route path="/admin/ai/seo" element={<AISEOPage />} />
             <Route path="/admin/ai/content" element={<AIContentPage />} />
