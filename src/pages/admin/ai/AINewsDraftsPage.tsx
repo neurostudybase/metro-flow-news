@@ -54,6 +54,7 @@ const AINewsDraftsPage = () => {
   const [search, setSearch] = useState('');
   const { toast } = useToast();
   const { addLog } = useAI();
+  const { publishNews } = useNews();
 
   const filtered = drafts.filter(d => {
     if (filterStatus !== 'all' && d.status !== filterStatus) return false;
