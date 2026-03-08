@@ -122,6 +122,8 @@ const App = () => (
             <Route path="/admin/control/api" element={<ControlAPIPage />} />
             <Route path="/admin/control/tasks" element={<ControlTasksPage />} />
             <Route path="/admin/control/log" element={<ControlLogPage />} />
+            <Route path="/admin/control/ai" element={<AICommandCenter />} />
+            <Route path="/admin/control/growth" element={<GrowthEnginePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

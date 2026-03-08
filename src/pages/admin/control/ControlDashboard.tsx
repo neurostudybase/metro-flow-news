@@ -150,8 +150,31 @@ const ControlDashboard = () => {
           </Card>
         </div>
 
+          {/* Growth Engine */}
+          <Card className="relative">
+            <CardContent className="p-5">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="bg-primary/10 rounded-md p-2">
+                    <TrendingUp className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-sm">AI Growth Engine</h3>
+                    <p className="text-xs text-muted-foreground">SEO-страницы, подборки, рост портала</p>
+                  </div>
+                </div>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700">Активен</span>
+              </div>
+              <div className="flex gap-2">
+                <Link to="/admin/control/growth"><Button size="sm" variant="default" className="text-xs h-7">Открыть</Button></Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Bottom links */}
         <div className="flex flex-wrap gap-3">
+          <Link to="/admin/control/ai"><Button variant="outline" size="sm">AI Command Center</Button></Link>
           <Link to="/admin/control/ai-networks"><Button variant="outline" size="sm">Распределение нейросетей</Button></Link>
           <Link to="/admin/control/api"><Button variant="outline" size="sm">API ключи</Button></Link>
           <Link to="/admin/control/tasks"><Button variant="outline" size="sm">Все задачи</Button></Link>
