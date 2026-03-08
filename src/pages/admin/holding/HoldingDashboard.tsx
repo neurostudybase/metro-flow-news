@@ -1,5 +1,5 @@
 import HoldingLayout from '@/components/holding/HoldingLayout';
-import { Building2, Globe, Newspaper, Bot, Shield, Calendar, BarChart3 } from 'lucide-react';
+import { Building2, Globe, Newspaper, Bot, Shield, Calendar, BarChart3, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCity } from '@/contexts/CityContext';
 import { MOCK_HOLDING_NEWS, MOCK_MODERATION } from '@/data/holdingData';
@@ -11,6 +11,7 @@ const cards = [
   { label: 'Модерация', icon: Shield, to: '/admin/holding/moderation', color: 'text-amber-600' },
   { label: 'Календарь', icon: Calendar, to: '/admin/holding/calendar', color: 'text-pink-600' },
   { label: 'Аналитика', icon: BarChart3, to: '/admin/holding/analytics', color: 'text-cyan-600' },
+  { label: 'Рост сети', icon: TrendingUp, to: '/admin/holding/growth', color: 'text-rose-600' },
 ];
 
 const HoldingDashboard = () => {

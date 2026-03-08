@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
-import { Building2, Globe, Newspaper, Bot, Shield, Calendar, BarChart3, LogOut } from 'lucide-react';
+import { Building2, Globe, Newspaper, Bot, Shield, Calendar, BarChart3, LogOut, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const menuItems = [
@@ -13,6 +13,7 @@ const menuItems = [
   { label: 'Модерация', to: '/admin/holding/moderation', icon: Shield },
   { label: 'Календарь', to: '/admin/holding/calendar', icon: Calendar },
   { label: 'Аналитика', to: '/admin/holding/analytics', icon: BarChart3 },
+  { label: 'Рост сети', to: '/admin/holding/growth', icon: TrendingUp },
 ];
 
 const HoldingLayout = ({ children }: { children: ReactNode }) => {

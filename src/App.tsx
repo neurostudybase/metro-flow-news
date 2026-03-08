@@ -89,6 +89,10 @@ import HoldingModerationPage from "./pages/admin/holding/HoldingModerationPage";
 import HoldingCalendarPage from "./pages/admin/holding/HoldingCalendarPage";
 import HoldingAnalyticsPage from "./pages/admin/holding/HoldingAnalyticsPage";
 import CreateCityPage from "./pages/admin/holding/CreateCityPage";
+import HoldingGrowthPage from "./pages/admin/holding/growth/HoldingGrowthPage";
+import GrowthCitiesPage from "./pages/admin/holding/growth/GrowthCitiesPage";
+import GrowthSuggestionsPage from "./pages/admin/holding/growth/GrowthSuggestionsPage";
+import GrowthAnalyticsPage from "./pages/admin/holding/growth/GrowthAnalyticsPage";
 
 const queryClient = new QueryClient();
 
@@ -190,6 +194,10 @@ const App = () => (
             <Route path="/admin/holding/calendar" element={<HoldingCalendarPage />} />
             <Route path="/admin/holding/analytics" element={<HoldingAnalyticsPage />} />
             <Route path="/admin/holding/create-city" element={<CreateCityPage />} />
+            <Route path="/admin/holding/growth" element={<HoldingGrowthPage />} />
+            <Route path="/admin/holding/growth/cities" element={<GrowthCitiesPage />} />
+            <Route path="/admin/holding/growth/suggestions" element={<GrowthSuggestionsPage />} />
+            <Route path="/admin/holding/growth/analytics" element={<GrowthAnalyticsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
