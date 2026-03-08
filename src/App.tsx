@@ -194,6 +194,10 @@ const App = () => (
             <Route path="/admin/holding/calendar" element={<HoldingCalendarPage />} />
             <Route path="/admin/holding/analytics" element={<HoldingAnalyticsPage />} />
             <Route path="/admin/holding/create-city" element={<CreateCityPage />} />
+            <Route path="/admin/holding/growth" element={<HoldingGrowthPage />} />
+            <Route path="/admin/holding/growth/cities" element={<GrowthCitiesPage />} />
+            <Route path="/admin/holding/growth/suggestions" element={<GrowthSuggestionsPage />} />
+            <Route path="/admin/holding/growth/analytics" element={<GrowthAnalyticsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

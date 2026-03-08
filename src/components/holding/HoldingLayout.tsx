@@ -13,6 +13,7 @@ const menuItems = [
   { label: 'Модерация', to: '/admin/holding/moderation', icon: Shield },
   { label: 'Календарь', to: '/admin/holding/calendar', icon: Calendar },
   { label: 'Аналитика', to: '/admin/holding/analytics', icon: BarChart3 },
+  { label: 'Рост сети', to: '/admin/holding/growth', icon: TrendingUp },
 ];
 
 const HoldingLayout = ({ children }: { children: ReactNode }) => {
