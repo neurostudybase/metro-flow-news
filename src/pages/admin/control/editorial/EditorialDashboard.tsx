@@ -19,9 +19,9 @@ const EditorialDashboard = () => {
   const { toast } = useToast();
   const statusCounts = {
     draft: EDITORIAL_ARTICLES.filter(a => a.status === 'draft').length,
-    ai_generated: EDITORIAL_ARTICLES.filter(a => a.status === 'ai_generated').length,
-    editor_review: EDITORIAL_ARTICLES.filter(a => a.status === 'editor_review').length,
-    ready: EDITORIAL_ARTICLES.filter(a => a.status === 'ready_to_publish').length,
+    ai_generated: 0,
+    editor_review: EDITORIAL_ARTICLES.filter(a => a.status === 'review').length,
+    ready: EDITORIAL_ARTICLES.filter(a => a.status === 'ready').length,
     published: EDITORIAL_ARTICLES.filter(a => a.status === 'published').length,
     rejected: EDITORIAL_ARTICLES.filter(a => a.status === 'rejected').length,
   };

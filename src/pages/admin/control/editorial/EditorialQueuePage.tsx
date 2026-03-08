@@ -99,8 +99,8 @@ const EditorialQueuePage = () => {
                     <TableCell className="text-right">
                       <div className="flex gap-1 justify-end">
                         <Link to={`/admin/control/editorial/article/${a.id}`}><Button size="sm" variant="outline" className="text-xs h-7"><Eye className="w-3 h-3 mr-1" /> Открыть</Button></Link>
-                        {a.status === 'editor_review' && <Button size="sm" variant="outline" className="text-xs h-7" onClick={() => updateStatus(a.id, 'ready_to_publish')}><CheckCircle className="w-3 h-3" /></Button>}
-                        {a.status === 'ready_to_publish' && <Button size="sm" className="text-xs h-7" onClick={() => updateStatus(a.id, 'published')}><Send className="w-3 h-3" /></Button>}
+                        {a.status === 'review' && <Button size="sm" variant="outline" className="text-xs h-7" onClick={() => updateStatus(a.id, 'ready')}><CheckCircle className="w-3 h-3" /></Button>}
+                        {a.status === 'ready' && <Button size="sm" className="text-xs h-7" onClick={() => updateStatus(a.id, 'published')}><Send className="w-3 h-3" /></Button>}
                         {!['published', 'rejected'].includes(a.status) && <Button size="sm" variant="ghost" className="text-xs h-7 text-destructive" onClick={() => updateStatus(a.id, 'rejected')}><XCircle className="w-3 h-3" /></Button>}
                       </div>
                     </TableCell>
