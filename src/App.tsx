@@ -75,6 +75,13 @@ const App = () => (
             <Route path="/admin/ai/news/drafts" element={<AINewsDraftsPage />} />
             <Route path="/admin/ai/news/published" element={<AINewsPublishedPage />} />
             <Route path="/admin/ai/news/sources" element={<AINewsSourcesPage />} />
+            <Route path="/admin/ai/news/settings" element={<AINewsSettingsPage />} />
+            <Route path="/admin/ai/news/pending" element={<AINewsPendingPage />} />
+            <Route path="/admin/ai/news/log" element={<AINewsLogPage />} />
+            <Route path="/admin/ai/news-pipeline" element={<AINewsPipelinePage />} />
+            <Route path="/admin/ai/news-queue" element={<AINewsQueuePage />} />
+            <Route path="/admin/ai/news-review/:id" element={<AINewsReviewPage />} />
+            <Route path="/admin/ai/news-prompts" element={<AINewsPromptsPage />} />
             <Route path="/admin/ai/moderation" element={<AIModerationPage />} />
             <Route path="/admin/ai/seo" element={<AISEOPage />} />
             <Route path="/admin/ai/content" element={<AIContentPage />} />
