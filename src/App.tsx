@@ -102,6 +102,10 @@ import AIEditorSettingsPage from "./pages/admin/control/ai/AIEditorSettingsPage"
 import AIJournalistPage from "./pages/admin/control/ai/AIJournalistPage";
 import AIJournalistTopicsPage from "./pages/admin/control/ai/AIJournalistTopicsPage";
 import AIJournalistLogPage from "./pages/admin/control/ai/AIJournalistLogPage";
+import AIFrontEditorPage from "./pages/admin/control/ai/AIFrontEditorPage";
+import AIFrontEditorSuggestionsPage from "./pages/admin/control/ai/AIFrontEditorSuggestionsPage";
+import AIFrontEditorLogPage from "./pages/admin/control/ai/AIFrontEditorLogPage";
+import AIFrontEditorSettingsPage from "./pages/admin/control/ai/AIFrontEditorSettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -204,6 +208,10 @@ const App = () => (
             <Route path="/admin/control/ai/journalist" element={<AIJournalistPage />} />
             <Route path="/admin/control/ai/journalist/topics" element={<AIJournalistTopicsPage />} />
             <Route path="/admin/control/ai/journalist/log" element={<AIJournalistLogPage />} />
+            <Route path="/admin/control/ai/front-editor" element={<AIFrontEditorPage />} />
+            <Route path="/admin/control/ai/front-editor/suggestions" element={<AIFrontEditorSuggestionsPage />} />
+            <Route path="/admin/control/ai/front-editor/log" element={<AIFrontEditorLogPage />} />
+            <Route path="/admin/control/ai/front-editor/settings" element={<AIFrontEditorSettingsPage />} />
             <Route path="/admin/holding" element={<HoldingDashboard />} />
             <Route path="/admin/holding/cities" element={<HoldingCitiesPage />} />
             <Route path="/admin/holding/news" element={<HoldingNewsPage />} />
