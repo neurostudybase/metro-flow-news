@@ -89,6 +89,10 @@ import HoldingModerationPage from "./pages/admin/holding/HoldingModerationPage";
 import HoldingCalendarPage from "./pages/admin/holding/HoldingCalendarPage";
 import HoldingAnalyticsPage from "./pages/admin/holding/HoldingAnalyticsPage";
 import CreateCityPage from "./pages/admin/holding/CreateCityPage";
+import HoldingGrowthPage from "./pages/admin/holding/growth/HoldingGrowthPage";
+import GrowthCitiesPage from "./pages/admin/holding/growth/GrowthCitiesPage";
+import GrowthSuggestionsPage from "./pages/admin/holding/growth/GrowthSuggestionsPage";
+import GrowthAnalyticsPage from "./pages/admin/holding/growth/GrowthAnalyticsPage";
 
 const queryClient = new QueryClient();
 
