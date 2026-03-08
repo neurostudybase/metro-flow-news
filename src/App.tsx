@@ -88,6 +88,7 @@ import HoldingAINewsPage from "./pages/admin/holding/HoldingAINewsPage";
 import HoldingModerationPage from "./pages/admin/holding/HoldingModerationPage";
 import HoldingCalendarPage from "./pages/admin/holding/HoldingCalendarPage";
 import HoldingAnalyticsPage from "./pages/admin/holding/HoldingAnalyticsPage";
+import CreateCityPage from "./pages/admin/holding/CreateCityPage";
 
 const queryClient = new QueryClient();
 
@@ -188,6 +189,7 @@ const App = () => (
             <Route path="/admin/holding/moderation" element={<HoldingModerationPage />} />
             <Route path="/admin/holding/calendar" element={<HoldingCalendarPage />} />
             <Route path="/admin/holding/analytics" element={<HoldingAnalyticsPage />} />
+            <Route path="/admin/holding/create-city" element={<CreateCityPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
