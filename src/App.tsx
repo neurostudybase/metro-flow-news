@@ -56,6 +56,14 @@ import ControlTasksPage from "./pages/admin/control/ControlTasksPage";
 import ControlLogPage from "./pages/admin/control/ControlLogPage";
 import AICommandCenter from "./pages/admin/control/AICommandCenter";
 import GrowthEnginePage from "./pages/admin/control/GrowthEnginePage";
+import GrowthTopicsPage from "./pages/admin/control/growth/GrowthTopicsPage";
+import GrowthArticlesPage from "./pages/admin/control/growth/GrowthArticlesPage";
+import GrowthTrendsPage from "./pages/admin/control/growth/GrowthTrendsPage";
+import GrowthCalendarPage from "./pages/admin/control/growth/GrowthCalendarPage";
+import GrowthSEOPagesPage from "./pages/admin/control/growth/GrowthSEOPagesPage";
+import GrowthLinkingPage from "./pages/admin/control/growth/GrowthLinkingPage";
+import GrowthPredictionsPage from "./pages/admin/control/growth/GrowthPredictionsPage";
+import ControlPromptsPage from "./pages/admin/control/ControlPromptsPage";
 
 const queryClient = new QueryClient();
 
