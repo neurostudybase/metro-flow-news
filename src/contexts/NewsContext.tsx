@@ -1,76 +1,63 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { articles as staticArticles, categories, coverImages, type Article } from '@/data/mockData';
 
-interface PublishedNewsItem {
+export type NewsStatus = 'draft' | 'pending_review' | 'published' | 'rejected';
+
+export interface AINewsItem {
   id: string;
   title: string;
+  description: string;
   content: string;
+  image: string;
   category: string;
-  imageUrl?: string;
+  tags: string[];
   source: string;
-  seoTitle?: string;
-  seoDescription?: string;
-  tags?: string[];
-  publishedAt: string;
+  sourceUrl: string;
+  status: NewsStatus;
+  seoTitle: string;
+  seoDescription: string;
+  createdAt: string;
+  publishedAt: string | null;
 }
 
 interface NewsContextType {
-  allArticles: Article[];
-  publishedAiNews: PublishedNewsItem[];
-  publishNews: (item: Omit<PublishedNewsItem, 'id' | 'publishedAt'>) => void;
+  newsItems: AINewsItem[];
+  publishNews: (item: Omit<AINewsItem, 'id' | 'createdAt' | 'publishedAt' | 'status'> & { status?: NewsStatus }) => void;
+  updateNewsStatus: (id: string, status: NewsStatus) => void;
+  deleteNews: (id: string) => void;
 }
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
 
-// Map Russian category names to internal category IDs
-const CATEGORY_MAP: Record<string, string> = {
-  'Новости': 'news',
-  'Город': 'city',
-  'Происшествия': 'incidents',
-  'Бизнес': 'business',
-  'Спорт': 'sports',
-  'Культура': 'culture',
-  'Политика': 'politics',
-  'Общество': 'society',
-};
-
 export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [publishedAiNews, setPublishedAiNews] = useState<PublishedNewsItem[]>([]);
+  const [newsItems, setNewsItems] = useState<AINewsItem[]>([]);
 
-  const publishNews = useCallback((item: Omit<PublishedNewsItem, 'id' | 'publishedAt'>) => {
-    const newItem: PublishedNewsItem = {
+  const publishNews = useCallback((item: Omit<AINewsItem, 'id' | 'createdAt' | 'publishedAt' | 'status'> & { status?: NewsStatus }) => {
+    const now = new Date().toISOString();
+    const status = item.status || 'published';
+    const newItem: AINewsItem = {
       ...item,
       id: `ai-news-${Date.now()}`,
-      publishedAt: new Date().toISOString(),
+      status,
+      createdAt: now,
+      publishedAt: status === 'published' ? now : null,
     };
-    setPublishedAiNews(prev => [newItem, ...prev]);
+    setNewsItems(prev => [newItem, ...prev]);
   }, []);
 
-  // Convert AI-published news to Article format and merge with static articles
-  const aiArticles: Article[] = publishedAiNews.map((news, i) => ({
-    id: news.id,
-    title: news.title,
-    slug: news.id,
-    excerpt: news.content.slice(0, 200) + '...',
-    categoryId: CATEGORY_MAP[news.category] || 'news',
-    authorId: 'a1', // AI author
-    publishedAt: news.publishedAt,
-    views: 0,
-    commentsCount: 0,
-    coverIndex: i % 6,
-    isBreaking: i === 0 && publishedAiNews.length <= 3, // First AI news is breaking
-    isTop: false,
-    isRecommended: false,
-    isOpinion: false,
-    isReportage: false,
-  }));
+  const updateNewsStatus = useCallback((id: string, status: NewsStatus) => {
+    setNewsItems(prev => prev.map(n =>
+      n.id === id
+        ? { ...n, status, publishedAt: status === 'published' ? new Date().toISOString() : n.publishedAt }
+        : n
+    ));
+  }, []);
 
-  const allArticles = [...aiArticles, ...staticArticles].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
+  const deleteNews = useCallback((id: string) => {
+    setNewsItems(prev => prev.filter(n => n.id !== id));
+  }, []);
 
   return (
-    <NewsContext.Provider value={{ allArticles, publishedAiNews, publishNews }}>
+    <NewsContext.Provider value={{ newsItems, publishNews, updateNewsStatus, deleteNews }}>
       {children}
     </NewsContext.Provider>
   );
