@@ -132,6 +132,14 @@ const App = () => (
             <Route path="/admin/control/log" element={<ControlLogPage />} />
             <Route path="/admin/control/ai" element={<AICommandCenter />} />
             <Route path="/admin/control/growth" element={<GrowthEnginePage />} />
+            <Route path="/admin/control/growth/topics" element={<GrowthTopicsPage />} />
+            <Route path="/admin/control/growth/articles" element={<GrowthArticlesPage />} />
+            <Route path="/admin/control/growth/trends" element={<GrowthTrendsPage />} />
+            <Route path="/admin/control/growth/calendar" element={<GrowthCalendarPage />} />
+            <Route path="/admin/control/growth/seo-pages" element={<GrowthSEOPagesPage />} />
+            <Route path="/admin/control/growth/linking" element={<GrowthLinkingPage />} />
+            <Route path="/admin/control/growth/predictions" element={<GrowthPredictionsPage />} />
+            <Route path="/admin/control/prompts" element={<ControlPromptsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
