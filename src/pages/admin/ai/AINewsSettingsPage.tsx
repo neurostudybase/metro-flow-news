@@ -104,6 +104,21 @@ const AINewsSettingsPage = () => {
           </div>
         </div>
 
+        {/* Images */}
+        <div className="bg-card border border-border rounded-lg p-5 mb-4">
+          <h2 className="font-semibold text-sm mb-4">Изображения</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div><Label className="text-sm">Использовать изображение из источника</Label><p className="text-xs text-muted-foreground">Извлекать основное изображение из оригинальной статьи</p></div>
+              <Switch checked={s.useSourceImage} onCheckedChange={v => update('useSourceImage', v)} />
+            </div>
+            <div className="flex items-center justify-between">
+              <div><Label className="text-sm">Stock image как fallback</Label><p className="text-xs text-muted-foreground">Если изображение не найдено — подобрать stock</p></div>
+              <Switch checked={s.useStockImageFallback} onCheckedChange={v => update('useStockImageFallback', v)} />
+            </div>
+          </div>
+        </div>
+
         {/* Control */}
         <div className="bg-card border border-border rounded-lg p-5 mb-4">
           <h2 className="font-semibold text-sm mb-4">Контроль</h2>
