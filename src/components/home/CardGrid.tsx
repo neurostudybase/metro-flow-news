@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
-import { coverImages, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
-import { useNews } from '@/contexts/NewsContext';
+import { articles, coverImages, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
 import { Eye, MessageSquare } from 'lucide-react';
 
 const CardGrid = () => {
-  const { allArticles } = useNews();
-  const gridArticles = allArticles.filter(a => !a.isTop && !a.isBreaking).slice(0, 8);
+  const gridArticles = articles.filter(a => !a.isTop && !a.isBreaking).slice(0, 8);
 
   return (
     <div className="mb-5">

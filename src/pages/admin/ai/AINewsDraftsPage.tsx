@@ -67,16 +67,18 @@ const AINewsDraftsPage = () => {
     setDrafts(prev => prev.map(d => d.id === draft.id ? { ...d, status: 'published' as const } : d));
     publishNews({
       title: draft.title,
+      description: draft.content.slice(0, 200),
       content: draft.content,
+      image: draft.imageUrl,
       category: draft.category,
-      imageUrl: draft.imageUrl,
       source: draft.source,
+      sourceUrl: '',
       seoTitle: draft.seoTitle,
       seoDescription: draft.seoDescription,
       tags: draft.tags,
     });
     addLog({ moduleId: 'news', action: 'Публикация новости', details: `"${draft.title}"`, result: 'success' });
-    toast({ title: '✅ Опубликовано на портале', description: `${draft.title} — новость появилась на главной` });
+    toast({ title: '✅ Опубликовано', description: `${draft.title} — новость сохранена со статусом "Опубликовано"` });
   };
 
   const handleRewrite = (draft: Draft) => {

@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
-import { formatTime } from '@/data/mockData';
-import { useNews } from '@/contexts/NewsContext';
+import { articles, formatTime } from '@/data/mockData';
 import { Eye } from 'lucide-react';
 
 const Top5Section = () => {
-  const { allArticles } = useNews();
-  const top5 = [...allArticles].sort((a, b) => b.views - a.views).slice(0, 5);
+  const top5 = [...articles].sort((a, b) => b.views - a.views).slice(0, 5);
 
   return (
     <div className="mb-5">
