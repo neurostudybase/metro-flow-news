@@ -96,6 +96,9 @@ import HoldingGrowthPage from "./pages/admin/holding/growth/HoldingGrowthPage";
 import GrowthCitiesPage from "./pages/admin/holding/growth/GrowthCitiesPage";
 import GrowthSuggestionsPage from "./pages/admin/holding/growth/GrowthSuggestionsPage";
 import GrowthAnalyticsPage from "./pages/admin/holding/growth/GrowthAnalyticsPage";
+import AIEditorQueuePage from "./pages/admin/control/ai/AIEditorQueuePage";
+import AIEditorLogPage from "./pages/admin/control/ai/AIEditorLogPage";
+import AIEditorSettingsPage from "./pages/admin/control/ai/AIEditorSettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -192,6 +195,9 @@ const App = () => (
             <Route path="/admin/control/editorial/tasks" element={<EditorialTasksPage />} />
             <Route path="/admin/control/editorial/log" element={<EditorialLogPage />} />
             <Route path="/admin/control/cities" element={<CitiesPage />} />
+            <Route path="/admin/control/ai/editor" element={<AIEditorQueuePage />} />
+            <Route path="/admin/control/ai/editor-log" element={<AIEditorLogPage />} />
+            <Route path="/admin/control/ai/editor-settings" element={<AIEditorSettingsPage />} />
             <Route path="/admin/holding" element={<HoldingDashboard />} />
             <Route path="/admin/holding/cities" element={<HoldingCitiesPage />} />
             <Route path="/admin/holding/news" element={<HoldingNewsPage />} />
