@@ -72,6 +72,13 @@ import NewsHunterQueuePage from "./pages/admin/control/news-hunter/NewsHunterQue
 import NewsHunterLogPage from "./pages/admin/control/news-hunter/NewsHunterLogPage";
 import NewsHunterSettingsPage from "./pages/admin/control/news-hunter/NewsHunterSettingsPage";
 import DraftEditPage from "./pages/admin/control/news/DraftEditPage";
+import EditorialDashboard from "./pages/admin/control/editorial/EditorialDashboard";
+import EditorialQueuePage from "./pages/admin/control/editorial/EditorialQueuePage";
+import EditorialArticlePage from "./pages/admin/control/editorial/EditorialArticlePage";
+import EditorialCalendarPage from "./pages/admin/control/editorial/EditorialCalendarPage";
+import EditorialTopicsPage from "./pages/admin/control/editorial/EditorialTopicsPage";
+import EditorialTasksPage from "./pages/admin/control/editorial/EditorialTasksPage";
+import EditorialLogPage from "./pages/admin/control/editorial/EditorialLogPage";
 
 const queryClient = new QueryClient();
 
