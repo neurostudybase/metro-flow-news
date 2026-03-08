@@ -13,6 +13,7 @@ const sections = [
   { label: 'Опубликованные', desc: 'Одобренные и опубликованные новости', icon: CheckCircle, to: '/admin/control/news/published', count: MOCK_QUEUE.filter(n => n.status === 'published').length + ' опубл.' },
   { label: 'Источники', desc: 'RSS, API, сайты', icon: Globe, to: '/admin/control/news/sources' },
   { label: 'Промпты', desc: 'Шаблоны инструкций для AI', icon: MessageSquare, to: '/admin/control/news/prompts' },
+  { label: 'Журнал действий', desc: 'Лог всех редакционных операций', icon: ScrollText, to: '/admin/control/news/log' },
   { label: 'Настройки', desc: 'Параметры AI News System', icon: Settings, to: '/admin/control/news/settings' },
 ];
 
