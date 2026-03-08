@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
-import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const menuItems = [
@@ -10,6 +10,7 @@ const menuItems = [
   { label: 'Пользователи', to: '/admin/users', icon: Users },
   { label: 'Объявления', to: '/admin/ads', icon: FileText },
   { label: 'Контент', to: '/admin/content', icon: Newspaper },
+  { label: 'AI Управление', to: '/admin/ai', icon: Bot },
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {

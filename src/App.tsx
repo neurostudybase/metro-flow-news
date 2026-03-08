@@ -21,6 +21,17 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminAdsPage from "./pages/admin/AdminAdsPage";
 import AdminContentPage from "./pages/admin/AdminContentPage";
+import AIDashboardPage from "./pages/admin/ai/AIDashboardPage";
+import AINewsPage from "./pages/admin/ai/AINewsPage";
+import AIModerationPage from "./pages/admin/ai/AIModerationPage";
+import AISEOPage from "./pages/admin/ai/AISEOPage";
+import AIContentPage from "./pages/admin/ai/AIContentPage";
+import AIAnalyticsPage from "./pages/admin/ai/AIAnalyticsPage";
+import AISecurityPage from "./pages/admin/ai/AISecurityPage";
+import AITasksPage from "./pages/admin/ai/AITasksPage";
+import AISettingsPage from "./pages/admin/ai/AISettingsPage";
+import AILogPage from "./pages/admin/ai/AILogPage";
+import { AIProvider } from "./contexts/AIContext";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +40,7 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <ListingsProvider>
+        <AIProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -48,9 +60,20 @@ const App = () => (
             <Route path="/admin/users" element={<AdminUsersPage />} />
             <Route path="/admin/ads" element={<AdminAdsPage />} />
             <Route path="/admin/content" element={<AdminContentPage />} />
+            <Route path="/admin/ai" element={<AIDashboardPage />} />
+            <Route path="/admin/ai/news" element={<AINewsPage />} />
+            <Route path="/admin/ai/moderation" element={<AIModerationPage />} />
+            <Route path="/admin/ai/seo" element={<AISEOPage />} />
+            <Route path="/admin/ai/content" element={<AIContentPage />} />
+            <Route path="/admin/ai/analytics" element={<AIAnalyticsPage />} />
+            <Route path="/admin/ai/security" element={<AISecurityPage />} />
+            <Route path="/admin/ai/tasks" element={<AITasksPage />} />
+            <Route path="/admin/ai/settings" element={<AISettingsPage />} />
+            <Route path="/admin/ai/log" element={<AILogPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        </AIProvider>
         </ListingsProvider>
       </AuthProvider>
     </TooltipProvider>
