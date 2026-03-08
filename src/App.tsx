@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ListingsProvider } from "@/contexts/ListingsContext";
 import { NewsProvider } from "@/contexts/NewsContext";
+import { CityProvider } from "@/contexts/CityContext";
 import Index from "./pages/Index";
 import ArticlePage from "./pages/ArticlePage";
 import CategoryPage from "./pages/CategoryPage";
@@ -79,6 +80,7 @@ import EditorialCalendarPage from "./pages/admin/control/editorial/EditorialCale
 import EditorialTopicsPage from "./pages/admin/control/editorial/EditorialTopicsPage";
 import EditorialTasksPage from "./pages/admin/control/editorial/EditorialTasksPage";
 import EditorialLogPage from "./pages/admin/control/editorial/EditorialLogPage";
+import CitiesPage from "./pages/admin/control/cities/CitiesPage";
 
 const queryClient = new QueryClient();
 
@@ -88,6 +90,7 @@ const App = () => (
       <AuthProvider>
         <ListingsProvider>
         <NewsProvider>
+        <CityProvider>
         <AIProvider>
         <Toaster />
         <Sonner />
@@ -170,11 +173,12 @@ const App = () => (
             <Route path="/admin/control/editorial/topics" element={<EditorialTopicsPage />} />
             <Route path="/admin/control/editorial/tasks" element={<EditorialTasksPage />} />
             <Route path="/admin/control/editorial/log" element={<EditorialLogPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/admin/control/cities" element={<CitiesPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         </AIProvider>
+        </CityProvider>
         </NewsProvider>
         </ListingsProvider>
       </AuthProvider>
