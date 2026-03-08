@@ -81,6 +81,13 @@ import EditorialTopicsPage from "./pages/admin/control/editorial/EditorialTopics
 import EditorialTasksPage from "./pages/admin/control/editorial/EditorialTasksPage";
 import EditorialLogPage from "./pages/admin/control/editorial/EditorialLogPage";
 import CitiesPage from "./pages/admin/control/cities/CitiesPage";
+import HoldingDashboard from "./pages/admin/holding/HoldingDashboard";
+import HoldingCitiesPage from "./pages/admin/holding/HoldingCitiesPage";
+import HoldingNewsPage from "./pages/admin/holding/HoldingNewsPage";
+import HoldingAINewsPage from "./pages/admin/holding/HoldingAINewsPage";
+import HoldingModerationPage from "./pages/admin/holding/HoldingModerationPage";
+import HoldingCalendarPage from "./pages/admin/holding/HoldingCalendarPage";
+import HoldingAnalyticsPage from "./pages/admin/holding/HoldingAnalyticsPage";
 
 const queryClient = new QueryClient();
 
