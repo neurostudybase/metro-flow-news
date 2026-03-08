@@ -95,6 +95,43 @@ const AISettingsPage = () => {
           </div>
         </div>
 
+        {/* AI Roles Table */}
+        <div className="bg-card border border-border rounded-lg p-5 mb-6">
+          <h2 className="font-semibold text-sm mb-4">Распределение нейросетей по задачам</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 text-xs text-muted-foreground font-medium">Нейросеть</th>
+                  <th className="text-left py-2 text-xs text-muted-foreground font-medium">Задачи</th>
+                  <th className="text-left py-2 text-xs text-muted-foreground font-medium">API-ключ</th>
+                  <th className="text-left py-2 text-xs text-muted-foreground font-medium">Статус</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-border">
+                  <td className="py-2 font-medium text-sm">OpenAI</td>
+                  <td className="py-2 text-xs text-muted-foreground">Генерация новостей, заголовки, анонсы, SEO-блоки, переписывание коротких текстов</td>
+                  <td className="py-2 text-xs">{apiKeys.openai ? <span className="text-green-600">Введён</span> : <span className="text-muted-foreground">Не введён</span>}</td>
+                  <td className="py-2 text-xs">{apiKeys.openai ? <span className="text-green-600">● Активен</span> : <span className="text-muted-foreground">○ Неактивен</span>}</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-2 font-medium text-sm">Claude</td>
+                  <td className="py-2 text-xs text-muted-foreground">Длинные новости, редактура, аналитические материалы, проверка логики, сложные задачи</td>
+                  <td className="py-2 text-xs">{apiKeys.claude ? <span className="text-green-600">Введён</span> : <span className="text-muted-foreground">Не введён</span>}</td>
+                  <td className="py-2 text-xs">{apiKeys.claude ? <span className="text-green-600">● Активен</span> : <span className="text-muted-foreground">○ Неактивен</span>}</td>
+                </tr>
+                <tr>
+                  <td className="py-2 font-medium text-sm">Perplexity</td>
+                  <td className="py-2 text-xs text-muted-foreground">Поиск информации, анализ источников, проверка новостной повестки, поиск инфоповодов</td>
+                  <td className="py-2 text-xs">{apiKeys.perplexity ? <span className="text-green-600">Введён</span> : <span className="text-muted-foreground">Не введён</span>}</td>
+                  <td className="py-2 text-xs">{apiKeys.perplexity ? <span className="text-green-600">● Активен</span> : <span className="text-muted-foreground">○ Неактивен</span>}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         {/* Per module */}
         <h2 className="font-semibold text-sm mb-3">Настройки модулей</h2>
         <div className="space-y-4">
