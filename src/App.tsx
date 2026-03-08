@@ -208,6 +208,10 @@ const App = () => (
             <Route path="/admin/control/ai/journalist" element={<AIJournalistPage />} />
             <Route path="/admin/control/ai/journalist/topics" element={<AIJournalistTopicsPage />} />
             <Route path="/admin/control/ai/journalist/log" element={<AIJournalistLogPage />} />
+            <Route path="/admin/control/ai/front-editor" element={<AIFrontEditorPage />} />
+            <Route path="/admin/control/ai/front-editor/suggestions" element={<AIFrontEditorSuggestionsPage />} />
+            <Route path="/admin/control/ai/front-editor/log" element={<AIFrontEditorLogPage />} />
+            <Route path="/admin/control/ai/front-editor/settings" element={<AIFrontEditorSettingsPage />} />
             <Route path="/admin/holding" element={<HoldingDashboard />} />
             <Route path="/admin/holding/cities" element={<HoldingCitiesPage />} />
             <Route path="/admin/holding/news" element={<HoldingNewsPage />} />
