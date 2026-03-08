@@ -66,6 +66,10 @@ import GrowthPredictionsPage from "./pages/admin/control/growth/GrowthPrediction
 import ControlPromptsPage from "./pages/admin/control/ControlPromptsPage";
 import MapPage from "./pages/MapPage";
 import ControlMapPage from "./pages/admin/control/ControlMapPage";
+import NewsHunterPage from "./pages/admin/control/news-hunter/NewsHunterPage";
+import NewsHunterQueuePage from "./pages/admin/control/news-hunter/NewsHunterQueuePage";
+import NewsHunterLogPage from "./pages/admin/control/news-hunter/NewsHunterLogPage";
+import NewsHunterSettingsPage from "./pages/admin/control/news-hunter/NewsHunterSettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -144,6 +148,11 @@ const App = () => (
             <Route path="/admin/control/growth/predictions" element={<GrowthPredictionsPage />} />
             <Route path="/admin/control/prompts" element={<ControlPromptsPage />} />
             <Route path="/admin/control/map" element={<ControlMapPage />} />
+            <Route path="/admin/control/news-hunter" element={<NewsHunterPage />} />
+            <Route path="/admin/control/news-hunter/queue" element={<NewsHunterQueuePage />} />
+            <Route path="/admin/control/news-hunter/log" element={<NewsHunterLogPage />} />
+            <Route path="/admin/control/news-hunter/settings" element={<NewsHunterSettingsPage />} />
+            <Route path="*" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
