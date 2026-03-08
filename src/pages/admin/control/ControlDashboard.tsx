@@ -148,7 +148,6 @@ const ControlDashboard = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
 
           {/* Growth Engine */}
           <Card className="relative">
