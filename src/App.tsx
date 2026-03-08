@@ -64,6 +64,8 @@ import GrowthSEOPagesPage from "./pages/admin/control/growth/GrowthSEOPagesPage"
 import GrowthLinkingPage from "./pages/admin/control/growth/GrowthLinkingPage";
 import GrowthPredictionsPage from "./pages/admin/control/growth/GrowthPredictionsPage";
 import ControlPromptsPage from "./pages/admin/control/ControlPromptsPage";
+import MapPage from "./pages/MapPage";
+import ControlMapPage from "./pages/admin/control/ControlMapPage";
 
 const queryClient = new QueryClient();
 
