@@ -64,6 +64,8 @@ import GrowthSEOPagesPage from "./pages/admin/control/growth/GrowthSEOPagesPage"
 import GrowthLinkingPage from "./pages/admin/control/growth/GrowthLinkingPage";
 import GrowthPredictionsPage from "./pages/admin/control/growth/GrowthPredictionsPage";
 import ControlPromptsPage from "./pages/admin/control/ControlPromptsPage";
+import MapPage from "./pages/MapPage";
+import ControlMapPage from "./pages/admin/control/ControlMapPage";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +80,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/map" element={<MapPage />} />
             <Route path="/article/:slug" element={<ArticlePage />} />
             <Route path="/category/:slug" element={<CategoryPage />} />
             <Route path="/obyavleniya" element={<ObyavleniyaPage />} />
@@ -140,6 +143,7 @@ const App = () => (
             <Route path="/admin/control/growth/linking" element={<GrowthLinkingPage />} />
             <Route path="/admin/control/growth/predictions" element={<GrowthPredictionsPage />} />
             <Route path="/admin/control/prompts" element={<ControlPromptsPage />} />
+            <Route path="/admin/control/map" element={<ControlMapPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
