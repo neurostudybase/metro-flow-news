@@ -1,5 +1,6 @@
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useAI } from '@/contexts/AIContext';
+import { useNews } from '@/contexts/NewsContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -53,6 +54,7 @@ const AINewsDraftsPage = () => {
   const [search, setSearch] = useState('');
   const { toast } = useToast();
   const { addLog } = useAI();
+  const { publishNews } = useNews();
 
   const filtered = drafts.filter(d => {
     if (filterStatus !== 'all' && d.status !== filterStatus) return false;
@@ -63,8 +65,18 @@ const AINewsDraftsPage = () => {
 
   const handlePublish = (draft: Draft) => {
     setDrafts(prev => prev.map(d => d.id === draft.id ? { ...d, status: 'published' as const } : d));
+    publishNews({
+      title: draft.title,
+      content: draft.content,
+      category: draft.category,
+      imageUrl: draft.imageUrl,
+      source: draft.source,
+      seoTitle: draft.seoTitle,
+      seoDescription: draft.seoDescription,
+      tags: draft.tags,
+    });
     addLog({ moduleId: 'news', action: 'Публикация новости', details: `"${draft.title}"`, result: 'success' });
-    toast({ title: 'Опубликовано', description: draft.title });
+    toast({ title: '✅ Опубликовано на портале', description: `${draft.title} — новость появилась на главной` });
   };
 
   const handleRewrite = (draft: Draft) => {

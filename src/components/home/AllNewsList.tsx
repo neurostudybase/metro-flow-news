@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { articles, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { useNews } from '@/contexts/NewsContext';
 
 const AllNewsList = () => {
-  const sorted = [...articles].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+  const { allArticles } = useNews();
+  const sorted = allArticles;
 
   return (
     <div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { articles, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { useNews } from '@/contexts/NewsContext';
 import { Phone, Mail, Camera } from 'lucide-react';
 
 const tabs = [
@@ -12,10 +13,11 @@ const tabs = [
 
 const RightPanel = () => {
   const [activeTab, setActiveTab] = useState('main');
+  const { allArticles } = useNews();
 
   const getTabArticles = () => {
-    if (activeTab === 'main') return articles.slice(0, 10);
-    return articles.filter(a => a.categoryId === activeTab).slice(0, 10);
+    if (activeTab === 'main') return allArticles.slice(0, 10);
+    return allArticles.filter(a => a.categoryId === activeTab).slice(0, 10);
   };
 
   const tabArticles = getTabArticles();
@@ -82,7 +84,7 @@ const RightPanel = () => {
       <div className="bg-card rounded-lg p-4">
         <h3 className="font-bold text-sm mb-3">Популярное</h3>
         <div className="flex flex-col gap-2">
-          {articles.slice(0, 5).sort((a, b) => b.views - a.views).map((article, i) => (
+          {allArticles.slice(0, 5).sort((a, b) => b.views - a.views).map((article, i) => (
             <Link key={article.id} to={`/article/${article.slug}`} className="news-item flex items-start gap-2 py-1.5 px-1 rounded-sm">
               <span className="text-lg font-bold text-muted-foreground/40 leading-none mt-0.5">{i + 1}</span>
               <span className="text-sm leading-tight line-clamp-2">{article.title}</span>
