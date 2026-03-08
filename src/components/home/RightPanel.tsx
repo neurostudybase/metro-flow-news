@@ -13,10 +13,11 @@ const tabs = [
 
 const RightPanel = () => {
   const [activeTab, setActiveTab] = useState('main');
+  const { allArticles } = useNews();
 
   const getTabArticles = () => {
-    if (activeTab === 'main') return articles.slice(0, 10);
-    return articles.filter(a => a.categoryId === activeTab).slice(0, 10);
+    if (activeTab === 'main') return allArticles.slice(0, 10);
+    return allArticles.filter(a => a.categoryId === activeTab).slice(0, 10);
   };
 
   const tabArticles = getTabArticles();
