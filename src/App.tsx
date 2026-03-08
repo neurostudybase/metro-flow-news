@@ -102,6 +102,10 @@ import AIEditorSettingsPage from "./pages/admin/control/ai/AIEditorSettingsPage"
 import AIJournalistPage from "./pages/admin/control/ai/AIJournalistPage";
 import AIJournalistTopicsPage from "./pages/admin/control/ai/AIJournalistTopicsPage";
 import AIJournalistLogPage from "./pages/admin/control/ai/AIJournalistLogPage";
+import AIFrontEditorPage from "./pages/admin/control/ai/AIFrontEditorPage";
+import AIFrontEditorSuggestionsPage from "./pages/admin/control/ai/AIFrontEditorSuggestionsPage";
+import AIFrontEditorLogPage from "./pages/admin/control/ai/AIFrontEditorLogPage";
+import AIFrontEditorSettingsPage from "./pages/admin/control/ai/AIFrontEditorSettingsPage";
 
 const queryClient = new QueryClient();
 
