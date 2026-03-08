@@ -2,7 +2,9 @@ import { ReactNode, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
-import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut, Bot, Command } from 'lucide-react';
+import { useCity } from '@/contexts/CityContext';
+import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut, Bot, Command, Globe, MapPin } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
 const menuItems = [
@@ -16,6 +18,7 @@ const menuItems = [
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, isAdmin, logout } = useAuth();
+  const { cities, activeCity, setActiveCity } = useCity();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,6 +38,31 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
               <Shield className="w-4 h-4 text-primary" />
               <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Админ-панель</h2>
             </div>
+
+            {/* City Selector */}
+            <div className="mb-4 p-2 bg-secondary/50 rounded-md">
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <MapPin className="w-3 h-3 text-primary" />
+                <span className="text-[10px] font-medium text-muted-foreground uppercase">Город</span>
+              </div>
+              <Select value={activeCity.id} onValueChange={setActiveCity}>
+                <SelectTrigger className="h-8 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {cities.map(city => (
+                    <SelectItem key={city.id} value={city.id}>
+                      <span className="flex items-center gap-2">
+                        <span className={`w-1.5 h-1.5 rounded-full ${city.status === 'active' ? 'bg-green-500' : city.status === 'setup' ? 'bg-amber-500' : 'bg-muted-foreground'}`} />
+                        {city.name}
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <div className="text-[10px] text-muted-foreground mt-1">{activeCity.domain}</div>
+            </div>
+
             <ul className="space-y-1">
               {menuItems.map(item => {
                 const isActive = item.end
