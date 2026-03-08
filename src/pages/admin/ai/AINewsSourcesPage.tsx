@@ -61,7 +61,7 @@ const AINewsSourcesPage = () => {
     <AdminLayout>
       <div>
         <div className="flex items-center gap-3 mb-4">
-          <Link to="/admin/ai/news"><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Назад</Button></Link>
+          <Link to="/admin/control/news"><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Назад</Button></Link>
           <div className="flex-1">
             <h1 className="text-2xl font-bold flex items-center gap-2"><Rss className="w-6 h-6 text-primary" /> Источники новостей</h1>
             <p className="text-muted-foreground text-sm">RSS, API и сайты для сбора новостей</p>
