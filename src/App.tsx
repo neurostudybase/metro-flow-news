@@ -96,6 +96,9 @@ import HoldingGrowthPage from "./pages/admin/holding/growth/HoldingGrowthPage";
 import GrowthCitiesPage from "./pages/admin/holding/growth/GrowthCitiesPage";
 import GrowthSuggestionsPage from "./pages/admin/holding/growth/GrowthSuggestionsPage";
 import GrowthAnalyticsPage from "./pages/admin/holding/growth/GrowthAnalyticsPage";
+import AIEditorQueuePage from "./pages/admin/control/ai/AIEditorQueuePage";
+import AIEditorLogPage from "./pages/admin/control/ai/AIEditorLogPage";
+import AIEditorSettingsPage from "./pages/admin/control/ai/AIEditorSettingsPage";
 
 const queryClient = new QueryClient();
 
