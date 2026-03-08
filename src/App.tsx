@@ -31,6 +31,9 @@ import AISecurityPage from "./pages/admin/ai/AISecurityPage";
 import AITasksPage from "./pages/admin/ai/AITasksPage";
 import AISettingsPage from "./pages/admin/ai/AISettingsPage";
 import AILogPage from "./pages/admin/ai/AILogPage";
+import AINewsDraftsPage from "./pages/admin/ai/AINewsDraftsPage";
+import AINewsPublishedPage from "./pages/admin/ai/AINewsPublishedPage";
+import AINewsSourcesPage from "./pages/admin/ai/AINewsSourcesPage";
 import { AIProvider } from "./contexts/AIContext";
 
 const queryClient = new QueryClient();
@@ -62,6 +65,9 @@ const App = () => (
             <Route path="/admin/content" element={<AdminContentPage />} />
             <Route path="/admin/ai" element={<AIDashboardPage />} />
             <Route path="/admin/ai/news" element={<AINewsPage />} />
+            <Route path="/admin/ai/news/drafts" element={<AINewsDraftsPage />} />
+            <Route path="/admin/ai/news/published" element={<AINewsPublishedPage />} />
+            <Route path="/admin/ai/news/sources" element={<AINewsSourcesPage />} />
             <Route path="/admin/ai/moderation" element={<AIModerationPage />} />
             <Route path="/admin/ai/seo" element={<AISEOPage />} />
             <Route path="/admin/ai/content" element={<AIContentPage />} />

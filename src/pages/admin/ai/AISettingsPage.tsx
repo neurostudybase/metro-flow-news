@@ -1,26 +1,78 @@
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useAI } from '@/contexts/AIContext';
 import { AI_MODULE_LABELS } from '@/types/ai';
-import { Settings, Save } from 'lucide-react';
+import { Settings, Save, Key } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 
 const AISettingsPage = () => {
   const { modules, settings, updateModule, updateSettings } = useAI();
   const { toast } = useToast();
+  const [apiKeys, setApiKeys] = useState({
+    openai: '',
+    claude: '',
+    perplexity: '',
+  });
 
   const handleSave = () => {
     toast({ title: 'Настройки сохранены', description: 'Изменения применены ко всем AI-модулям' });
+  };
+
+  const handleApiKeySave = () => {
+    toast({ title: 'API-ключи сохранены', description: 'Ключи нейросетей обновлены' });
   };
 
   return (
     <AdminLayout>
       <div>
         <h1 className="text-2xl font-bold mb-1 flex items-center gap-2"><Settings className="w-6 h-6 text-primary" /> Настройки AI</h1>
-        <p className="text-muted-foreground mb-6">Управление параметрами AI-модулей и глобальные настройки</p>
+        <p className="text-muted-foreground mb-6">Управление параметрами AI-модулей, API-ключи и глобальные настройки</p>
+
+        {/* API Keys */}
+        <div className="bg-card border border-border rounded-lg p-5 mb-6">
+          <h2 className="font-semibold text-sm mb-4 flex items-center gap-2"><Key className="w-4 h-4 text-primary" /> API-ключи нейросетей</h2>
+          <div className="space-y-4">
+            <div>
+              <Label className="text-sm">OpenAI API Key</Label>
+              <p className="text-xs text-muted-foreground mb-1">Используется для: генерация новостей, редактирование текста, SEO</p>
+              <Input
+                type="password"
+                value={apiKeys.openai}
+                onChange={e => setApiKeys(p => ({ ...p, openai: e.target.value }))}
+                placeholder="sk-..."
+                className="max-w-md"
+              />
+            </div>
+            <div>
+              <Label className="text-sm">Claude API Key</Label>
+              <p className="text-xs text-muted-foreground mb-1">Используется для: аналитика, редактура, длинные тексты</p>
+              <Input
+                type="password"
+                value={apiKeys.claude}
+                onChange={e => setApiKeys(p => ({ ...p, claude: e.target.value }))}
+                placeholder="sk-ant-..."
+                className="max-w-md"
+              />
+            </div>
+            <div>
+              <Label className="text-sm">Perplexity API Key</Label>
+              <p className="text-xs text-muted-foreground mb-1">Используется для: поиск новостей, анализ источников</p>
+              <Input
+                type="password"
+                value={apiKeys.perplexity}
+                onChange={e => setApiKeys(p => ({ ...p, perplexity: e.target.value }))}
+                placeholder="pplx-..."
+                className="max-w-md"
+              />
+            </div>
+            <Button size="sm" onClick={handleApiKeySave}><Save className="w-4 h-4 mr-2" /> Сохранить ключи</Button>
+          </div>
+        </div>
 
         {/* Global */}
         <div className="bg-card border border-border rounded-lg p-5 mb-6">

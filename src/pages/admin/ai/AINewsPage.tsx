@@ -1,7 +1,8 @@
 import AdminLayout from '@/components/admin/AdminLayout';
 import { useAI } from '@/contexts/AIContext';
 import { Button } from '@/components/ui/button';
-import { Newspaper, FileText, PenLine, RefreshCw } from 'lucide-react';
+import { Newspaper, FileText, PenLine, RefreshCw, Rss, Send, Archive, Settings } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
 const NEWS_CATEGORIES = ['Город', 'Происшествия', 'Бизнес', 'Спорт', 'Культура', 'Общество'];
@@ -25,6 +26,22 @@ const AINewsPage = () => {
         <p className="text-muted-foreground mb-4">Подготовка черновиков новостей, заголовков, анонсов. Ничего не публикуется автоматически.</p>
         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mb-4 ${mod.enabled ? 'bg-green-100 text-green-700' : 'bg-muted text-muted-foreground'}`}>
           {mod.enabled ? '● Активен' : '○ Отключён'}
+        </div>
+
+        {/* Navigation cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+          <Link to="/admin/ai/news/drafts" className="bg-card border border-border rounded-lg p-4 hover:border-primary transition-colors">
+            <div className="flex items-center gap-2 mb-2"><Archive className="w-4 h-4 text-primary" /><span className="font-semibold text-sm">Черновики</span></div>
+            <p className="text-xs text-muted-foreground">Новости, подготовленные AI, ожидающие публикации</p>
+          </Link>
+          <Link to="/admin/ai/news/published" className="bg-card border border-border rounded-lg p-4 hover:border-primary transition-colors">
+            <div className="flex items-center gap-2 mb-2"><Send className="w-4 h-4 text-primary" /><span className="font-semibold text-sm">Опубликованные</span></div>
+            <p className="text-xs text-muted-foreground">Управление опубликованными новостями</p>
+          </Link>
+          <Link to="/admin/ai/news/sources" className="bg-card border border-border rounded-lg p-4 hover:border-primary transition-colors">
+            <div className="flex items-center gap-2 mb-2"><Rss className="w-4 h-4 text-primary" /><span className="font-semibold text-sm">Источники</span></div>
+            <p className="text-xs text-muted-foreground">RSS, API и сайты для сбора новостей</p>
+          </Link>
         </div>
 
         <div className="bg-card border border-border rounded-lg p-5 mb-6">
