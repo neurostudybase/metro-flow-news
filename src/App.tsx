@@ -66,6 +66,10 @@ import GrowthPredictionsPage from "./pages/admin/control/growth/GrowthPrediction
 import ControlPromptsPage from "./pages/admin/control/ControlPromptsPage";
 import MapPage from "./pages/MapPage";
 import ControlMapPage from "./pages/admin/control/ControlMapPage";
+import NewsHunterPage from "./pages/admin/control/news-hunter/NewsHunterPage";
+import NewsHunterQueuePage from "./pages/admin/control/news-hunter/NewsHunterQueuePage";
+import NewsHunterLogPage from "./pages/admin/control/news-hunter/NewsHunterLogPage";
+import NewsHunterSettingsPage from "./pages/admin/control/news-hunter/NewsHunterSettingsPage";
 
 const queryClient = new QueryClient();
 
