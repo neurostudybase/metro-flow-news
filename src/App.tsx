@@ -73,6 +73,9 @@ import NewsHunterQueuePage from "./pages/admin/control/news-hunter/NewsHunterQue
 import NewsHunterLogPage from "./pages/admin/control/news-hunter/NewsHunterLogPage";
 import NewsHunterSettingsPage from "./pages/admin/control/news-hunter/NewsHunterSettingsPage";
 import DraftEditPage from "./pages/admin/control/news/DraftEditPage";
+import NewsEditorPage from "./pages/admin/control/news/NewsEditorPage";
+import NewsListPage from "./pages/admin/control/news/NewsListPage";
+import EditorialLogFullPage from "./pages/admin/control/news/EditorialLogPage";
 import EditorialDashboard from "./pages/admin/control/editorial/EditorialDashboard";
 import EditorialQueuePage from "./pages/admin/control/editorial/EditorialQueuePage";
 import EditorialArticlePage from "./pages/admin/control/editorial/EditorialArticlePage";
