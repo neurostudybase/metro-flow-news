@@ -80,6 +80,7 @@ import EditorialCalendarPage from "./pages/admin/control/editorial/EditorialCale
 import EditorialTopicsPage from "./pages/admin/control/editorial/EditorialTopicsPage";
 import EditorialTasksPage from "./pages/admin/control/editorial/EditorialTasksPage";
 import EditorialLogPage from "./pages/admin/control/editorial/EditorialLogPage";
+import CitiesPage from "./pages/admin/control/cities/CitiesPage";
 
 const queryClient = new QueryClient();
 
