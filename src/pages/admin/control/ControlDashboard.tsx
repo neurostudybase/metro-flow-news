@@ -3,7 +3,7 @@ import { useAI } from '@/contexts/AIContext';
 import { Link } from 'react-router-dom';
 import { 
   Newspaper, Shield, Search, BarChart3, FileText, Brain, MapPin, 
-  Zap, RefreshCw, Eye, AlertTriangle, Settings
+  Zap, RefreshCw, Eye, AlertTriangle, Settings, TrendingUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
