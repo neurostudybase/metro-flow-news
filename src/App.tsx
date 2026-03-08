@@ -42,6 +42,18 @@ import AINewsPromptsPage from "./pages/admin/ai/AINewsPromptsPage";
 import AINewsSettingsPage from "./pages/admin/ai/AINewsSettingsPage";
 import AINewsLogPage from "./pages/admin/ai/AINewsLogPage";
 import { AIProvider } from "./contexts/AIContext";
+import ControlDashboard from "./pages/admin/control/ControlDashboard";
+import ControlNewsPage from "./pages/admin/control/ControlNewsPage";
+import ControlAdsPage from "./pages/admin/control/ControlAdsPage";
+import ControlSEOPage from "./pages/admin/control/ControlSEOPage";
+import ControlContentPage from "./pages/admin/control/ControlContentPage";
+import ControlAnalyticsPage from "./pages/admin/control/ControlAnalyticsPage";
+import ControlSecurityPage from "./pages/admin/control/ControlSecurityPage";
+import CityIntelligencePage from "./pages/admin/control/CityIntelligencePage";
+import AINetworksPage from "./pages/admin/control/AINetworksPage";
+import ControlAPIPage from "./pages/admin/control/ControlAPIPage";
+import ControlTasksPage from "./pages/admin/control/ControlTasksPage";
+import ControlLogPage from "./pages/admin/control/ControlLogPage";
 
 const queryClient = new QueryClient();
 
@@ -90,6 +102,24 @@ const App = () => (
             <Route path="/admin/ai/tasks" element={<AITasksPage />} />
             <Route path="/admin/ai/settings" element={<AISettingsPage />} />
             <Route path="/admin/ai/log" element={<AILogPage />} />
+            <Route path="/admin/control" element={<ControlDashboard />} />
+            <Route path="/admin/control/news" element={<ControlNewsPage />} />
+            <Route path="/admin/control/news/queue" element={<AINewsQueuePage />} />
+            <Route path="/admin/control/news/drafts" element={<AINewsDraftsPage />} />
+            <Route path="/admin/control/news/published" element={<AINewsPublishedPage />} />
+            <Route path="/admin/control/news/sources" element={<AINewsSourcesPage />} />
+            <Route path="/admin/control/news/prompts" element={<AINewsPromptsPage />} />
+            <Route path="/admin/control/news/settings" element={<AINewsSettingsPage />} />
+            <Route path="/admin/control/ads" element={<ControlAdsPage />} />
+            <Route path="/admin/control/seo" element={<ControlSEOPage />} />
+            <Route path="/admin/control/content" element={<ControlContentPage />} />
+            <Route path="/admin/control/analytics" element={<ControlAnalyticsPage />} />
+            <Route path="/admin/control/security" element={<ControlSecurityPage />} />
+            <Route path="/admin/control/city" element={<CityIntelligencePage />} />
+            <Route path="/admin/control/ai-networks" element={<AINetworksPage />} />
+            <Route path="/admin/control/api" element={<ControlAPIPage />} />
+            <Route path="/admin/control/tasks" element={<ControlTasksPage />} />
+            <Route path="/admin/control/log" element={<ControlLogPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
