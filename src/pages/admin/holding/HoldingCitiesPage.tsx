@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import HoldingLayout from '@/components/holding/HoldingLayout';
 import { useCity } from '@/contexts/CityContext';
-import { Globe } from 'lucide-react';
+import { Globe, Plus } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -11,10 +12,17 @@ const HoldingCitiesPage = () => {
   return (
     <HoldingLayout>
       <div>
-        <h1 className="text-2xl font-bold mb-1 flex items-center gap-2">
-          <Globe className="w-6 h-6 text-primary" /> Города холдинга
-        </h1>
-        <p className="text-muted-foreground mb-6">Управление сетью городских порталов</p>
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-bold mb-1 flex items-center gap-2">
+              <Globe className="w-6 h-6 text-primary" /> Города холдинга
+            </h1>
+            <p className="text-muted-foreground">Управление сетью городских порталов</p>
+          </div>
+          <Button asChild>
+            <Link to="/admin/holding/create-city"><Plus className="w-4 h-4 mr-2" /> Создать город</Link>
+          </Button>
+        </div>
 
         <div className="bg-card border border-border rounded-lg">
           <Table>

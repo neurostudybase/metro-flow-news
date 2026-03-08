@@ -189,6 +189,7 @@ const App = () => (
             <Route path="/admin/holding/moderation" element={<HoldingModerationPage />} />
             <Route path="/admin/holding/calendar" element={<HoldingCalendarPage />} />
             <Route path="/admin/holding/analytics" element={<HoldingAnalyticsPage />} />
+            <Route path="/admin/holding/create-city" element={<CreateCityPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
