@@ -143,6 +143,7 @@ const App = () => (
             <Route path="/admin/control/growth/linking" element={<GrowthLinkingPage />} />
             <Route path="/admin/control/growth/predictions" element={<GrowthPredictionsPage />} />
             <Route path="/admin/control/prompts" element={<ControlPromptsPage />} />
+            <Route path="/admin/control/map" element={<ControlMapPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
