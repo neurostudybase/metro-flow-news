@@ -141,6 +141,7 @@ const App = () => (
             <Route path="/cabinet/ads" element={<MyAdsPage />} />
             <Route path="/cabinet/new-listing" element={<NewListingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/map" element={<AdminMapPage />} />
             <Route path="/admin/users" element={<AdminUsersPage />} />
             <Route path="/admin/ads" element={<AdminAdsPage />} />
             <Route path="/admin/content" element={<AdminContentPage />} />
