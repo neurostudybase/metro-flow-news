@@ -106,6 +106,12 @@ import AIFrontEditorPage from "./pages/admin/control/ai/AIFrontEditorPage";
 import AIFrontEditorSuggestionsPage from "./pages/admin/control/ai/AIFrontEditorSuggestionsPage";
 import AIFrontEditorLogPage from "./pages/admin/control/ai/AIFrontEditorLogPage";
 import AIFrontEditorSettingsPage from "./pages/admin/control/ai/AIFrontEditorSettingsPage";
+import ContentAnalyticsDashboard from "./pages/admin/control/analytics/ContentAnalyticsDashboard";
+import TopNewsPage from "./pages/admin/control/analytics/TopNewsPage";
+import CategoriesAnalyticsPage from "./pages/admin/control/analytics/CategoriesAnalyticsPage";
+import CitiesAnalyticsPage from "./pages/admin/control/analytics/CitiesAnalyticsPage";
+import RecommendationsPage from "./pages/admin/control/analytics/RecommendationsPage";
+import AIContentAnalyticsPage from "./pages/admin/control/analytics/AIContentAnalyticsPage";
 
 const queryClient = new QueryClient();
 
