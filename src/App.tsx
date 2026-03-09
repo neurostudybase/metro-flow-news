@@ -96,6 +96,7 @@ import HoldingGrowthPage from "./pages/admin/holding/growth/HoldingGrowthPage";
 import GrowthCitiesPage from "./pages/admin/holding/growth/GrowthCitiesPage";
 import GrowthSuggestionsPage from "./pages/admin/holding/growth/GrowthSuggestionsPage";
 import GrowthAnalyticsPage from "./pages/admin/holding/growth/GrowthAnalyticsPage";
+import AdminMapPage from "./pages/admin/AdminMapPage";
 import AIEditorQueuePage from "./pages/admin/control/ai/AIEditorQueuePage";
 import AIEditorLogPage from "./pages/admin/control/ai/AIEditorLogPage";
 import AIEditorSettingsPage from "./pages/admin/control/ai/AIEditorSettingsPage";
@@ -140,6 +141,7 @@ const App = () => (
             <Route path="/cabinet/ads" element={<MyAdsPage />} />
             <Route path="/cabinet/new-listing" element={<NewListingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/map" element={<AdminMapPage />} />
             <Route path="/admin/users" element={<AdminUsersPage />} />
             <Route path="/admin/ads" element={<AdminAdsPage />} />
             <Route path="/admin/content" element={<AdminContentPage />} />

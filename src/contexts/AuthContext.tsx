@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-export type UserRole = 'user' | 'administrator';
+export type UserRole = 'user' | 'administrator' | 'super_admin';
 
 interface User {
   name: string;
@@ -14,6 +14,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isSuperAdmin: boolean;
   login: (email: string, password: string) => boolean;
   register: (name: string, email: string, password: string) => void;
   logout: () => void;
@@ -23,13 +24,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const mockUsers: Record<string, { password: string; user: User }> = {
   'info@tyumen.info': {
-    password: 'admin123',
+    password: 'Zxcvbnm777!',
     user: {
-      name: 'Администратор',
+      name: 'Главный администратор',
       email: 'info@tyumen.info',
       phone: '+7 (345) 000-00-01',
       city: 'Тюмень',
-      role: 'administrator',
+      role: 'super_admin',
     },
   },
 };
@@ -63,10 +64,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
-  const isAdmin = user?.role === 'administrator';
+  const isAdmin = user?.role === 'administrator' || user?.role === 'super_admin';
+  const isSuperAdmin = user?.role === 'super_admin';
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isAdmin, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isAdmin, isSuperAdmin, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
