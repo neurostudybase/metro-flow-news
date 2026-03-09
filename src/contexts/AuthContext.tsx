@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const isSuperAdmin = user?.role === 'super_admin';
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isAdmin, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isAdmin, isSuperAdmin, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
