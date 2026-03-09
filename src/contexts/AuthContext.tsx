@@ -14,6 +14,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isSuperAdmin: boolean;
   login: (email: string, password: string) => boolean;
   register: (name: string, email: string, password: string) => void;
   logout: () => void;
