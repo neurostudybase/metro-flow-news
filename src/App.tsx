@@ -178,7 +178,12 @@ const App = () => (
             <Route path="/admin/control/ads" element={<ControlAdsPage />} />
             <Route path="/admin/control/seo" element={<ControlSEOPage />} />
             <Route path="/admin/control/content" element={<ControlContentPage />} />
-            <Route path="/admin/control/analytics" element={<ControlAnalyticsPage />} />
+            <Route path="/admin/control/analytics" element={<ContentAnalyticsDashboard />} />
+            <Route path="/admin/control/analytics/top-news" element={<TopNewsPage />} />
+            <Route path="/admin/control/analytics/categories" element={<CategoriesAnalyticsPage />} />
+            <Route path="/admin/control/analytics/cities" element={<CitiesAnalyticsPage />} />
+            <Route path="/admin/control/analytics/recommendations" element={<RecommendationsPage />} />
+            <Route path="/admin/control/analytics/ai-content" element={<AIContentAnalyticsPage />} />
             <Route path="/admin/control/security" element={<ControlSecurityPage />} />
             <Route path="/admin/control/city" element={<CityIntelligencePage />} />
             <Route path="/admin/control/ai-networks" element={<AINetworksPage />} />
