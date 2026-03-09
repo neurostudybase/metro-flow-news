@@ -106,6 +106,12 @@ import AIFrontEditorPage from "./pages/admin/control/ai/AIFrontEditorPage";
 import AIFrontEditorSuggestionsPage from "./pages/admin/control/ai/AIFrontEditorSuggestionsPage";
 import AIFrontEditorLogPage from "./pages/admin/control/ai/AIFrontEditorLogPage";
 import AIFrontEditorSettingsPage from "./pages/admin/control/ai/AIFrontEditorSettingsPage";
+import ContentAnalyticsDashboard from "./pages/admin/control/analytics/ContentAnalyticsDashboard";
+import TopNewsPage from "./pages/admin/control/analytics/TopNewsPage";
+import CategoriesAnalyticsPage from "./pages/admin/control/analytics/CategoriesAnalyticsPage";
+import CitiesAnalyticsPage from "./pages/admin/control/analytics/CitiesAnalyticsPage";
+import RecommendationsPage from "./pages/admin/control/analytics/RecommendationsPage";
+import AIContentAnalyticsPage from "./pages/admin/control/analytics/AIContentAnalyticsPage";
 
 const queryClient = new QueryClient();
 
@@ -172,7 +178,12 @@ const App = () => (
             <Route path="/admin/control/ads" element={<ControlAdsPage />} />
             <Route path="/admin/control/seo" element={<ControlSEOPage />} />
             <Route path="/admin/control/content" element={<ControlContentPage />} />
-            <Route path="/admin/control/analytics" element={<ControlAnalyticsPage />} />
+            <Route path="/admin/control/analytics" element={<ContentAnalyticsDashboard />} />
+            <Route path="/admin/control/analytics/top-news" element={<TopNewsPage />} />
+            <Route path="/admin/control/analytics/categories" element={<CategoriesAnalyticsPage />} />
+            <Route path="/admin/control/analytics/cities" element={<CitiesAnalyticsPage />} />
+            <Route path="/admin/control/analytics/recommendations" element={<RecommendationsPage />} />
+            <Route path="/admin/control/analytics/ai-content" element={<AIContentAnalyticsPage />} />
             <Route path="/admin/control/security" element={<ControlSecurityPage />} />
             <Route path="/admin/control/city" element={<CityIntelligencePage />} />
             <Route path="/admin/control/ai-networks" element={<AINetworksPage />} />
