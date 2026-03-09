@@ -23,13 +23,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const mockUsers: Record<string, { password: string; user: User }> = {
   'info@tyumen.info': {
-    password: 'admin123',
+    password: 'Zxcvbnm777!',
     user: {
-      name: 'Администратор',
+      name: 'Главный администратор',
       email: 'info@tyumen.info',
       phone: '+7 (345) 000-00-01',
       city: 'Тюмень',
-      role: 'administrator',
+      role: 'super_admin',
     },
   },
 };
