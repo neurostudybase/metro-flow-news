@@ -96,6 +96,11 @@ import HoldingGrowthPage from "./pages/admin/holding/growth/HoldingGrowthPage";
 import GrowthCitiesPage from "./pages/admin/holding/growth/GrowthCitiesPage";
 import GrowthSuggestionsPage from "./pages/admin/holding/growth/GrowthSuggestionsPage";
 import GrowthAnalyticsPage from "./pages/admin/holding/growth/GrowthAnalyticsPage";
+import LauncherDashboard from "./pages/admin/holding/launcher/LauncherDashboard";
+import LauncherQueuePage from "./pages/admin/holding/launcher/LauncherQueuePage";
+import LauncherHistoryPage from "./pages/admin/holding/launcher/LauncherHistoryPage";
+import LauncherSettingsPage from "./pages/admin/holding/launcher/LauncherSettingsPage";
+import LauncherDetailPage from "./pages/admin/holding/launcher/LauncherDetailPage";
 import AdminMapPage from "./pages/admin/AdminMapPage";
 import AIEditorQueuePage from "./pages/admin/control/ai/AIEditorQueuePage";
 import AIEditorLogPage from "./pages/admin/control/ai/AIEditorLogPage";
@@ -237,6 +242,11 @@ const App = () => (
             <Route path="/admin/holding/growth/cities" element={<GrowthCitiesPage />} />
             <Route path="/admin/holding/growth/suggestions" element={<GrowthSuggestionsPage />} />
             <Route path="/admin/holding/growth/analytics" element={<GrowthAnalyticsPage />} />
+            <Route path="/admin/holding/launcher" element={<LauncherDashboard />} />
+            <Route path="/admin/holding/launcher/queue" element={<LauncherQueuePage />} />
+            <Route path="/admin/holding/launcher/history" element={<LauncherHistoryPage />} />
+            <Route path="/admin/holding/launcher/settings" element={<LauncherSettingsPage />} />
+            <Route path="/admin/holding/launcher/:id" element={<LauncherDetailPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
