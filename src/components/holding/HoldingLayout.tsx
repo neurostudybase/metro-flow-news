@@ -14,6 +14,7 @@ const menuItems = [
   { label: 'Календарь', to: '/admin/holding/calendar', icon: Calendar },
   { label: 'Аналитика', to: '/admin/holding/analytics', icon: BarChart3 },
   { label: 'Рост сети', to: '/admin/holding/growth', icon: TrendingUp },
+  { label: 'AI Запуск городов', to: '/admin/holding/launcher', icon: Rocket },
 ];
 
 const HoldingLayout = ({ children }: { children: ReactNode }) => {

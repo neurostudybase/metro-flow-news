@@ -242,6 +242,11 @@ const App = () => (
             <Route path="/admin/holding/growth/cities" element={<GrowthCitiesPage />} />
             <Route path="/admin/holding/growth/suggestions" element={<GrowthSuggestionsPage />} />
             <Route path="/admin/holding/growth/analytics" element={<GrowthAnalyticsPage />} />
+            <Route path="/admin/holding/launcher" element={<LauncherDashboard />} />
+            <Route path="/admin/holding/launcher/queue" element={<LauncherQueuePage />} />
+            <Route path="/admin/holding/launcher/history" element={<LauncherHistoryPage />} />
+            <Route path="/admin/holding/launcher/settings" element={<LauncherSettingsPage />} />
+            <Route path="/admin/holding/launcher/:id" element={<LauncherDetailPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
