@@ -3,11 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { MapPin, Camera, User, Star, PlusCircle, Megaphone, Search, ChevronDown, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { classifieds, type DealType, type PropertyType, type AutoType, type ServiceType, type JobType, type ElectronicsType } from '@/data/classifiedsData';
+import {
+  classifieds,
+  type DealType, type PropertyType, type AutoType, type ServiceType,
+  type JobType, type ElectronicsType, type HomeType, type KidsType,
+  type AnimalType, type HobbyType, type FreeType
+} from '@/data/classifiedsData';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const DISTRICTS = ['Центральный', 'Калининский', 'Ленинский', 'Восточный'];
-const CATEGORIES = ['Недвижимость', 'Авто', 'Услуги', 'Работа', 'Электроника', 'Дом и дача'];
+const CATEGORIES = ['Недвижимость', 'Авто', 'Услуги', 'Работа', 'Электроника', 'Дом и дача', 'Детский мир', 'Животные', 'Хобби и отдых', 'Отдам даром'];
 const PRICE_RANGES = [
   { label: 'До 1 000 ₽', min: 0, max: 1000 },
   { label: '1 000 – 10 000 ₽', min: 1000, max: 10000 },
@@ -94,12 +99,16 @@ const ObyavleniyaPage = () => {
 
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
 
+  // ===== SUBCATEGORY DEFINITIONS =====
+
   const REAL_ESTATE_SUBS: { label: string; dealType?: DealType; propertyType?: PropertyType }[] = [
     { label: 'Все в недвижимости' },
     { label: 'Купить', dealType: 'buy' },
     { label: 'Продать', dealType: 'sell' },
     { label: 'Снять', dealType: 'rent' },
     { label: 'Посуточно', dealType: 'daily' },
+    { label: 'Комнаты', propertyType: 'room' },
+    { label: 'Новостройки', propertyType: 'newbuilding' },
     { label: 'Коммерция', propertyType: 'commercial' },
     { label: 'Дома', propertyType: 'house' },
     { label: 'Участки', propertyType: 'land' },
@@ -109,23 +118,25 @@ const ObyavleniyaPage = () => {
   const AUTO_SUBS: { label: string; autoType?: AutoType }[] = [
     { label: 'Все в авто' },
     { label: 'Легковые', autoType: 'car' },
-    { label: 'Мото', autoType: 'moto' },
-    { label: 'Грузовики', autoType: 'truck' },
+    { label: 'Грузовые', autoType: 'truck' },
+    { label: 'Мотоциклы', autoType: 'moto' },
     { label: 'Спецтехника', autoType: 'special' },
     { label: 'Водный транспорт', autoType: 'water' },
-    { label: 'Запчасти', autoType: 'parts' },
-    { label: 'Шины и диски', autoType: 'tires' },
+    { label: 'Прицепы', autoType: 'trailer' },
+    { label: 'Автобусы', autoType: 'bus' },
   ];
 
   const SERVICE_SUBS: { label: string; serviceType?: ServiceType }[] = [
     { label: 'Все услуги' },
     { label: 'Ремонт и строительство', serviceType: 'repair' },
-    { label: 'Бытовые услуги', serviceType: 'household' },
+    { label: 'Автосервис', serviceType: 'autoservice' },
+    { label: 'Компьютерная помощь', serviceType: 'computer' },
     { label: 'Красота и здоровье', serviceType: 'beauty' },
-    { label: 'Перевозки и грузчики', serviceType: 'transport' },
-    { label: 'Обучение и репетиторы', serviceType: 'education' },
-    { label: 'IT и дизайн', serviceType: 'it' },
-    { label: 'Праздники и мероприятия', serviceType: 'events' },
+    { label: 'Перевозки', serviceType: 'transport' },
+    { label: 'Юридические услуги', serviceType: 'legal' },
+    { label: 'Репетиторы', serviceType: 'tutoring' },
+    { label: 'Фото и видео', serviceType: 'photo_video' },
+    { label: 'Реклама и маркетинг', serviceType: 'marketing' },
   ];
 
   const JOB_SUBS: { label: string; jobType?: JobType }[] = [
@@ -138,20 +149,75 @@ const ObyavleniyaPage = () => {
 
   const ELECTRONICS_SUBS: { label: string; electronicsType?: ElectronicsType }[] = [
     { label: 'Все в электронике' },
-    { label: 'Телефоны', electronicsType: 'phone' },
-    { label: 'Компьютеры', electronicsType: 'computer' },
-    { label: 'ТВ и аудио', electronicsType: 'tv_audio' },
-    { label: 'Фото и видео', electronicsType: 'photo_video' },
-    { label: 'Игры и приставки', electronicsType: 'gaming' },
-    { label: 'Оргтехника и расходники', electronicsType: 'office' },
-    { label: 'Планшеты и электронные книги', electronicsType: 'tablet_ebook' },
+    { label: 'Смартфоны', electronicsType: 'smartphones' },
+    { label: 'Ноутбуки', electronicsType: 'laptops' },
+    { label: 'Компьютеры', electronicsType: 'computers' },
+    { label: 'Телевизоры', electronicsType: 'tv' },
+    { label: 'Фотоаппараты', electronicsType: 'cameras' },
+    { label: 'Игровые приставки', electronicsType: 'gaming' },
+    { label: 'Аудиотехника', electronicsType: 'audio' },
   ];
 
-  const isRealEstateSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Недвижимость';
-  const isAutoSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Авто';
-  const isServicesSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Услуги';
-  const isJobSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Работа';
-  const isElectronicsSelected = selectedCategories.length === 1 && selectedCategories[0] === 'Электроника';
+  const HOME_SUBS: { label: string; homeType?: HomeType }[] = [
+    { label: 'Все для дома' },
+    { label: 'Мебель', homeType: 'furniture' },
+    { label: 'Бытовая техника', homeType: 'appliances' },
+    { label: 'Освещение', homeType: 'lighting' },
+    { label: 'Строительные материалы', homeType: 'construction' },
+    { label: 'Сад и огород', homeType: 'garden' },
+  ];
+
+  const KIDS_SUBS: { label: string; kidsType?: KidsType }[] = [
+    { label: 'Всё для детей' },
+    { label: 'Одежда', kidsType: 'clothes' },
+    { label: 'Игрушки', kidsType: 'toys' },
+    { label: 'Коляски', kidsType: 'strollers' },
+    { label: 'Кроватки', kidsType: 'beds' },
+    { label: 'Детский транспорт', kidsType: 'transport' },
+  ];
+
+  const ANIMAL_SUBS: { label: string; animalType?: AnimalType }[] = [
+    { label: 'Все животные' },
+    { label: 'Собаки', animalType: 'dogs' },
+    { label: 'Кошки', animalType: 'cats' },
+    { label: 'Птицы', animalType: 'birds' },
+    { label: 'Аквариумистика', animalType: 'aquarium' },
+    { label: 'Товары для животных', animalType: 'pet_goods' },
+  ];
+
+  const HOBBY_SUBS: { label: string; hobbyType?: HobbyType }[] = [
+    { label: 'Всё для отдыха' },
+    { label: 'Спорт', hobbyType: 'sport' },
+    { label: 'Туризм', hobbyType: 'tourism' },
+    { label: 'Рыбалка', hobbyType: 'fishing' },
+    { label: 'Музыкальные инструменты', hobbyType: 'music' },
+    { label: 'Коллекционирование', hobbyType: 'collection' },
+  ];
+
+  const FREE_SUBS: { label: string; freeType?: FreeType }[] = [
+    { label: 'Всё бесплатно' },
+    { label: 'Вещи', freeType: 'clothes' },
+    { label: 'Мебель', freeType: 'furniture' },
+    { label: 'Техника', freeType: 'tech' },
+    { label: 'Для животных', freeType: 'pets' },
+  ];
+
+  const activeCat = selectedCategories.length === 1 ? selectedCategories[0] : null;
+
+  const SUBS_MAP: Record<string, { subs: { label: string; [key: string]: any }[]; allLabel: string }> = {
+    'Недвижимость': { subs: REAL_ESTATE_SUBS, allLabel: 'Все в недвижимости' },
+    'Авто': { subs: AUTO_SUBS, allLabel: 'Все в авто' },
+    'Услуги': { subs: SERVICE_SUBS, allLabel: 'Все услуги' },
+    'Работа': { subs: JOB_SUBS, allLabel: 'Все вакансии' },
+    'Электроника': { subs: ELECTRONICS_SUBS, allLabel: 'Все в электронике' },
+    'Дом и дача': { subs: HOME_SUBS, allLabel: 'Все для дома' },
+    'Детский мир': { subs: KIDS_SUBS, allLabel: 'Всё для детей' },
+    'Животные': { subs: ANIMAL_SUBS, allLabel: 'Все животные' },
+    'Хобби и отдых': { subs: HOBBY_SUBS, allLabel: 'Всё для отдыха' },
+    'Отдам даром': { subs: FREE_SUBS, allLabel: 'Всё бесплатно' },
+  };
+
+  const hasSubcategories = activeCat !== null && activeCat in SUBS_MAP;
 
   const hasAnyFilter = selectedDistricts.length > 0 || selectedCategories.length > 0 || selectedPriceRanges.length > 0 || onlyWithPhoto || selectedSellerTypes.length > 0 || selectedConditions.length > 0 || selectedDateRange !== null || searchQuery.trim() !== '' || selectedSubcategory !== null;
 
@@ -168,21 +234,15 @@ const ObyavleniyaPage = () => {
     setSelectedSubcategory(null);
   }, []);
 
-  // Reset subcategory when switching away from subcategory-enabled category
+  // Reset subcategory when switching categories
   const prevCatRef = useRef(selectedCategories);
   useEffect(() => {
     const prev = prevCatRef.current;
-    const hadSubs = prev.length === 1 && (prev[0] === 'Недвижимость' || prev[0] === 'Авто' || prev[0] === 'Услуги' || prev[0] === 'Работа' || prev[0] === 'Электроника');
-    const hasSubs = isRealEstateSelected || isAutoSelected || isServicesSelected || isJobSelected || isElectronicsSelected;
-    if (hadSubs && !hasSubs) {
-      setSelectedSubcategory(null);
-    }
-    // Also reset when switching between subcategory categories
-    if (hadSubs && hasSubs && prev[0] !== selectedCategories[0]) {
+    if (prev[0] !== selectedCategories[0]) {
       setSelectedSubcategory(null);
     }
     prevCatRef.current = selectedCategories;
-  }, [selectedCategories, isRealEstateSelected, isAutoSelected, isServicesSelected, isJobSelected, isElectronicsSelected]);
+  }, [selectedCategories]);
 
   const toggleArray = (arr: string[], val: string) =>
     arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val];
@@ -211,44 +271,60 @@ const ObyavleniyaPage = () => {
       result = result.filter(c => c.daysAgo <= maxDays);
     }
 
-    // Subcategory filter (Недвижимость)
-    if (selectedSubcategory !== null && isRealEstateSelected) {
-      const sub = REAL_ESTATE_SUBS.find(s => s.label === selectedSubcategory);
-      if (sub) {
-        if (sub.dealType) result = result.filter(c => c.dealType === sub.dealType);
-        if (sub.propertyType) result = result.filter(c => c.propertyType === sub.propertyType);
-      }
-    }
-
-    // Subcategory filter (Авто)
-    if (selectedSubcategory !== null && isAutoSelected) {
-      const sub = AUTO_SUBS.find(s => s.label === selectedSubcategory);
-      if (sub && sub.autoType) {
-        result = result.filter(c => c.autoType === sub.autoType);
-      }
-    }
-
-    // Subcategory filter (Услуги)
-    if (selectedSubcategory !== null && isServicesSelected) {
-      const sub = SERVICE_SUBS.find(s => s.label === selectedSubcategory);
-      if (sub && sub.serviceType) {
-        result = result.filter(c => c.serviceType === sub.serviceType);
-      }
-    }
-
-    // Subcategory filter (Работа)
-    if (selectedSubcategory !== null && isJobSelected) {
-      const sub = JOB_SUBS.find(s => s.label === selectedSubcategory);
-      if (sub && sub.jobType) {
-        result = result.filter(c => c.jobType === sub.jobType);
-      }
-    }
-
-    // Subcategory filter (Электроника)
-    if (selectedSubcategory !== null && isElectronicsSelected) {
-      const sub = ELECTRONICS_SUBS.find(s => s.label === selectedSubcategory);
-      if (sub && sub.electronicsType) {
-        result = result.filter(c => c.electronicsType === sub.electronicsType);
+    // Subcategory filtering
+    if (selectedSubcategory !== null && activeCat) {
+      switch (activeCat) {
+        case 'Недвижимость': {
+          const sub = REAL_ESTATE_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.dealType) result = result.filter(c => c.dealType === sub.dealType);
+          if (sub?.propertyType) result = result.filter(c => c.propertyType === sub.propertyType);
+          break;
+        }
+        case 'Авто': {
+          const sub = AUTO_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.autoType) result = result.filter(c => c.autoType === sub.autoType);
+          break;
+        }
+        case 'Услуги': {
+          const sub = SERVICE_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.serviceType) result = result.filter(c => c.serviceType === sub.serviceType);
+          break;
+        }
+        case 'Работа': {
+          const sub = JOB_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.jobType) result = result.filter(c => c.jobType === sub.jobType);
+          break;
+        }
+        case 'Электроника': {
+          const sub = ELECTRONICS_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.electronicsType) result = result.filter(c => c.electronicsType === sub.electronicsType);
+          break;
+        }
+        case 'Дом и дача': {
+          const sub = HOME_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.homeType) result = result.filter(c => c.homeType === sub.homeType);
+          break;
+        }
+        case 'Детский мир': {
+          const sub = KIDS_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.kidsType) result = result.filter(c => c.kidsType === sub.kidsType);
+          break;
+        }
+        case 'Животные': {
+          const sub = ANIMAL_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.animalType) result = result.filter(c => c.animalType === sub.animalType);
+          break;
+        }
+        case 'Хобби и отдых': {
+          const sub = HOBBY_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.hobbyType) result = result.filter(c => c.hobbyType === sub.hobbyType);
+          break;
+        }
+        case 'Отдам даром': {
+          const sub = FREE_SUBS.find(s => s.label === selectedSubcategory);
+          if (sub?.freeType) result = result.filter(c => c.freeType === sub.freeType);
+          break;
+        }
       }
     }
 
@@ -261,7 +337,7 @@ const ObyavleniyaPage = () => {
     }
 
     return result;
-  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue, selectedSubcategory, isRealEstateSelected, isAutoSelected, isServicesSelected, isJobSelected, isElectronicsSelected]);
+  }, [searchQuery, selectedDistricts, selectedCategories, selectedPriceRanges, onlyWithPhoto, selectedSellerTypes, selectedConditions, selectedDateRange, sortValue, selectedSubcategory, activeCat]);
 
   const handlePostClick = () => {
     if (!isAuthenticated) {
@@ -402,8 +478,8 @@ const ObyavleniyaPage = () => {
             <h1 className="text-2xl font-bold text-foreground mb-1">Объявления Тюмени</h1>
             <p className="text-sm text-muted-foreground mb-3">Найдено {filtered.length} объявлений</p>
 
-            {/* Category tabs */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-2 scrollbar-hide">
+            {/* Category tabs — flex-wrap, NO horizontal scroll */}
+            <div className="flex flex-wrap items-center gap-1.5 pb-3 mb-2">
               {['Все', ...CATEGORIES].map((cat) => {
                 const isAll = cat === 'Все';
                 const isActive = isAll
@@ -431,11 +507,11 @@ const ObyavleniyaPage = () => {
               })}
             </div>
 
-            {/* Subcategory tabs — Недвижимость / Авто / Услуги */}
-            {(isRealEstateSelected || isAutoSelected || isServicesSelected || isJobSelected || isElectronicsSelected) && (
+            {/* Subcategory tabs — flex-wrap */}
+            {hasSubcategories && activeCat && (
               <div className="flex flex-wrap items-center gap-1.5 pb-3 mb-2">
-                {(isRealEstateSelected ? REAL_ESTATE_SUBS : isAutoSelected ? AUTO_SUBS : isServicesSelected ? SERVICE_SUBS : isJobSelected ? JOB_SUBS : ELECTRONICS_SUBS).map((sub) => {
-                  const allLabel = isRealEstateSelected ? 'Все в недвижимости' : isAutoSelected ? 'Все в авто' : isServicesSelected ? 'Все услуги' : isJobSelected ? 'Все вакансии' : 'Все в электронике';
+                {SUBS_MAP[activeCat].subs.map((sub) => {
+                  const allLabel = SUBS_MAP[activeCat].allLabel;
                   const isActive = sub.label === allLabel
                     ? selectedSubcategory === null
                     : selectedSubcategory === sub.label;
