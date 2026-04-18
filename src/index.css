@@ -81,19 +81,19 @@
   }
 }
 
-/* Portal grid layout */
+/* Portal grid layout — командный редакционный центр */
 .portal-grid {
   display: grid;
-  grid-template-columns: 260px 1fr 300px;
-  gap: 1.25rem;
+  grid-template-columns: 240px 1fr 280px;
+  gap: 1rem;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
 }
 
 @media (max-width: 1100px) {
   .portal-grid {
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 280px;
   }
   .portal-grid .left-rail {
     display: none;
@@ -109,32 +109,63 @@
   }
 }
 
+/* Floor wrapper — обычный ширинный контейнер ниже первого экрана */
+.floor {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
 /* Sticky right rail */
 .right-rail-sticky {
   position: sticky;
-  top: 6rem;
-  max-height: calc(100vh - 7rem);
+  top: 4rem;
+  max-height: calc(100vh - 5rem);
   overflow-y: auto;
 }
+.right-rail-sticky::-webkit-scrollbar { width: 4px; }
+.right-rail-sticky::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 2px; }
 
-/* Masonry grid for social feed */
+/* Masonry grid */
 .masonry-grid {
-  columns: 3;
-  column-gap: 1rem;
+  columns: 4;
+  column-gap: 0.75rem;
 }
 .masonry-item {
   break-inside: avoid;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
-@media (max-width: 768px) {
-  .masonry-grid {
-    columns: 2;
-  }
+@media (max-width: 1024px) { .masonry-grid { columns: 3; } }
+@media (max-width: 768px)  { .masonry-grid { columns: 2; } }
+@media (max-width: 480px)  { .masonry-grid { columns: 1; } }
+
+/* Long promo masonry — 5 колонок */
+.long-promo-grid {
+  columns: 5;
+  column-gap: 0.75rem;
 }
-@media (max-width: 480px) {
-  .masonry-grid {
-    columns: 1;
-  }
+.long-promo-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+}
+@media (max-width: 1100px) { .long-promo-grid { columns: 4; } }
+@media (max-width: 900px)  { .long-promo-grid { columns: 3; } }
+@media (max-width: 640px)  { .long-promo-grid { columns: 2; } }
+@media (max-width: 420px)  { .long-promo-grid { columns: 1; } }
+
+/* Editorial dense grid */
+.editorial-dense {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 900px) { .editorial-dense { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 640px) { .editorial-dense { grid-template-columns: repeat(2, 1fr); } }
+
+/* Большой переходный CTA-блок «Все новости» */
+.all-news-cta {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(215 78% 38%) 100%);
+  color: hsl(var(--primary-foreground));
 }
 
 /* News list item animation */

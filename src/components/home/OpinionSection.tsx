@@ -1,66 +1,96 @@
 import { Link } from 'react-router-dom';
 import { articles, getAuthorById, coverImages, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
+import { Quote, BookOpen, MapPin } from 'lucide-react';
 
 const OpinionSection = () => {
-  const opinions = articles.filter(a => a.isOpinion).slice(0, 3);
-  const recommended = articles.filter(a => a.isRecommended).slice(0, 3);
-  const reportage = articles.find(a => a.isReportage);
+  const opinions = articles.filter(a => a.isOpinion).slice(0, 4);
+  const recommended = articles.filter(a => a.isRecommended).slice(0, 4);
+  const reportages = articles.filter(a => a.isReportage).slice(0, 2);
 
   return (
-    <div className="mb-5 space-y-5">
-      {/* Opinions */}
+    <div className="space-y-6">
+      {/* Мнения — широкая редакционная полоса */}
       <div>
-        <h2 className="font-bold text-base mb-3">Мнения</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="flex items-end justify-between mb-3 border-b-2 border-foreground pb-1">
+          <div className="flex items-center gap-2">
+            <Quote className="w-5 h-5 text-accent" />
+            <h2 className="font-bold text-lg">Мнения</h2>
+          </div>
+          <button className="text-[11px] text-primary font-semibold uppercase tracking-wider hover:underline">все колонки →</button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           {opinions.map(article => {
             const author = getAuthorById(article.authorId);
             return (
-              <Link key={article.id} to={`/article/${article.slug}`} className="news-card bg-card rounded-lg p-4">
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm mb-3">
-                  {author?.name.charAt(0)}
+              <Link key={article.id} to={`/article/${article.slug}`} className="news-card bg-card rounded-md p-4 border border-border/60 border-l-4 border-l-accent">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-9 h-9 rounded-full bg-accent/15 flex items-center justify-center text-accent font-bold text-sm flex-shrink-0">
+                    {author?.name.charAt(0)}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs font-semibold leading-tight">{author?.name}</div>
+                    <div className="text-[10px] text-muted-foreground leading-tight">{author?.bio}</div>
+                  </div>
                 </div>
-                <h3 className="text-sm font-semibold leading-tight line-clamp-3 mb-2">{article.title}</h3>
-                <span className="text-xs text-muted-foreground">{author?.name}, {author?.bio}</span>
+                <h3 className="text-[14px] font-bold leading-snug line-clamp-4">{article.title}</h3>
+                <div className="text-[10px] text-muted-foreground mt-2 uppercase tracking-wider">Колонка</div>
               </Link>
             );
           })}
         </div>
       </div>
 
-      {/* Recommended + Reportage */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <h3 className="font-bold text-sm mb-2">Рекомендуем</h3>
-          <div className="bg-card rounded-lg overflow-hidden">
-            {recommended.length > 0 && (
-              <Link to={`/article/${recommended[0].slug}`} className="news-card block">
-                <img src={coverImages[recommended[0].coverIndex]} alt="" className="w-full h-36 object-cover" loading="lazy" />
-                <div className="p-3">
-                  <h4 className="text-sm font-semibold leading-tight line-clamp-2">{recommended[0].title}</h4>
-                </div>
-              </Link>
-            )}
-            <div className="px-3 pb-3">
-              {recommended.slice(1).map(a => (
-                <Link key={a.id} to={`/article/${a.slug}`} className="news-item block py-1.5 text-sm leading-tight line-clamp-1 border-t border-border/50">
-                  {a.title}
-                </Link>
-              ))}
-            </div>
+      {/* Репортажи — крупные визуальные */}
+      <div>
+        <div className="flex items-end justify-between mb-3 border-b-2 border-foreground pb-1">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-primary" />
+            <h2 className="font-bold text-lg">Репортажи</h2>
           </div>
+          <button className="text-[11px] text-primary font-semibold uppercase tracking-wider hover:underline">все →</button>
         </div>
-        {reportage && (
-          <div>
-            <h3 className="font-bold text-sm mb-2">Репортаж</h3>
-            <Link to={`/article/${reportage.slug}`} className="news-card block bg-card rounded-lg overflow-hidden">
-              <img src={coverImages[reportage.coverIndex]} alt="" className="w-full h-36 object-cover" loading="lazy" />
-              <div className="p-3">
-                <span className="text-[10px] font-semibold text-accent bg-accent/10 px-1.5 py-0.5 rounded mb-1.5 inline-block">Репортаж</span>
-                <h4 className="text-sm font-semibold leading-tight line-clamp-2">{reportage.title}</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {reportages.map(r => (
+            <Link key={r.id} to={`/article/${r.slug}`} className="news-card relative block rounded-md overflow-hidden group">
+              <img src={coverImages[r.coverIndex]} alt={r.title} className="w-full h-56 object-cover group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-4 text-white">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] bg-accent text-accent-foreground px-2 py-1 rounded-sm">
+                  Репортаж
+                </span>
+                <h3 className="text-lg md:text-xl font-bold leading-snug mt-2 line-clamp-3">{r.title}</h3>
+                <div className="text-[11px] text-white/80 mt-2">{formatTime(r.publishedAt)} · {getCategoryById(r.categoryId)?.name}</div>
               </div>
             </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Рекомендуем редакции */}
+      <div>
+        <div className="flex items-end justify-between mb-3 border-b-2 border-foreground pb-1">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-primary" />
+            <h2 className="font-bold text-lg">Рекомендуем редакции</h2>
           </div>
-        )}
+          <button className="text-[11px] text-primary font-semibold uppercase tracking-wider hover:underline">все подборки →</button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+          {recommended.map(article => {
+            const cat = getCategoryById(article.categoryId);
+            return (
+              <Link key={article.id} to={`/article/${article.slug}`} className="news-card bg-card rounded-md overflow-hidden border border-border/60">
+                <img src={coverImages[article.coverIndex]} alt={article.title} className="w-full h-32 object-cover" loading="lazy" />
+                <div className="p-3">
+                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: categoryColors[article.categoryId] }}>
+                    {cat?.name}
+                  </span>
+                  <h4 className="text-[13px] font-semibold leading-snug line-clamp-3 mt-1">{article.title}</h4>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

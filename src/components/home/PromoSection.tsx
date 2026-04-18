@@ -1,28 +1,32 @@
 import { promos } from '@/data/mockData';
-import { Tag } from 'lucide-react';
+import { Tag, ArrowRight } from 'lucide-react';
 
 const PromoSection = () => {
   return (
-    <div className="mb-5">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="font-bold text-base">Промокоды</h2>
-        <button className="text-xs text-primary font-medium hover:underline">Все промокоды →</button>
+    <div>
+      <div className="flex items-end justify-between mb-3 border-b-2 border-foreground pb-1">
+        <div className="flex items-center gap-2">
+          <Tag className="w-5 h-5 text-primary" />
+          <h2 className="font-bold text-lg">Промокоды и скидки</h2>
+        </div>
+        <button className="text-[11px] text-primary font-semibold uppercase tracking-wider hover:underline">все промокоды →</button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {promos.map(promo => (
-          <div key={promo.id} className="news-card bg-card rounded-lg p-4 flex items-start gap-3 cursor-pointer">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <Tag className="w-5 h-5 text-primary" />
-            </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-sm font-semibold leading-tight">{promo.title}</h3>
-                <span className="text-[10px] font-bold bg-accent/10 text-accent px-1.5 py-0.5 rounded flex-shrink-0">
-                  {promo.badge}
-                </span>
+          <div key={promo.id} className="news-card bg-card rounded-md p-3 border border-border/60 cursor-pointer flex flex-col">
+            <div className="flex items-start justify-between mb-2">
+              <div className="w-9 h-9 rounded bg-primary/10 flex items-center justify-center">
+                <Tag className="w-4 h-4 text-primary" />
               </div>
-              <p className="text-xs text-muted-foreground">{promo.description}</p>
+              <span className="text-[11px] font-extrabold bg-accent text-accent-foreground px-2 py-0.5 rounded uppercase">
+                {promo.badge}
+              </span>
             </div>
+            <h3 className="text-[14px] font-bold leading-snug mb-1">{promo.title}</h3>
+            <p className="text-[11px] text-muted-foreground line-clamp-2 flex-1">{promo.description}</p>
+            <button className="text-[11px] text-primary font-semibold mt-2 flex items-center gap-1 hover:gap-1.5 transition-all">
+              Получить <ArrowRight className="w-3 h-3" />
+            </button>
           </div>
         ))}
       </div>
