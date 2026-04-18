@@ -35,71 +35,73 @@ const CardGrid = () => {
       </div>
 
       <div className="editorial-dense">
-        {grid.map((article, i) => {
+        {grid.flatMap((article, i) => {
           const cat = getCategoryById(article.categoryId);
           const span = spans[i] || 'col-span-2';
           const isDark = span.includes('dark');
           const isHero = span.includes('row-span-2');
-          // Вставка рекламы после 4-й и 9-й позиции
           const adAfter = i === 3 || i === 8;
 
-          return (
-            <>
-              <Link
-                key={article.id}
-                to={`/article/${article.slug}`}
-                className={`news-card rounded-md overflow-hidden border ${
-                  isDark ? 'bg-header text-header-foreground border-header/40' : 'bg-card border-border/60'
-                } ${span.replace(' dark', '')} flex flex-col`}
-              >
-                <div className="relative">
-                  <img
-                    src={coverImages[article.coverIndex]}
-                    alt={article.title}
-                    className={`w-full object-cover ${isHero ? 'h-56' : 'h-28'}`}
-                    loading="lazy"
-                  />
-                  {article.isBreaking && (
-                    <span className="badge-breaking absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm bg-accent text-accent-foreground">
-                      Срочно
-                    </span>
-                  )}
+          const card = (
+            <Link
+              key={article.id}
+              to={`/article/${article.slug}`}
+              className={`news-card rounded-md overflow-hidden border ${
+                isDark ? 'bg-header text-header-foreground border-header/40' : 'bg-card border-border/60'
+              } ${span.replace(' dark', '')} flex flex-col`}
+            >
+              <div className="relative">
+                <img
+                  src={coverImages[article.coverIndex]}
+                  alt={article.title}
+                  className={`w-full object-cover ${isHero ? 'h-56' : 'h-28'}`}
+                  loading="lazy"
+                />
+                {article.isBreaking && (
+                  <span className="badge-breaking absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm bg-accent text-accent-foreground">
+                    Срочно
+                  </span>
+                )}
+              </div>
+              <div className={`p-3 flex-1 flex flex-col ${isHero ? 'gap-2' : 'gap-1'}`}>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="text-[9px] font-bold uppercase tracking-wider"
+                    style={{ color: categoryColors[article.categoryId] }}
+                  >
+                    {cat?.name}
+                  </span>
+                  <span className={`text-[10px] ${isDark ? 'text-header-foreground/50' : 'text-muted-foreground'}`}>
+                    · {formatTime(article.publishedAt)}
+                  </span>
                 </div>
-                <div className={`p-3 flex-1 flex flex-col ${isHero ? 'gap-2' : 'gap-1'}`}>
-                  <div className="flex items-center gap-1.5">
-                    <span
-                      className="text-[9px] font-bold uppercase tracking-wider"
-                      style={{ color: isDark ? categoryColors[article.categoryId] : categoryColors[article.categoryId] }}
-                    >
-                      {cat?.name}
-                    </span>
-                    <span className={`text-[10px] ${isDark ? 'text-header-foreground/50' : 'text-muted-foreground'}`}>
-                      · {formatTime(article.publishedAt)}
-                    </span>
-                  </div>
-                  <h3 className={`font-bold leading-snug line-clamp-3 ${isHero ? 'text-xl' : 'text-[14px]'}`}>
-                    {article.title}
-                  </h3>
-                  {isHero && (
-                    <p className={`text-xs line-clamp-2 mt-1 ${isDark ? 'text-header-foreground/70' : 'text-muted-foreground'}`}>
-                      {article.excerpt}
-                    </p>
-                  )}
-                  <div className={`flex items-center gap-2.5 mt-auto pt-1 text-[10px] ${
-                    isDark ? 'text-header-foreground/50' : 'text-muted-foreground'
-                  }`}>
-                    <span className="flex items-center gap-0.5"><Eye className="w-3 h-3" />{article.views}</span>
-                    <span className="flex items-center gap-0.5"><MessageSquare className="w-3 h-3" />{article.commentsCount}</span>
-                  </div>
+                <h3 className={`font-bold leading-snug line-clamp-3 ${isHero ? 'text-xl' : 'text-[14px]'}`}>
+                  {article.title}
+                </h3>
+                {isHero && (
+                  <p className={`text-xs line-clamp-2 mt-1 ${isDark ? 'text-header-foreground/70' : 'text-muted-foreground'}`}>
+                    {article.excerpt}
+                  </p>
+                )}
+                <div className={`flex items-center gap-2.5 mt-auto pt-1 text-[10px] ${
+                  isDark ? 'text-header-foreground/50' : 'text-muted-foreground'
+                }`}>
+                  <span className="flex items-center gap-0.5"><Eye className="w-3 h-3" />{article.views}</span>
+                  <span className="flex items-center gap-0.5"><MessageSquare className="w-3 h-3" />{article.commentsCount}</span>
                 </div>
-              </Link>
-              {adAfter && (
-                <div key={`ad-${i}`} className="col-span-2 row-span-1">
-                  <AdSlot format="inline-card" label="Партнёр" className="h-full" />
-                </div>
-              )}
-            </>
+              </div>
+            </Link>
           );
+
+          if (adAfter) {
+            return [
+              card,
+              <div key={`ad-${i}`} className="col-span-2 row-span-1">
+                <AdSlot format="inline-card" label="Партнёр" className="h-full" />
+              </div>,
+            ];
+          }
+          return [card];
         })}
       </div>
 
