@@ -16,8 +16,8 @@ const RightPanel = () => {
   const [activeTab, setActiveTab] = useState('main');
 
   const getTabArticles = () => {
-    if (activeTab === 'main') return articles.slice(0, 12);
-    return articles.filter(a => a.categoryId === activeTab).slice(0, 12);
+    if (activeTab === 'main') return articles.slice(0, 18);
+    return articles.filter(a => a.categoryId === activeTab).slice(0, 18);
   };
 
   const tabArticles = getTabArticles();
@@ -63,17 +63,17 @@ const RightPanel = () => {
             </button>
           ))}
         </div>
-        <div className="p-2.5 flex flex-col">
+        <div className="p-2 flex flex-col">
           {tabArticles.map(article => (
             <Link
               key={article.id}
               to={`/article/${article.slug}`}
-              className="news-item flex items-start gap-2 py-1.5 px-1 border-b border-border/50 last:border-0"
+              className="news-item flex items-start gap-1.5 py-1 px-1 border-b border-border/40 last:border-0"
             >
-              <span className="text-[11px] text-muted-foreground font-mono whitespace-nowrap mt-0.5">
+              <span className="text-[10px] text-muted-foreground font-mono whitespace-nowrap mt-[2px] tabular-nums">
                 {formatTime(article.publishedAt)}
               </span>
-              <span className="text-[13px] leading-snug line-clamp-2">{article.title}</span>
+              <span className="text-[12px] leading-tight line-clamp-2">{article.title}</span>
             </Link>
           ))}
         </div>
