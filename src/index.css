@@ -84,11 +84,11 @@
 /* Portal grid layout — командный редакционный центр */
 .portal-grid {
   display: grid;
-  grid-template-columns: 240px 1fr 280px;
-  gap: 1rem;
+  grid-template-columns: 230px 1fr 270px;
+  gap: 0.75rem;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 @media (max-width: 1100px) {
@@ -128,25 +128,26 @@
 
 /* Masonry grid */
 .masonry-grid {
-  columns: 4;
-  column-gap: 0.75rem;
+  columns: 5;
+  column-gap: 0.5rem;
 }
 .masonry-item {
   break-inside: avoid;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
-@media (max-width: 1024px) { .masonry-grid { columns: 3; } }
-@media (max-width: 768px)  { .masonry-grid { columns: 2; } }
-@media (max-width: 480px)  { .masonry-grid { columns: 1; } }
+@media (max-width: 1100px) { .masonry-grid { columns: 4; } }
+@media (max-width: 900px)  { .masonry-grid { columns: 3; } }
+@media (max-width: 640px)  { .masonry-grid { columns: 2; } }
+@media (max-width: 420px)  { .masonry-grid { columns: 1; } }
 
 /* Long promo masonry — 5 колонок */
 .long-promo-grid {
   columns: 5;
-  column-gap: 0.75rem;
+  column-gap: 0.5rem;
 }
 .long-promo-item {
   break-inside: avoid;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 @media (max-width: 1100px) { .long-promo-grid { columns: 4; } }
 @media (max-width: 900px)  { .long-promo-grid { columns: 3; } }
