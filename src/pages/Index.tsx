@@ -23,7 +23,7 @@ const Index = () => {
           <AllNewsList />
         </aside>
 
-        <div className="space-y-5">
+        <div className="space-y-3">
           <HeroSection />
           <CardGrid />
         </div>
@@ -34,49 +34,49 @@ const Index = () => {
       </div>
 
       {/* ЭТАЖ 2 — большой переходный CTA */}
-      <div className="floor my-6">
+      <div className="floor my-3">
         <AllNewsCTA />
       </div>
 
       {/* ЭТАЖ 3 — видеостудия (тёмный) */}
-      <div className="floor mb-6">
+      <div className="floor mb-3">
         <VideoSection />
       </div>
 
       {/* ЭТАЖ 4 — двухколоночный: фото дня + сообщить новость */}
-      <div className="floor mb-6 grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="floor mb-3 grid grid-cols-1 lg:grid-cols-3 gap-3">
         <div className="lg:col-span-2">
           <PhotoOfDay />
         </div>
         <div>
-          <h2 className="font-bold text-lg mb-3 border-b-2 border-foreground pb-1">Сообщить новость</h2>
+          <h2 className="font-bold text-base mb-2 border-b-2 border-foreground pb-1">Сообщить новость</h2>
           <ReportNewsWidget />
         </div>
       </div>
 
       {/* ЭТАЖ 5 — мнения, репортажи, рекомендуем */}
-      <div className="floor mb-6">
+      <div className="floor mb-3">
         <OpinionSection />
       </div>
 
       {/* Горизонтальный рекламный пояс между этажами */}
-      <div className="floor mb-6">
+      <div className="floor mb-3">
         <AdSlot format="horizontal" label="Реклама · 1240×110" />
       </div>
 
       {/* ЭТАЖ 6 — ТОП-7 + Промокоды (две колонки) */}
-      <div className="floor mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="floor mb-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Top5Section />
         <PromoSection />
       </div>
 
       {/* ЭТАЖ 7 — длинный нативный/промо masonry */}
-      <div className="floor mb-6">
+      <div className="floor mb-3">
         <LongPromoFeed />
       </div>
 
       {/* ЭТАЖ 8 — соцсети masonry */}
-      <div className="floor mb-8">
+      <div className="floor mb-5">
         <SocialFeed />
       </div>
     </Layout>
