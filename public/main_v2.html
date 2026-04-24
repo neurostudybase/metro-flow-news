@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Тюмень.инфо — Новости Тюмени и области</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #F4F4F4;
+    --nav: #1A2B3C;
+    --nav-2: #243B52;
+    --red: #E1251B;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --line: #e5e5e5;
+  }
+  html, body { background: var(--bg); color: var(--text); font-family: 'PT Sans', system-ui, sans-serif; }
+  .serif { font-family: 'PT Serif', Georgia, serif; }
+  a { text-decoration: none; color: inherit; }
+  a.link:hover { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 2px; }
+
+  .wrap { max-width: 1400px; margin: 0 auto; }
+  .topnav { background: var(--nav); color: #fff; }
+  .subnav { background: var(--nav-2); color: #cfd8e3; }
+
+  .portal {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr) 300px;
+    gap: 16px;
+    padding: 12px 16px;
+  }
+  @media (max-width: 1100px) {
+    .portal { grid-template-columns: 280px minmax(0,1fr); }
+    .col-right { display: none; }
+  }
+  @media (max-width: 760px) {
+    .portal { grid-template-columns: 1fr; }
+    .col-left { display: none; }
+  }
+
+  .feed { background: #fff; border: 1px solid var(--line); }
+  .feed-item {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 8px;
+    padding: 7px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+  }
+  .feed-item:hover { background: #fafafa; }
+  .feed-time { font-size: 12px; font-weight: 700; color: #8a8a8a; line-height: 1.3; padding-top: 1px; }
+  .feed-title { font-size: 13px; line-height: 1.3; color: #111; }
+  .feed-news-tag { color: var(--red); font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: .03em; margin-right: 4px; }
+  .feed-section-title {
+    background: #fafafa;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    padding: 8px 10px; color: #555; border-bottom: 1px solid var(--line);
+  }
+
+  .ad {
+    background: repeating-linear-gradient(45deg, #fafafa, #fafafa 6px, #f0f0f0 6px, #f0f0f0 12px);
+    border: 1px dashed #c4c4c4;
+    color: #999;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  }
+  .ad-h { height: 96px; }
+  .ad-tall { height: 250px; }
+  .ad-side { height: 600px; }
+
+  .hero { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #222; }
+  .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.85) 100%); }
+  .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 24px; color: #fff; }
+  .hero-cat { display: inline-block; background: var(--red); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+  .hero-title { font-family: 'PT Serif', Georgia, serif; font-weight: 700; font-size: 38px; line-height: 1.1; margin-bottom: 8px; }
+  .hero-sub { font-size: 14px; opacity: .9; max-width: 680px; }
+
+  .card { background: #fff; border: 1px solid var(--line); }
+  .card img { width: 100%; height: 170px; object-fit: cover; display: block; }
+  .card-body { padding: 10px 12px 14px; }
+  .card-cat { color: var(--red); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+  .card-title { font-size: 15px; line-height: 1.25; font-weight: 700; color: #111; }
+  .card-meta { color: #888; font-size: 11px; margin-top: 6px; }
+  .card-dark { background: #1a2532; color: #fff; }
+  .card-dark .card-title { color: #fff; }
+
+  .widget { background: #fff; border: 1px solid var(--line); padding: 12px; margin-bottom: 12px; }
+  .widget h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: #555; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 10px; }
+  .widget ol { counter-reset: rank; }
+  .widget ol li { counter-increment: rank; display: grid; grid-template-columns: 24px 1fr; gap: 6px; padding: 7px 0; border-bottom: 1px dotted #eee; font-size: 13px; line-height: 1.3; }
+  .widget ol li::before { content: counter(rank); color: var(--red); font-weight: 700; font-size: 14px; }
+  .widget ol li:last-child { border-bottom: none; }
+
+  .floor-title {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0 8px; margin-top: 6px; border-bottom: 2px solid var(--nav);
+  }
+  .floor-title h2 { font-family: 'PT Serif', Georgia, serif; font-weight: 700; font-size: 22px; color: #111; }
+  .floor-title a { color: var(--red); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+
+  footer.site { background: var(--nav); color: #cfd8e3; padding: 32px 16px; margin-top: 24px; }
+  footer.site h4 { color: #fff; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 12px; }
+  footer.site a { display: block; padding: 4px 0; font-size: 13px; color: #a8b5c2; }
+  footer.site a:hover { color: #fff; }
+
+  .divider { height: 1px; background: var(--line); }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="wrap flex items-center px-4 h-12">
+    <div class="flex items-center mr-8">
+      <span class="font-bold text-2xl tracking-tight" style="color:#3b82f6">Тюмень</span>
+      <span class="text-white font-bold text-2xl tracking-tight">.инфо</span>
+    </div>
+    <nav class="flex items-center gap-5 text-[13px] text-gray-300">
+      <a href="#" class="link hover:text-white">Новости</a>
+      <a href="#" class="link hover:text-white">Происшествия</a>
+      <a href="#" class="link hover:text-white">Бизнес</a>
+      <a href="#" class="link hover:text-white">Авто</a>
+      <a href="#" class="link hover:text-white">Недвижимость</a>
+      <a href="#" class="link hover:text-white">Спорт</a>
+      <a href="#" class="link hover:text-white">Афиша</a>
+      <a href="#" class="link hover:text-white">Объявления</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-4 text-[12px] text-gray-300">
+      <span>+4°C</span>
+      <span>USD 92,40</span>
+      <span>EUR 99,80</span>
+      <a href="#" class="link hover:text-white">Войти</a>
+    </div>
+  </div>
+</header>
+
+<div class="subnav border-t border-black/20">
+  <div class="wrap flex items-center px-4 h-9 gap-5 text-[12px] overflow-x-auto">
+    <a href="#" class="link">Город</a>
+    <a href="#" class="link">Экономика</a>
+    <a href="#" class="link">Политика</a>
+    <a href="#" class="link">Здоровье</a>
+    <a href="#" class="link">Образование</a>
+    <a href="#" class="link">Культура</a>
+    <a href="#" class="link">Технологии</a>
+    <a href="#" class="link">Туризм</a>
+    <a href="#" class="link">Криминал</a>
+    <a href="#" class="link">ЖКХ</a>
+    <a href="#" class="link">Транспорт</a>
+    <a href="#" class="link">Северный завоз</a>
+  </div>
+</div>
+
+<main class="wrap portal">
+
+  <aside class="col-left">
+    <div class="feed">
+      <div class="feed-section-title">Лента новостей</div>
+      <a href="#" class="feed-item link"><span class="feed-time">14:32</span><span class="feed-title"><span class="feed-news-tag">News</span>В Тюмени открыли новый мост через Туру — движение запущено</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">14:18</span><span class="feed-title">Депутаты областной думы обсудили бюджет на 2026 год</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">14:05</span><span class="feed-title"><span class="feed-news-tag">News</span>Аэропорт Рощино принял первый рейс из Стамбула после паузы</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">13:51</span><span class="feed-title">Под Тюменью задержали группу нелегальных мигрантов</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">13:40</span><span class="feed-title">В центре города ограничат движение на выходных из-за марафона</span></a>
+      <div class="ad ad-h m-2">Реклама 240×96</div>
+      <a href="#" class="feed-item link"><span class="feed-time">13:22</span><span class="feed-title"><span class="feed-news-tag">News</span>Цены на бензин в Тюменской области выросли на 1,2%</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">13:10</span><span class="feed-title">Тюменский «Рубин» подписал контракт с финским защитником</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">12:58</span><span class="feed-title">В трёх районах области отключат свет 25 апреля — список адресов</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">12:44</span><span class="feed-title"><span class="feed-news-tag">News</span>Глава региона провёл совещание по паводку</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">12:30</span><span class="feed-title">На М-12 закрыли участок из-за ремонта — объезд через Заводоуковск</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">12:15</span><span class="feed-title">В тюменских школах ввели новый формат ОГЭ — что изменится</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">12:02</span><span class="feed-title">Сбер открыл новый IT-хаб в Тюмени на 800 рабочих мест</span></a>
+      <div class="ad ad-h m-2">Реклама 240×96</div>
+      <a href="#" class="feed-item link"><span class="feed-time">11:48</span><span class="feed-title"><span class="feed-news-tag">News</span>В Ишиме произошёл крупный пожар на складе</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">11:35</span><span class="feed-title">«Газпром нефть» инвестирует 12 млрд в Тюменский завод</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">11:20</span><span class="feed-title">В Тобольске откроют филиал федерального музея</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">11:08</span><span class="feed-title">Тюменский фермер вырастил рекордную тыкву — 142 кг</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">10:52</span><span class="feed-title"><span class="feed-news-tag">News</span>В мэрии назвали даты запуска фонтанов в этом сезоне</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">10:40</span><span class="feed-title">Молодёжный театр готовит премьеру по Достоевскому</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">10:25</span><span class="feed-title">В области стартовала прививочная кампания против клещей</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">10:11</span><span class="feed-title">Тюменские учёные создали биоразлагаемый пластик из водорослей</span></a>
+      <div class="ad ad-h m-2">Реклама 240×96</div>
+      <a href="#" class="feed-item link"><span class="feed-time">09:55</span><span class="feed-title">Курс юаня в Тюмени достиг исторического максимума</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">09:42</span><span class="feed-title"><span class="feed-news-tag">News</span>На трассе Тюмень–Омск перевернулся бензовоз</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">09:30</span><span class="feed-title">Тюменцы потратили 3,2 млрд рублей на майские праздники</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">09:18</span><span class="feed-title">В Тюмени появятся 15 новых остановок с подогревом</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">09:05</span><span class="feed-title">В ТюмГУ открыли набор на новые направления магистратуры</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">08:50</span><span class="feed-title">Тюменская филармония объявила программу летнего сезона</span></a>
+      <a href="#" class="feed-item link"><span class="feed-time">08:35</span><span class="feed-title"><span class="feed-news-tag">News</span>Власти повысили выплаты многодетным семьям</span></a>
+      <div class="p-3 text-center text-[12px]">
+        <a href="#" class="link text-red-600 font-bold uppercase tracking-wider">Все новости →</a>
+      </div>
+    </div>
+    <div class="ad ad-side mt-3">Реклама 320×600</div>
+  </aside>
+
+  <section class="col-center min-w-0">
+    <article class="hero">
+      <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=1400&q=80" alt="Главная новость" />
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <span class="hero-cat">Главное</span>
+        <h1 class="hero-title">В Тюмени стартовал крупнейший за десятилетие проект реконструкции набережной</h1>
+        <p class="hero-sub">Работы охватят 4,2 км вдоль Туры. Запланированы новые пешеходные зоны, амфитеатр и подсветка. Открытие — к 440-летию города.</p>
+      </div>
+    </article>
+
+    <div class="grid grid-cols-2 gap-3 mt-3">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1565073624497-7e91b5cc3843?w=800&q=80" alt="" />
+        <div class="card-body">
+          <div class="card-cat">Экономика</div>
+          <h3 class="card-title">Тюменский нефтехимический кластер получит федеральные субсидии на 8 млрд рублей</h3>
+          <div class="card-meta">2 часа назад · 1 240 просмотров</div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80" alt="" />
+        <div class="card-body">
+          <div class="card-cat">Город</div>
+          <h3 class="card-title">Что построят на месте старого автовокзала: визуализация и сроки</h3>
+          <div class="card-meta">3 часа назад · 980 просмотров</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="ad ad-h mt-3">Рекламный блок 728×96</div>
+
+    <div class="floor-title"><h2>Город</h2><a href="#" class="link">Все материалы →</a></div>
+    <div class="grid grid-cols-3 gap-3">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1444084316824-dc26d6657664?w=600&q=80" alt="" />
+        <div class="card-body"><div class="card-cat">ЖКХ</div><h3 class="card-title">Где в Тюмени отключат горячую воду в мае — полный график по районам</h3><div class="card-meta">4 часа назад</div></div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="" />
+        <div class="card-body"><div class="card-cat">Транспорт</div><h3 class="card-title">Новая схема движения в центре: что изменится с 1 мая</h3><div class="card-meta">5 часов назад</div></div>
+      </article>
+      <article class="card card-dark">
+        <div class="card-body"><div class="card-cat">Мнение</div><h3 class="card-title">«Тюмени нужен метробус, а не очередное расширение проспекта»</h3><div class="card-meta text-gray-300">Колонка Андрея Соколова</div></div>
+      </article>
+    </div>
+
+    <div class="floor-title"><h2>Происшествия</h2><a href="#" class="link">Все →</a></div>
+    <div class="grid grid-cols-3 gap-3">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1574169208507-84376144848b?w=600&q=80" alt="" />
+        <div class="card-body"><div class="card-cat">ДТП</div><h3 class="card-title">На Червишевском тракте столкнулись пять автомобилей</h3><div class="card-meta">1 час назад</div></div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80" alt="" />
+        <div class="card-body"><div class="card-cat">Криминал</div><h3 class="card-title">В Тюмени задержали серийного мошенника, обманувшего 40 пенсионеров</h3><div class="card-meta">3 часа назад</div></div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80" alt="" />
+        <div class="card-body"><div class="card-cat">Пожар</div><h3 class="card-title">В Антипино горит склад с автозапчастями — площадь 800 м²</h3><div class="card-meta">5 часов назад</div></div>
+      </article>
+    </div>
+
+    <div class="ad ad-h mt-3">Нативный рекламный блок</div>
+
+    <div class="floor-title"><h2>Бизнес и экономика</h2><a href="#" class="link">Все →</a></div>
+    <div class="grid grid-cols-4 gap-3">
+      <article class="card"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80" alt="" /><div class="card-body"><div class="card-cat">Финансы</div><h3 class="card-title">Тюменские банки повысили ставки по вкладам</h3></div></article>
+      <article class="card"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80" alt="" /><div class="card-body"><div class="card-cat">Стартапы</div><h3 class="card-title">Тюменский ИТ-стартап привлёк $5 млн от Сколково</h3></div></article>
+      <article class="card"><img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=400&q=80" alt="" /><div class="card-body"><div class="card-cat">Недвижимость</div><h3 class="card-title">Цены на жильё в Тюмени выросли на 14% за квартал</h3></div></article>
+      <article class="card card-dark"><div class="card-body"><div class="card-cat">Аналитика</div><h3 class="card-title">Куда инвестируют тюменские предприниматели в 2026 году</h3></div></article>
+    </div>
+
+    <div class="floor-title"><h2>Спорт</h2><a href="#" class="link">Все →</a></div>
+    <div class="grid grid-cols-3 gap-3">
+      <article class="card"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80" alt="" /><div class="card-body"><div class="card-cat">Футбол</div><h3 class="card-title">«Тюмень» обыграла «Енисей» в матче ФНЛ — 2:1</h3></div></article>
+      <article class="card"><img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80" alt="" /><div class="card-body"><div class="card-cat">Хоккей</div><h3 class="card-title">«Рубин» вышел в финал плей-офф ВХЛ</h3></div></article>
+      <article class="card"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80" alt="" /><div class="card-body"><div class="card-cat">Биатлон</div><h3 class="card-title">Тюменская биатлонистка завоевала бронзу чемпионата России</h3></div></article>
+    </div>
+
+    <div class="floor-title"><h2>Культура и афиша</h2><a href="#" class="link">Все →</a></div>
+    <div class="grid grid-cols-3 gap-3">
+      <article class="card"><img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=600&q=80" alt="" /><div class="card-body"><div class="card-cat">Театр</div><h3 class="card-title">Премьера «Идиота» в Тюменском драмтеатре — что говорят критики</h3></div></article>
+      <article class="card"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80" alt="" /><div class="card-body"><div class="card-cat">Концерты</div><h3 class="card-title">Топ-10 концертов мая в Тюмени: от классики до рейва</h3></div></article>
+      <article class="card"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80" alt="" /><div class="card-body"><div class="card-cat">Кино</div><h3 class="card-title">Тюменский кинофестиваль объявил программу 2026</h3></div></article>
+    </div>
+
+    <div class="ad ad-tall mt-3">Премиум-баннер 970×250</div>
+  </section>
+
+  <aside class="col-right">
+    <div class="widget">
+      <h3>Сейчас читают</h3>
+      <ol>
+        <li>В Тюмени открыли новый мост через Туру — движение запущено</li>
+        <li>Аэропорт Рощино принял первый рейс из Стамбула</li>
+        <li>На Червишевском тракте столкнулись пять автомобилей</li>
+        <li>Цены на жильё в Тюмени выросли на 14% за квартал</li>
+        <li>«Рубин» вышел в финал плей-офф ВХЛ</li>
+        <li>Тюменцы потратили 3,2 млрд рублей на майские праздники</li>
+        <li>Премьера «Идиота» в Тюменском драмтеатре</li>
+      </ol>
+    </div>
+
+    <div class="widget">
+      <h3>Погода и курсы</h3>
+      <div class="text-center py-2">
+        <div class="text-4xl font-bold">+4°</div>
+        <div class="text-xs text-gray-500 mt-1">Облачно, ветер 3 м/с</div>
+      </div>
+      <div class="divider my-2"></div>
+      <div class="flex justify-between text-[13px] py-1"><span>USD</span><span class="font-bold">92,40 ↑</span></div>
+      <div class="flex justify-between text-[13px] py-1"><span>EUR</span><span class="font-bold">99,80 ↓</span></div>
+      <div class="flex justify-between text-[13px] py-1"><span>CNY</span><span class="font-bold">12,68 ↑</span></div>
+      <div class="flex justify-between text-[13px] py-1"><span>Brent</span><span class="font-bold">$84,12</span></div>
+    </div>
+
+    <div class="ad ad-tall">Реклама 300×250</div>
+
+    <div class="widget mt-3">
+      <h3>Сообщить новость</h3>
+      <p class="text-[12px] text-gray-600 mb-2">Стали свидетелем события? Расскажите редакции.</p>
+      <input type="text" placeholder="Ваше имя" class="w-full border px-2 py-1.5 text-[13px] mb-2" />
+      <input type="text" placeholder="Телефон" class="w-full border px-2 py-1.5 text-[13px] mb-2" />
+      <textarea placeholder="Что произошло?" rows="3" class="w-full border px-2 py-1.5 text-[13px] mb-2"></textarea>
+      <button class="w-full bg-red-600 text-white text-[13px] font-bold py-2 hover:bg-red-700">Отправить</button>
+    </div>
+
+    <div class="widget">
+      <h3>Опросы</h3>
+      <p class="text-[13px] font-bold mb-2">Готовы ли вы пересесть на электрокар?</p>
+      <div class="space-y-1 text-[12px]">
+        <label class="flex items-center gap-2"><input type="radio" name="poll" /> Да, как только подешевеют</label>
+        <label class="flex items-center gap-2"><input type="radio" name="poll" /> Нет, не доверяю технологии</label>
+        <label class="flex items-center gap-2"><input type="radio" name="poll" /> Уже езжу на электрокаре</label>
+      </div>
+      <button class="mt-3 w-full bg-gray-800 text-white text-[12px] py-1.5">Голосовать</button>
+    </div>
+
+    <div class="ad ad-side">Реклама 300×600</div>
+  </aside>
+
+</main>
+
+<footer class="site">
+  <div class="wrap grid grid-cols-2 md:grid-cols-5 gap-6 px-4">
+    <div><h4>Тюмень.инфо</h4><a href="#">О проекте</a><a href="#">Редакция</a><a href="#">Реклама</a><a href="#">Вакансии</a><a href="#">Контакты</a></div>
+    <div><h4>Разделы</h4><a href="#">Новости</a><a href="#">Происшествия</a><a href="#">Бизнес</a><a href="#">Спорт</a><a href="#">Культура</a></div>
+    <div><h4>Сервисы</h4><a href="#">Афиша</a><a href="#">Объявления</a><a href="#">Недвижимость</a><a href="#">Авто</a><a href="#">Работа</a></div>
+    <div><h4>Города сети</h4><a href="#">Тобольск</a><a href="#">Ишим</a><a href="#">Ялуторовск</a><a href="#">Заводоуковск</a><a href="#">Сургут</a></div>
+    <div><h4>Подписка</h4><a href="#">Telegram</a><a href="#">VK</a><a href="#">Дзен</a><a href="#">RSS</a><a href="#">Email-рассылка</a></div>
+  </div>
+  <div class="wrap px-4 mt-8 pt-6 border-t border-white/10 text-[11px] text-gray-400">
+    © 2026 Тюмень.инфо. Сетевое издание. 18+. Все права защищены. Использование материалов разрешено только с активной гиперссылкой.
+  </div>
+</footer>
+
+</body>
+</html>
