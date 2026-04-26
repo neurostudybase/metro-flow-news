@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { articles, coverImages, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
 import { Eye, MessageSquare, Clock } from 'lucide-react';
+import PortalCard from './PortalCard';
 
 const HeroSection = () => {
   const topArticles = articles.filter(a => a.isTop);
@@ -53,53 +54,18 @@ const HeroSection = () => {
         </div>
       </Link>
 
-      {/* Вторичные карточки — 2 крупные горизонтальные */}
+      {/* Вторичные карточки — 2 крупные вертикальные в стиле 72.ru */}
       <div className="grid grid-cols-2 gap-3">
-        {secondary.slice(0, 2).map(article => {
-          const cat = getCategoryById(article.categoryId);
-          return (
-            <Link key={article.id} to={`/article/${article.slug}`} className="news-card bg-card rounded-md overflow-hidden border border-border/60">
-              <img
-                src={coverImages[article.coverIndex]}
-                alt={article.title}
-                className="w-full h-32 object-cover"
-                loading="lazy"
-              />
-              <div className="p-3">
-                <span
-                  className="text-[10px] font-bold uppercase tracking-wider"
-                  style={{ color: categoryColors[article.categoryId] }}
-                >
-                  {cat?.name}
-                </span>
-                <h3 className="font-bold text-[15px] leading-snug line-clamp-2 mt-1">{article.title}</h3>
-                <div className="flex items-center gap-2 mt-2 text-[11px] text-muted-foreground">
-                  <span>{formatTime(article.publishedAt)}</span>
-                  <span>·</span>
-                  <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{article.views}</span>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
+        {secondary.slice(0, 2).map(article => (
+          <PortalCard key={article.id} article={article} imageHeight={180} />
+        ))}
       </div>
 
       {/* Третий ряд — 2 компактные + 1 тёмная акцентная */}
       <div className="grid grid-cols-3 gap-3">
-        {secondary.slice(2, 4).map(article => {
-          const cat = getCategoryById(article.categoryId);
-          return (
-            <Link key={article.id} to={`/article/${article.slug}`} className="news-card bg-card rounded-md overflow-hidden border border-border/60">
-              <img src={coverImages[article.coverIndex]} alt={article.title} className="w-full h-24 object-cover" loading="lazy" />
-              <div className="p-2.5">
-                <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: categoryColors[article.categoryId] }}>
-                  {cat?.name}
-                </span>
-                <h3 className="font-semibold text-[13px] leading-tight line-clamp-3 mt-0.5">{article.title}</h3>
-              </div>
-            </Link>
-          );
-        })}
+        {secondary.slice(2, 4).map(article => (
+          <PortalCard key={article.id} article={article} imageHeight={140} />
+        ))}
         {tertiary[0] && (
           <Link to={`/article/${tertiary[0].slug}`} className="news-card bg-header text-header-foreground rounded-md overflow-hidden border border-header/40 p-3 flex flex-col justify-between">
             <div>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { articles, getAuthorById, coverImages, getCategoryById, categoryColors, formatTime } from '@/data/mockData';
 import { Quote, BookOpen, MapPin } from 'lucide-react';
+import PortalCard from './PortalCard';
 
 const OpinionSection = () => {
   const opinions = articles.filter(a => a.isOpinion).slice(0, 4);
@@ -76,20 +77,9 @@ const OpinionSection = () => {
           <button className="text-[11px] text-primary font-semibold uppercase tracking-wider hover:underline">все подборки →</button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          {recommended.map(article => {
-            const cat = getCategoryById(article.categoryId);
-            return (
-              <Link key={article.id} to={`/article/${article.slug}`} className="news-card bg-card rounded-md overflow-hidden border border-border/60">
-                <img src={coverImages[article.coverIndex]} alt={article.title} className="w-full h-32 object-cover" loading="lazy" />
-                <div className="p-3">
-                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: categoryColors[article.categoryId] }}>
-                    {cat?.name}
-                  </span>
-                  <h4 className="text-[13px] font-semibold leading-snug line-clamp-3 mt-1">{article.title}</h4>
-                </div>
-              </Link>
-            );
-          })}
+          {recommended.map(article => (
+            <PortalCard key={article.id} article={article} imageHeight={170} />
+          ))}
         </div>
       </div>
     </div>
