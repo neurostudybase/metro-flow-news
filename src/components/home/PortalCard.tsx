@@ -46,7 +46,7 @@ const PortalCard = ({ article, imageHeight = 200, className = '' }: PortalCardPr
 
         {/* Заголовок — жирный, 16px, leading-tight */}
         <h3 className="text-[16px] font-bold leading-[1.25] text-foreground line-clamp-4">
-          «{article.title.replace(/^[«»"]+|[«»"]+$/g, '')}»
+          {article.title}
         </h3>
 
         {/* Мета — время · глаз+просмотры · коммент+комменты · bookmark справа */}
