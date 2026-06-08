@@ -118,6 +118,16 @@ import CategoriesAnalyticsPage from "./pages/admin/control/analytics/CategoriesA
 import CitiesAnalyticsPage from "./pages/admin/control/analytics/CitiesAnalyticsPage";
 import RecommendationsPage from "./pages/admin/control/analytics/RecommendationsPage";
 import AIContentAnalyticsPage from "./pages/admin/control/analytics/AIContentAnalyticsPage";
+import AgentsPage from "./pages/admin/holding/AgentsPage";
+import ApiKeysPage from "./pages/admin/holding/ApiKeysPage";
+import PipelinePage from "./pages/admin/holding/PipelinePage";
+import NewsroomPage from "./pages/admin/holding/NewsroomPage";
+import SourcesPage from "./pages/admin/holding/SourcesPage";
+import MediaLibraryPage from "./pages/admin/holding/MediaLibraryPage";
+import SeoCenterPage from "./pages/admin/holding/SeoCenterPage";
+import AIPerformancePage from "./pages/admin/holding/AIPerformancePage";
+import SchedulerPage from "./pages/admin/holding/SchedulerPage";
+import PermissionsPage from "./pages/admin/holding/PermissionsPage";
 
 const queryClient = new QueryClient();
 
@@ -247,6 +257,16 @@ const App = () => (
             <Route path="/admin/holding/launcher/history" element={<LauncherHistoryPage />} />
             <Route path="/admin/holding/launcher/settings" element={<LauncherSettingsPage />} />
             <Route path="/admin/holding/launcher/:id" element={<LauncherDetailPage />} />
+            <Route path="/admin/holding/agents" element={<AgentsPage />} />
+            <Route path="/admin/holding/api-keys" element={<ApiKeysPage />} />
+            <Route path="/admin/holding/pipeline" element={<PipelinePage />} />
+            <Route path="/admin/holding/newsroom" element={<NewsroomPage />} />
+            <Route path="/admin/holding/sources" element={<SourcesPage />} />
+            <Route path="/admin/holding/media" element={<MediaLibraryPage />} />
+            <Route path="/admin/holding/seo" element={<SeoCenterPage />} />
+            <Route path="/admin/holding/ai-performance" element={<AIPerformancePage />} />
+            <Route path="/admin/holding/scheduler" element={<SchedulerPage />} />
+            <Route path="/admin/holding/permissions" element={<PermissionsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
