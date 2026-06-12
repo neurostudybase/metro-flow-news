@@ -20,6 +20,7 @@ import ProfilePage from "./pages/ProfilePage";
 import MyAdsPage from "./pages/MyAdsPage";
 import NewListingPage from "./pages/NewListingPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminAIAssistantPage from "./pages/admin/AdminAIAssistantPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminAdsPage from "./pages/admin/AdminAdsPage";
 import AdminContentPage from "./pages/admin/AdminContentPage";
@@ -156,6 +157,7 @@ const App = () => (
             <Route path="/cabinet/ads" element={<MyAdsPage />} />
             <Route path="/cabinet/new-listing" element={<NewListingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/ai-assistant" element={<AdminAIAssistantPage />} />
             <Route path="/admin/map" element={<AdminMapPage />} />
             <Route path="/admin/users" element={<AdminUsersPage />} />
             <Route path="/admin/ads" element={<AdminAdsPage />} />

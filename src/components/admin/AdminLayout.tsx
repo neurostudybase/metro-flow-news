@@ -3,12 +3,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCity } from '@/contexts/CityContext';
-import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut, Bot, Command, Globe, MapPin, Building2 } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Newspaper, Shield, LogOut, Bot, Command, Globe, MapPin, Building2, Sparkles } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
 const menuItems = [
   { label: 'Панель', to: '/admin', icon: LayoutDashboard, end: true },
+  { label: 'DeepSeek ассистент', to: '/admin/ai-assistant', icon: Sparkles },
   { label: 'Пользователи', to: '/admin/users', icon: Users },
   { label: 'Объявления', to: '/admin/ads', icon: FileText },
   { label: 'Контент', to: '/admin/content', icon: Newspaper },
@@ -18,16 +19,18 @@ const menuItems = [
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
-  const { isAuthenticated, isAdmin, logout } = useAuth();
+  const { isAuthenticated, isAdmin, logout, loading } = useAuth();
   const { cities, activeCity, setActiveCity } = useCity();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    if (loading) return;
     if (!isAuthenticated) navigate('/login');
     else if (!isAdmin) navigate('/cabinet');
-  }, [isAuthenticated, isAdmin, navigate]);
+  }, [isAuthenticated, isAdmin, loading, navigate]);
 
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-sm text-muted-foreground">Загрузка...</div>;
   if (!isAuthenticated || !isAdmin) return null;
 
   return (
