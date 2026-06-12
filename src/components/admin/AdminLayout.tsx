@@ -19,16 +19,18 @@ const menuItems = [
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
-  const { isAuthenticated, isAdmin, logout } = useAuth();
+  const { isAuthenticated, isAdmin, logout, loading } = useAuth();
   const { cities, activeCity, setActiveCity } = useCity();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    if (loading) return;
     if (!isAuthenticated) navigate('/login');
     else if (!isAdmin) navigate('/cabinet');
-  }, [isAuthenticated, isAdmin, navigate]);
+  }, [isAuthenticated, isAdmin, loading, navigate]);
 
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-sm text-muted-foreground">Загрузка...</div>;
   if (!isAuthenticated || !isAdmin) return null;
 
   return (
